@@ -43,6 +43,18 @@ ContentView()
                 }
 ```
 
+ 或者根据状态控制
+
+```swift
+        .onChange(of: revenueCat.isPurchasing) { newValue in
+            if newValue{
+                loading.showLoading()
+            }else{
+                loading.dismiss()
+            }
+        }
+```
+
 关闭HUD
 
 ```
@@ -51,7 +63,7 @@ context.dismiss()
 
 内置的其他HUD
 
-```
+```swift
 context.showLoading()
 context.showProgress()
 context.showSuccess()
