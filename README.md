@@ -9,9 +9,9 @@ HUD是基于SwiftUI开发的Loading弹窗工具，样式参考ProgressHUD 。
 
 目前功能有 Loading，Progress，Success，Failed
 
-| ![Simulator Screen Shot - iPhone 14 Pro - 2023-04-28 at 14.01.21](/Users/ios/Documents/GitHub/SwiftUI-HUD/Image/Simulator Screen Shot - iPhone 14 Pro - 2023-04-28 at 14.01.21.png) | ![Simulator Screen Shot - iPhone 14 Pro - 2023-04-28 at 14.01.24](/Users/ios/Documents/GitHub/SwiftUI-HUD/Image/Simulator Screen Shot - iPhone 14 Pro - 2023-04-28 at 14.01.24.png) | ![Simulator Screen Shot - iPhone 14 Pro - 2023-04-28 at 14.01.30](/Users/ios/Documents/GitHub/SwiftUI-HUD/Image/Simulator Screen Shot - iPhone 14 Pro - 2023-04-28 at 14.01.30.png) |
+| ![Simulator Screen Shot - iPhone 14 Pro - 2023-04-28 at 14.01.21](Image/1.png) | ![Simulator Screen Shot - iPhone 14 Pro - 2023-04-28 at 14.01.24](Image/2.png) | ![Simulator Screen Shot - iPhone 14 Pro - 2023-04-28 at 14.01.30](Image/3.png) |
 | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| ![Simulator Screen Shot - iPhone 14 Pro - 2023-04-28 at 14.01.43](/Users/ios/Documents/GitHub/SwiftUI-HUD/Image/Simulator Screen Shot - iPhone 14 Pro - 2023-04-28 at 14.01.43.png) | ![Simulator Screen Shot - iPhone 14 Pro - 2023-04-28 at 14.01.48](/Users/ios/Documents/GitHub/SwiftUI-HUD/Image/Simulator Screen Shot - iPhone 14 Pro - 2023-04-28 at 14.01.48.png) |                                                              |
+| ![Simulator Screen Shot - iPhone 14 Pro - 2023-04-28 at 14.01.43](Image/4.png) | ![Simulator Screen Shot - iPhone 14 Pro - 2023-04-28 at 14.01.48](Image/5.png) |                                                              |
 
 
 
