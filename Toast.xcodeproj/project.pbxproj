@@ -43,7 +43,7 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		810C210F29FB78B20068DAF7 /* SwiftUI-HUD */ = {
+		810C210F29FB78B20068DAF7 /* HUD */ = {
 			isa = PBXGroup;
 			children = (
 				818277C429FA4EA300A239C5 /* LoadingView.swift */,
@@ -52,7 +52,7 @@
 				818277C629FA683500A239C5 /* LoadingManager.swift */,
 				818277CD29FA880900A239C5 /* ActivityView.swift */,
 			);
-			path = "SwiftUI-HUD";
+			path = HUD;
 			sourceTree = "<group>";
 		};
 		818277A529FA1E5900A239C5 = {
@@ -95,7 +95,7 @@
 		818277CC29FA68B400A239C5 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				810C210F29FB78B20068DAF7 /* SwiftUI-HUD */,
+				810C210F29FB78B20068DAF7 /* HUD */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
