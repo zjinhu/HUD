@@ -5,7 +5,7 @@
 ![iOS 13.0+](https://img.shields.io/badge/iOS-14.0%2B-blue.svg)
 ![Swift 5.0+](https://img.shields.io/badge/Swift-5.0%2B-orange.svg)
 
-HUD是基于SwiftUI开发的Loading弹窗工具，样式参考ProgressHUD 。
+HUD是基于SwiftUI开发的Loading弹窗工具，样式参考[ProgressHUD](https://github.com/relatedcode/ProgressHUD) 。
 
 目前功能有 Loading，Progress，Success，Failed
 
