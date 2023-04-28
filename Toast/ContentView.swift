@@ -84,7 +84,7 @@ struct ContentView: View {
 
                     context.text = nil
                     context.showSuccess()
-                    dismiss()
+ 
                 } label: {
                     Text("Success No Text")
                 }
@@ -93,7 +93,7 @@ struct ContentView: View {
 
                     context.text = "Please wait..."
                     context.showSuccess()
-                    dismiss()
+  
                 } label: {
                     Text("Success Short Text")
                 }
@@ -102,7 +102,7 @@ struct ContentView: View {
 
                     context.text = "Please wait. We need some more time to work out this situation."
                     context.showSuccess()
-                    dismiss()
+     
                 } label: {
                     Text("Success Longer text")
                 }
@@ -115,7 +115,7 @@ struct ContentView: View {
 
                     context.text = nil
                     context.showFailed()
-                    dismiss()
+  
                 } label: {
                     Text("Failed No Text")
                 }
@@ -124,7 +124,7 @@ struct ContentView: View {
 
                     context.text = "Please wait..."
                     context.showFailed()
-                    dismiss()
+       
                 } label: {
                     Text("Failed Short Text")
                 }
@@ -133,7 +133,7 @@ struct ContentView: View {
 
                     context.text = "Please wait. We need some more time to work out this situation."
                     context.showFailed()
-                    dismiss()
+         
                 } label: {
                     Text("Failed Longer text")
                 }
@@ -149,7 +149,6 @@ struct ContentView: View {
             if newValue >= 1{
                 timer.stop()
                 context.showSuccess()
-                dismiss()
             }
         }
  

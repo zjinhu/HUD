@@ -41,6 +41,11 @@ public class LoadingManager: ObservableObject {
         }
     }
  
+    private func dismissDelay() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            self.isActive = false
+        }
+    }
 }
 
 extension LoadingManager {
@@ -61,12 +66,14 @@ extension LoadingManager {
         show {
             SuccessView()
         }
+        dismissDelay()
     }
     
     public func showFailed(){
         show {
             FailedView()
         }
+        dismissDelay()
     }
 }
 
