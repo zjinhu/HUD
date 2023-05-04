@@ -15,13 +15,20 @@ public struct MessageView: View {
         Text(text)
             .padding(10)
             .foregroundColor(.white)
-            .background(Color.black.cornerRadius(8))
+            .background(
+                Color.black
+                    .opacity(0.8)
+                    .cornerRadius(8)
+            )
     }
 }
 
 struct MessageView_Previews: PreviewProvider {
     static var previews: some View {
         MessageView(text: "xxxx")
-            .background(Color.black.cornerRadius(8))
+            .background(Color.black
+                .opacity(0.8)
+                .cornerRadius(8)
+            )
     }
 }
