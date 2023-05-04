@@ -21,11 +21,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		818277AE29FA1E5900A239C5 /* Toast.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Toast.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		818277AE29FA1E5900A239C5 /* Show.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Show.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		818277B129FA1E5900A239C5 /* ToastApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastApp.swift; sourceTree = "<group>"; };
 		818277B329FA1E5900A239C5 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		818277B529FA1E5B00A239C5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		818277B729FA1E5B00A239C5 /* Toast.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Toast.entitlements; sourceTree = "<group>"; };
 		818277B929FA1E5B00A239C5 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		818277C429FA4EA300A239C5 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		818277C629FA683500A239C5 /* LoadingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingManager.swift; sourceTree = "<group>"; };
@@ -34,6 +33,7 @@
 		818D170F2A034D8D00C67D70 /* ToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastView.swift; sourceTree = "<group>"; };
 		818D17152A03521900C67D70 /* ToastManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastManager.swift; sourceTree = "<group>"; };
 		818D17172A03592800C67D70 /* MessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageView.swift; sourceTree = "<group>"; };
+		818D171B2A03AA9C00C67D70 /* Show.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = Show.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,7 +60,7 @@
 			isa = PBXGroup;
 			children = (
 				818277CC29FA68B400A239C5 /* Sources */,
-				818277B029FA1E5900A239C5 /* Toast */,
+				818277B029FA1E5900A239C5 /* Show */,
 				818277AF29FA1E5900A239C5 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -68,21 +68,21 @@
 		818277AF29FA1E5900A239C5 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				818277AE29FA1E5900A239C5 /* Toast.app */,
+				818277AE29FA1E5900A239C5 /* Show.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		818277B029FA1E5900A239C5 /* Toast */ = {
+		818277B029FA1E5900A239C5 /* Show */ = {
 			isa = PBXGroup;
 			children = (
 				818277B129FA1E5900A239C5 /* ToastApp.swift */,
 				818277B329FA1E5900A239C5 /* ContentView.swift */,
+				818D171B2A03AA9C00C67D70 /* Show.entitlements */,
 				818277B529FA1E5B00A239C5 /* Assets.xcassets */,
-				818277B729FA1E5B00A239C5 /* Toast.entitlements */,
 				818277B829FA1E5B00A239C5 /* Preview Content */,
 			);
-			path = Toast;
+			path = Show;
 			sourceTree = "<group>";
 		};
 		818277B829FA1E5B00A239C5 /* Preview Content */ = {
@@ -125,9 +125,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		818277AD29FA1E5900A239C5 /* Toast */ = {
+		818277AD29FA1E5900A239C5 /* Show */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 818277BD29FA1E5B00A239C5 /* Build configuration list for PBXNativeTarget "Toast" */;
+			buildConfigurationList = 818277BD29FA1E5B00A239C5 /* Build configuration list for PBXNativeTarget "Show" */;
 			buildPhases = (
 				818277AA29FA1E5900A239C5 /* Sources */,
 				818277AB29FA1E5900A239C5 /* Frameworks */,
@@ -137,9 +137,9 @@
 			);
 			dependencies = (
 			);
-			name = Toast;
+			name = Show;
 			productName = Toast;
-			productReference = 818277AE29FA1E5900A239C5 /* Toast.app */;
+			productReference = 818277AE29FA1E5900A239C5 /* Show.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -157,7 +157,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 818277A929FA1E5900A239C5 /* Build configuration list for PBXProject "Toast" */;
+			buildConfigurationList = 818277A929FA1E5900A239C5 /* Build configuration list for PBXProject "Show" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -170,7 +170,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				818277AD29FA1E5900A239C5 /* Toast */,
+				818277AD29FA1E5900A239C5 /* Show */,
 			);
 		};
 /* End PBXProject section */
@@ -325,11 +325,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = Toast/Toast.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Show/Show.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"Toast/Preview Content\"";
-				DEVELOPMENT_TEAM = 2H98YDVC78;
+				DEVELOPMENT_ASSET_PATHS = "\"Show/Preview Content\"";
+				DEVELOPMENT_TEAM = "";
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -348,7 +349,7 @@
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 12.0;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.chat.muma.Toast;
+				PRODUCT_BUNDLE_IDENTIFIER = com.hu.Toast;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
@@ -363,11 +364,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = Toast/Toast.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Show/Show.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"Toast/Preview Content\"";
-				DEVELOPMENT_TEAM = 2H98YDVC78;
+				DEVELOPMENT_ASSET_PATHS = "\"Show/Preview Content\"";
+				DEVELOPMENT_TEAM = "";
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -386,7 +388,7 @@
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 12.0;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.chat.muma.Toast;
+				PRODUCT_BUNDLE_IDENTIFIER = com.hu.Toast;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
@@ -399,7 +401,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		818277A929FA1E5900A239C5 /* Build configuration list for PBXProject "Toast" */ = {
+		818277A929FA1E5900A239C5 /* Build configuration list for PBXProject "Show" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				818277BB29FA1E5B00A239C5 /* Debug */,
@@ -408,7 +410,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		818277BD29FA1E5B00A239C5 /* Build configuration list for PBXNativeTarget "Toast" */ = {
+		818277BD29FA1E5B00A239C5 /* Build configuration list for PBXNativeTarget "Show" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				818277BE29FA1E5B00A239C5 /* Debug */,
