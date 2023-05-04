@@ -8,8 +8,7 @@
 import SwiftUI
 
 struct ToastTextView: View {
-    @EnvironmentObject var manager: ToastManager
-    
+ 
     var text: String
     
     var body: some View {
