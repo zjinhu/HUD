@@ -9,12 +9,13 @@ import SwiftUI
 
 @main
 struct ToastApp: App {
-    @StateObject private var context = LoadingManager()
-    
+    @StateObject private var loading = LoadingManager()
+    @StateObject private var toast = ToastManager()
     var body: some Scene {
         WindowGroup {
             ContentView()
-            .environmentObject(context) 
+            .environmentObject(loading)
+            .environmentObject(toast)
         }
     }
 }

@@ -13,9 +13,11 @@
 		818277BA29FA1E5B00A239C5 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 818277B929FA1E5B00A239C5 /* Preview Assets.xcassets */; };
 		818277C529FA4EA300A239C5 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 818277C429FA4EA300A239C5 /* LoadingView.swift */; };
 		818277C729FA683500A239C5 /* LoadingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 818277C629FA683500A239C5 /* LoadingManager.swift */; };
-		818277C929FA687900A239C5 /* ViewEx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 818277C829FA687900A239C5 /* ViewEx.swift */; };
 		818277CB29FA68A000A239C5 /* BlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 818277CA29FA68A000A239C5 /* BlurView.swift */; };
 		818277CE29FA880900A239C5 /* ActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 818277CD29FA880900A239C5 /* ActivityView.swift */; };
+		818D17102A034D8D00C67D70 /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 818D170F2A034D8D00C67D70 /* ToastView.swift */; };
+		818D17162A03521900C67D70 /* ToastManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 818D17152A03521900C67D70 /* ToastManager.swift */; };
+		818D17182A03592800C67D70 /* ToastTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 818D17172A03592800C67D70 /* ToastTextView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,9 +29,11 @@
 		818277B929FA1E5B00A239C5 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		818277C429FA4EA300A239C5 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		818277C629FA683500A239C5 /* LoadingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingManager.swift; sourceTree = "<group>"; };
-		818277C829FA687900A239C5 /* ViewEx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewEx.swift; sourceTree = "<group>"; };
 		818277CA29FA68A000A239C5 /* BlurView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurView.swift; sourceTree = "<group>"; };
 		818277CD29FA880900A239C5 /* ActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityView.swift; sourceTree = "<group>"; };
+		818D170F2A034D8D00C67D70 /* ToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastView.swift; sourceTree = "<group>"; };
+		818D17152A03521900C67D70 /* ToastManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastManager.swift; sourceTree = "<group>"; };
+		818D17172A03592800C67D70 /* ToastTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastTextView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -46,11 +50,8 @@
 		810C210F29FB78B20068DAF7 /* HUD */ = {
 			isa = PBXGroup;
 			children = (
-				818277C429FA4EA300A239C5 /* LoadingView.swift */,
-				818277CA29FA68A000A239C5 /* BlurView.swift */,
-				818277C829FA687900A239C5 /* ViewEx.swift */,
-				818277C629FA683500A239C5 /* LoadingManager.swift */,
-				818277CD29FA880900A239C5 /* ActivityView.swift */,
+				818D17122A034FB800C67D70 /* Loading */,
+				818D17112A034FA300C67D70 /* Toast */,
 			);
 			path = HUD;
 			sourceTree = "<group>";
@@ -76,6 +77,7 @@
 			isa = PBXGroup;
 			children = (
 				818277B129FA1E5900A239C5 /* ToastApp.swift */,
+				818D17172A03592800C67D70 /* ToastTextView.swift */,
 				818277B329FA1E5900A239C5 /* ContentView.swift */,
 				818277B529FA1E5B00A239C5 /* Assets.xcassets */,
 				818277B729FA1E5B00A239C5 /* Toast.entitlements */,
@@ -98,6 +100,26 @@
 				810C210F29FB78B20068DAF7 /* HUD */,
 			);
 			path = Sources;
+			sourceTree = "<group>";
+		};
+		818D17112A034FA300C67D70 /* Toast */ = {
+			isa = PBXGroup;
+			children = (
+				818D170F2A034D8D00C67D70 /* ToastView.swift */,
+				818D17152A03521900C67D70 /* ToastManager.swift */,
+			);
+			path = Toast;
+			sourceTree = "<group>";
+		};
+		818D17122A034FB800C67D70 /* Loading */ = {
+			isa = PBXGroup;
+			children = (
+				818277C429FA4EA300A239C5 /* LoadingView.swift */,
+				818277C629FA683500A239C5 /* LoadingManager.swift */,
+				818277CA29FA68A000A239C5 /* BlurView.swift */,
+				818277CD29FA880900A239C5 /* ActivityView.swift */,
+			);
+			path = Loading;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -170,12 +192,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				818D17102A034D8D00C67D70 /* ToastView.swift in Sources */,
 				818277CE29FA880900A239C5 /* ActivityView.swift in Sources */,
-				818277C929FA687900A239C5 /* ViewEx.swift in Sources */,
 				818277C729FA683500A239C5 /* LoadingManager.swift in Sources */,
 				818277B429FA1E5900A239C5 /* ContentView.swift in Sources */,
+				818D17162A03521900C67D70 /* ToastManager.swift in Sources */,
 				818277B229FA1E5900A239C5 /* ToastApp.swift in Sources */,
 				818277C529FA4EA300A239C5 /* LoadingView.swift in Sources */,
+				818D17182A03592800C67D70 /* ToastTextView.swift in Sources */,
 				818277CB29FA68A000A239C5 /* BlurView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

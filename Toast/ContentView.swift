@@ -8,38 +8,34 @@
 import SwiftUI
 
 struct ContentView: View {
-    @EnvironmentObject private var context: LoadingManager
+    @EnvironmentObject private var loading: LoadingManager
+    @EnvironmentObject private var toast: ToastManager
+    
     @StateObject var timer = TimeHelp()
  
     var body: some View {
         List {
-            HStack{
-                ProgressView(value: timer.progress)
-                    .frame(width: 60, height: 60)
-                    .progressViewStyle(GaugeProgressStyle())
-            }
-            
-            
+
             Section {
                 Button {
-                    context.text = nil
-                    context.showLoading()
+                    loading.text = nil
+                    loading.showLoading()
                     dismiss()
                 } label: {
                     Text("Loading No Text")
                 }
                 
                 Button {
-                    context.text = "Please wait..."
-                    context.showLoading()
+                    loading.text = "Please wait..."
+                    loading.showLoading()
                     dismiss()
                 } label: {
                     Text("Loading Short Text")
                 }
                 
                 Button {
-                    context.text = "Please wait. We need some more time to work out this situation."
-                    context.showLoading()
+                    loading.text = "Please wait. We need some more time to work out this situation."
+                    loading.showLoading()
                     dismiss()
                 } label: {
                     Text("Loading Longer text")
@@ -51,8 +47,8 @@ struct ContentView: View {
             Section {
                 Button {
                     startTimer()
-                    context.text = nil
-                    context.showProgress()
+                    loading.text = nil
+                    loading.showProgress()
                     
                 } label: {
                     Text("Progress No Text")
@@ -60,8 +56,8 @@ struct ContentView: View {
                 
                 Button {
                     startTimer()
-                    context.text = "Please wait..."
-                    context.showProgress()
+                    loading.text = "Please wait..."
+                    loading.showProgress()
                     
                 } label: {
                     Text("Progress Short Text")
@@ -69,8 +65,8 @@ struct ContentView: View {
                 
                 Button {
                     startTimer()
-                    context.text = "Please wait. We need some more time to work out this situation."
-                    context.showProgress()
+                    loading.text = "Please wait. We need some more time to work out this situation."
+                    loading.showProgress()
                     
                 } label: {
                     Text("Progress Longer text")
@@ -82,8 +78,8 @@ struct ContentView: View {
             Section {
                 Button {
 
-                    context.text = nil
-                    context.showSuccess()
+                    loading.text = nil
+                    loading.showSuccess()
  
                 } label: {
                     Text("Success No Text")
@@ -91,8 +87,8 @@ struct ContentView: View {
                 
                 Button {
 
-                    context.text = "Please wait..."
-                    context.showSuccess()
+                    loading.text = "Please wait..."
+                    loading.showSuccess()
   
                 } label: {
                     Text("Success Short Text")
@@ -100,8 +96,8 @@ struct ContentView: View {
                 
                 Button {
 
-                    context.text = "Please wait. We need some more time to work out this situation."
-                    context.showSuccess()
+                    loading.text = "Please wait. We need some more time to work out this situation."
+                    loading.showSuccess()
      
                 } label: {
                     Text("Success Longer text")
@@ -113,8 +109,8 @@ struct ContentView: View {
             Section {
                 Button {
 
-                    context.text = nil
-                    context.showFailed()
+                    loading.text = nil
+                    loading.showFailed()
   
                 } label: {
                     Text("Failed No Text")
@@ -122,8 +118,8 @@ struct ContentView: View {
                 
                 Button {
 
-                    context.text = "Please wait..."
-                    context.showFailed()
+                    loading.text = "Please wait..."
+                    loading.showFailed()
        
                 } label: {
                     Text("Failed Short Text")
@@ -131,8 +127,8 @@ struct ContentView: View {
                 
                 Button {
 
-                    context.text = "Please wait. We need some more time to work out this situation."
-                    context.showFailed()
+                    loading.text = "Please wait. We need some more time to work out this situation."
+                    loading.showFailed()
          
                 } label: {
                     Text("Failed Longer text")
@@ -141,22 +137,43 @@ struct ContentView: View {
                 Text("Failed")
             }
 
-        }
-        .addLoading(context)
-        .onChange(of: timer.progress) { newValue in
-            context.progress = newValue
-            debugPrint("\(context.progress)")
-            if newValue >= 1{
-                timer.stop()
-                context.showSuccess()
+            Section {
+                Button {
+                    toast.position = .bottom
+                    toast.show(ToastTextView(text: "xxxx"))
+  
+                } label: {
+                    Text("Toast at bottom")
+                }
+                
+                Button {
+                    toast.position = .top
+                    toast.show(ToastTextView(text: "xxxx"))
+  
+                } label: {
+                    Text("Toast at top")
+                }
+
+            } header: {
+                Text("Toast")
             }
         }
+        .addLoading(loading)
+        .onChange(of: timer.progress) { newValue in
+            loading.progress = newValue
+            debugPrint("\(loading.progress)")
+            if newValue >= 1{
+                timer.stop()
+                loading.showSuccess()
+            }
+        }
+        .addToast(toast)
  
     }
     
     func dismiss(){
         DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-            context.dismiss()
+            loading.dismiss()
         }
     }
     
@@ -168,11 +185,11 @@ struct ContentView: View {
 }
 
 struct ContentView_Previews: PreviewProvider {
-    @StateObject static private var context = LoadingManager()
-    
+
     static var previews: some View {
         ContentView()
-            .environmentObject(context)
+            .environmentObject(LoadingManager())
+            .environmentObject(ToastManager())
     }
 }
 
