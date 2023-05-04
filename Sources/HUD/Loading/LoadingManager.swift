@@ -66,26 +66,26 @@ public class LoadingManager: ObservableObject {
 }
 
 extension LoadingManager {
-    
+    //展示自定义Loading//自己可以重写替换
     public func showLoading(){
         show {
             LoadProgressView()
         }
     }
-    
+    //展示自定义Progress//自己可以重写替换
     public func showProgress(){
         show {
             GaugeProgressView()
         }
     }
-    
+    //展示自定义Success//自己可以重写替换
     public func showSuccess(){
         show {
             SuccessView()
         }
         dismissDelay()
     }
-    
+    //展示自定义Failed//自己可以重写替换
     public func showFailed(){
         show {
             FailedView()

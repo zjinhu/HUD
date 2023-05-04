@@ -140,7 +140,7 @@ struct ContentView: View {
             Section {
                 Button {
                     toast.position = .bottom
-                    toast.show(ToastTextView(text: "xxxx"))
+                    toast.showText("Toast at bottom")
   
                 } label: {
                     Text("Toast at bottom")
@@ -148,7 +148,7 @@ struct ContentView: View {
                 
                 Button {
                     toast.position = .top
-                    toast.show(ToastTextView(text: "xxxx"))
+                    toast.showText("Toast at top")
   
                 } label: {
                     Text("Toast at top")

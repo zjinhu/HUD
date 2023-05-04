@@ -89,7 +89,14 @@ public class ToastManager: ObservableObject {
         show(content())
     }
 }
-
+extension ToastManager {
+    //展示自定义View//自己可以重写替换
+    public func showText(_ text: String){
+        show {
+            MessageView(text: text)
+        }
+    }
+}
 private extension ToastManager {
     
     func perform(_ action: @escaping Action,
