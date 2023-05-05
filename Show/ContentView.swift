@@ -10,7 +10,7 @@ import SwiftUI
 struct ContentView: View {
     @EnvironmentObject private var loading: LoadingManager
     @EnvironmentObject private var toast: ToastManager
-    
+
     @StateObject var timer = TimeHelp()
  
     var body: some View {
@@ -157,6 +157,29 @@ struct ContentView: View {
             } header: {
                 Text("Toast")
             }
+            
+            Section {
+                Button {
+                    PopupTopView().show()
+                } label: {
+                    Text("Pop Top")
+                }
+ 
+                Button {
+                    PopCenterView().show()
+                } label: {
+                    Text("Pop Center")
+                }
+                
+                Button {
+                    PopBottomView().show()
+                } label: {
+                    Text("Pop Bottom")
+                }
+                
+            } header: {
+                Text("PopupView")
+            }
         }
         .addLoading(loading)
         .onChange(of: timer.progress) { newValue in
@@ -168,6 +191,7 @@ struct ContentView: View {
             }
         }
         .addToast(toast)
+        .addPopupView()
  
     }
     

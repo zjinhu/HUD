@@ -18,9 +18,7 @@ public extension View {
     }
     ///添加loading,也可以WindowGroup里给ContentView添加
     func addLoading(_ ob: LoadingManager ) -> some View {
-        self.addLoading(isActive: ob.isActiveBinding,
-                        content: { ob.content }
-                        )
+        self.addLoading(isActive: ob.isActiveBinding, content: { ob.content })
     }
 }
 

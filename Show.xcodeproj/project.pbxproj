@@ -18,6 +18,15 @@
 		818D17102A034D8D00C67D70 /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 818D170F2A034D8D00C67D70 /* ToastView.swift */; };
 		818D17162A03521900C67D70 /* ToastManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 818D17152A03521900C67D70 /* ToastManager.swift */; };
 		818D17182A03592800C67D70 /* MessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 818D17172A03592800C67D70 /* MessageView.swift */; };
+		818D17342A04A30A00C67D70 /* PopupManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 818D17332A04A30A00C67D70 /* PopupManager.swift */; };
+		818D17362A04A69F00C67D70 /* PopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 818D17352A04A69F00C67D70 /* PopupView.swift */; };
+		818D17382A04A8EF00C67D70 /* PopupProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 818D17372A04A8EF00C67D70 /* PopupProtocol.swift */; };
+		818D173C2A04A97000C67D70 /* PopupConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 818D17392A04A97000C67D70 /* PopupConfig.swift */; };
+		818D17412A04C68800C67D70 /* CentreStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 818D173F2A04C68800C67D70 /* CentreStackView.swift */; };
+		818D17422A04C68800C67D70 /* BottomStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 818D17402A04C68800C67D70 /* BottomStackView.swift */; };
+		818D17442A04C68C00C67D70 /* TopStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 818D17432A04C68C00C67D70 /* TopStackView.swift */; };
+		818D17462A04CC3600C67D70 /* Tools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 818D17452A04CC3600C67D70 /* Tools.swift */; };
+		818D17482A04D5F500C67D70 /* PopupTopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 818D17472A04D5F500C67D70 /* PopupTopView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +43,15 @@
 		818D17152A03521900C67D70 /* ToastManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastManager.swift; sourceTree = "<group>"; };
 		818D17172A03592800C67D70 /* MessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageView.swift; sourceTree = "<group>"; };
 		818D171B2A03AA9C00C67D70 /* Show.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = Show.entitlements; sourceTree = "<group>"; };
+		818D17332A04A30A00C67D70 /* PopupManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopupManager.swift; sourceTree = "<group>"; };
+		818D17352A04A69F00C67D70 /* PopupView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopupView.swift; sourceTree = "<group>"; };
+		818D17372A04A8EF00C67D70 /* PopupProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopupProtocol.swift; sourceTree = "<group>"; };
+		818D17392A04A97000C67D70 /* PopupConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopupConfig.swift; sourceTree = "<group>"; };
+		818D173F2A04C68800C67D70 /* CentreStackView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CentreStackView.swift; sourceTree = "<group>"; };
+		818D17402A04C68800C67D70 /* BottomStackView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BottomStackView.swift; sourceTree = "<group>"; };
+		818D17432A04C68C00C67D70 /* TopStackView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopStackView.swift; sourceTree = "<group>"; };
+		818D17452A04CC3600C67D70 /* Tools.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tools.swift; sourceTree = "<group>"; };
+		818D17472A04D5F500C67D70 /* PopupTopView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupTopView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -50,6 +68,7 @@
 		810C210F29FB78B20068DAF7 /* HUD */ = {
 			isa = PBXGroup;
 			children = (
+				818D171C2A03AB2C00C67D70 /* Popup */,
 				818D17122A034FB800C67D70 /* Loading */,
 				818D17112A034FA300C67D70 /* Toast */,
 			);
@@ -78,6 +97,7 @@
 			children = (
 				818277B129FA1E5900A239C5 /* ToastApp.swift */,
 				818277B329FA1E5900A239C5 /* ContentView.swift */,
+				818D17472A04D5F500C67D70 /* PopupTopView.swift */,
 				818D171B2A03AA9C00C67D70 /* Show.entitlements */,
 				818277B529FA1E5B00A239C5 /* Assets.xcassets */,
 				818277B829FA1E5B00A239C5 /* Preview Content */,
@@ -120,6 +140,21 @@
 				818277CD29FA880900A239C5 /* ActivityView.swift */,
 			);
 			path = Loading;
+			sourceTree = "<group>";
+		};
+		818D171C2A03AB2C00C67D70 /* Popup */ = {
+			isa = PBXGroup;
+			children = (
+				818D17332A04A30A00C67D70 /* PopupManager.swift */,
+				818D17352A04A69F00C67D70 /* PopupView.swift */,
+				818D17372A04A8EF00C67D70 /* PopupProtocol.swift */,
+				818D17392A04A97000C67D70 /* PopupConfig.swift */,
+				818D17432A04C68C00C67D70 /* TopStackView.swift */,
+				818D17402A04C68800C67D70 /* BottomStackView.swift */,
+				818D173F2A04C68800C67D70 /* CentreStackView.swift */,
+				818D17452A04CC3600C67D70 /* Tools.swift */,
+			);
+			path = Popup;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -192,15 +227,24 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				818D17362A04A69F00C67D70 /* PopupView.swift in Sources */,
 				818D17102A034D8D00C67D70 /* ToastView.swift in Sources */,
 				818277CE29FA880900A239C5 /* ActivityView.swift in Sources */,
 				818277C729FA683500A239C5 /* LoadingManager.swift in Sources */,
+				818D17462A04CC3600C67D70 /* Tools.swift in Sources */,
 				818277B429FA1E5900A239C5 /* ContentView.swift in Sources */,
+				818D17412A04C68800C67D70 /* CentreStackView.swift in Sources */,
+				818D17482A04D5F500C67D70 /* PopupTopView.swift in Sources */,
 				818D17162A03521900C67D70 /* ToastManager.swift in Sources */,
 				818277B229FA1E5900A239C5 /* ToastApp.swift in Sources */,
+				818D17342A04A30A00C67D70 /* PopupManager.swift in Sources */,
+				818D17382A04A8EF00C67D70 /* PopupProtocol.swift in Sources */,
+				818D17442A04C68C00C67D70 /* TopStackView.swift in Sources */,
 				818277C529FA4EA300A239C5 /* LoadingView.swift in Sources */,
 				818D17182A03592800C67D70 /* MessageView.swift in Sources */,
 				818277CB29FA68A000A239C5 /* BlurView.swift in Sources */,
+				818D173C2A04A97000C67D70 /* PopupConfig.swift in Sources */,
+				818D17422A04C68800C67D70 /* BottomStackView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
