@@ -7,7 +7,7 @@
 
 HUD是基于SwiftUI开发的Loading弹窗工具，样式参考[ProgressHUD](https://github.com/relatedcode/ProgressHUD) 。
 
-目前功能有 Loading，Progress，Success，Failed，Toast
+目前功能有 Loading，Progress，Success，Failed，Toast，Popup
 
 | ![Simulator Screen Shot - iPhone 14 Pro - 2023-04-28 at 14.01.21](Image/1.png) | ![Simulator Screen Shot - iPhone 14 Pro - 2023-04-28 at 14.01.24](Image/2.png) | ![Simulator Screen Shot - iPhone 14 Pro - 2023-04-28 at 14.01.30](Image/3.png) |
 | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
@@ -17,79 +17,67 @@ HUD是基于SwiftUI开发的Loading弹窗工具，样式参考[ProgressHUD](http
 
 ## 功能
 
-在适当位置添加可观察的管理器
+在需要使用Loading或弹窗的的页面添加
 
 ```Swift
-    @StateObject private var loading = LoadingManager()
-    @StateObject private var toast = ToastManager()
-                 toast.position = .bottom / .top //在适当位置添加Toast出现位置 
-								 toast.duration = 3 //Toast停留时长
+.addHudView()
 ```
 
-如果是页面传递请
-
-```Swift
-ContentView()
-       .environmentObject(loading)
-       .environmentObject(toast)
-//然后内部页面
-    @EnvironmentObject private var loading: LoadingManager
-    @EnvironmentObject private var toast: ToastManager
-```
-
-在需要使用Loading的页面添加
+各种内置弹窗
 
 ```swift
-.addLoading(loading)
-.addToast(toast)
+		//声明弹窗
+    @State var loading = LoadingView()
+
+    @State var loadingText = LoadingView(text: "loading...")
+
+    @State var toast = ToastView(text: "Hello world")
+    @State var toast = ToastView(position: .top, text: "Compares")
+    
+    @State var fail = FailedView()
+    @State var succ = SuccessView()
+
+```
+
+Progress有点特殊需要绑定进度
+
+```swift
+    @State var progress: CGFloat = 0
+    @State var progressView: ProgressHudView?
+    //在适当的位置绑定进度
+    .onAppear {
+        progressView = ProgressHudView(progress: $progress)
+    }
+
+		progressView?.show()
 ```
 
 剩下的只需要在触发位置
 
 ```swift
-                Button {
-                    loading.text = "Please wait..."
-                    loading.showLoading()
-                } label: {
-                    Text("Loading Short Text")
-                }
+   Button {
+       loading.show()
+   } label: {
+       Text("Loading Short Text")
+   }
 ```
 
  或者根据状态控制
 
 ```swift
-        .onChange(of: revenueCat.isPurchasing) { newValue in
-            if newValue{
-                loading.showLoading()
-            }else{
-                loading.dismiss()
-            }
-        }
+  .onChange(of: revenueCat.isPurchasing) { newValue in
+       if newValue{
+            loading.show()
+       }else{
+            loading.dismiss()
+       }
+   }
 ```
 
 关闭HUD
 
 ```
-loading.dismiss()
-```
-
-内置的其他HUD
-
-```swift
-loading.showLoading()
-loading.showProgress()
-loading.showSuccess()
-loading.showFailed()
-```
-
-添加Toast
-
-```swift
-toast.showText("Toast at bottom")
-或者展示自定义Toast
-toast.show{
-  XXXView()
-}
+.dismiss()
 ```
 
 
