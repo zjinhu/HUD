@@ -9,6 +9,10 @@ HUD是基于SwiftUI开发的Loading弹窗工具，样式参考[ProgressHUD](http
 
 目前功能有 Loading，Progress，Success，Failed，Toast，PopupView，支持继承协议自定义样式以及弹出动画。
 
+下一步：
+
+更新支持暗色模式
+
 | ![](Image/top.png)     | ![](Image/bottom.png)   | ![](Image/center.png)   | ![](Image/toast.png)    | ![](Image/toast2.png)    |
 | ---------------------- | ----------------------- | ----------------------- | ----------------------- | ------------------------ |
 | ![](Image/loading.png) | ![](Image/loading2.png) | ![](Image/loading3.png) | ![](Image/progress.png) | ![](Image/progress2.png) |
