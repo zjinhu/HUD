@@ -23,7 +23,6 @@ public struct SuccessView: Hud {
     
     public func setupBody() -> some View  {
         VStack(spacing: 10){
-            
             SuccessShape()
                 .trim(from: 0.0, to: isActive ? 1.0 : 0.0)
                 .stroke(accentColor, style: StrokeStyle(lineWidth: 8, lineCap: .round))
@@ -37,8 +36,7 @@ public struct SuccessView: Hud {
                     .foregroundColor(textColor)
             }
         }
-        .padding(15)
-        .background(BlurView())
+        .padding(15) 
         .onAppear{
             isActive = true
         }

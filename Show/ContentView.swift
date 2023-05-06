@@ -21,9 +21,13 @@ struct ContentView: View {
     
     @State var succ = SuccessView()
     
+    @State var failText = FailedView(text: "Hello world")
+    @State var succText = SuccessView(text: "Hello world")
+    
     @State var progress: CGFloat = 0
     
     @State var progressView: ProgressHudView?
+    @State var progressTextView: ProgressHudView?
  
     var body: some View {
         List {
@@ -60,6 +64,11 @@ struct ContentView: View {
                     Text("Success No Text")
                 }
     
+                Button {
+                    succText.show()
+                } label: {
+                    Text("Success Text")
+                }
             } header: {
                 Text("Success")
             }
@@ -72,6 +81,12 @@ struct ContentView: View {
                     Text("progress No Text")
                 }
     
+                Button {
+                    startTimer()
+                    progressTextView?.show()
+                } label: {
+                    Text("progress Text")
+                }
             } header: {
                 Text("progress")
             }
@@ -83,6 +98,11 @@ struct ContentView: View {
                     Text("Failed No Text")
                 }
 
+                Button {
+                    failText.show()
+                } label: {
+                    Text("Failed Text")
+                }
             } header: {
                 Text("Failed")
             }
@@ -132,12 +152,14 @@ struct ContentView: View {
             debugPrint("\(newValue)")
             if newValue >= 1{
                 progressView?.dismiss()
+                progressTextView?.dismiss()
                 timer.stop()
                 succ.show()
             }
         }
         .onAppear {
             progressView = ProgressHudView(progress: $progress)
+            progressTextView = ProgressHudView(text: "Hello world", progress: $progress)
         }
 
     }

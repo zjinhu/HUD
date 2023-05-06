@@ -5,13 +5,14 @@
 ![iOS 13.0+](https://img.shields.io/badge/iOS-14.0%2B-blue.svg)
 ![Swift 5.0+](https://img.shields.io/badge/Swift-5.0%2B-orange.svg)
 
-HUD是基于SwiftUI开发的Loading弹窗工具，样式参考[ProgressHUD](https://github.com/relatedcode/ProgressHUD) 。
+HUD是基于SwiftUI开发的Loading弹窗工具，样式参考[ProgressHUD](https://github.com/relatedcode/ProgressHUD)  和  [PopupView](https://github.com/Mijick/PopupView)。
 
-目前功能有 Loading，Progress，Success，Failed，Toast，Popup
+目前功能有 Loading，Progress，Success，Failed，Toast，PopupView，支持继承协议自定义样式以及弹出动画。
 
-| ![Simulator Screen Shot - iPhone 14 Pro - 2023-04-28 at 14.01.21](Image/1.png) | ![Simulator Screen Shot - iPhone 14 Pro - 2023-04-28 at 14.01.24](Image/2.png) | ![Simulator Screen Shot - iPhone 14 Pro - 2023-04-28 at 14.01.30](Image/3.png) |
-| ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| ![Simulator Screen Shot - iPhone 14 Pro - 2023-04-28 at 14.01.43](Image/4.png) | ![Simulator Screen Shot - iPhone 14 Pro - 2023-04-28 at 14.01.48](Image/5.png) | ![Simulator Screen Shot - iPhone 14 Pro - 2023-04-28 at 14.01.48](Image/6.png) |
+| ![](Image/top.png)     | ![](Image/bottom.png)   | ![](Image/center.png)   | ![](Image/toast.png)    | ![](Image/toast2.png)    |
+| ---------------------- | ----------------------- | ----------------------- | ----------------------- | ------------------------ |
+| ![](Image/loading.png) | ![](Image/loading2.png) | ![](Image/loading3.png) | ![](Image/progress.png) | ![](Image/progress2.png) |
+| ![](Image/succ.png)    | ![](Image/succ2.png)    | ![](Image/fail.png)     | ![](Image/fail2.png)    |                          |
 
 
 
@@ -78,6 +79,67 @@ Progress有点特殊需要绑定进度
 
 ```
 .dismiss()
+```
+
+适配器内有超多自定义功能
+
+```Swift
+    //是否需要遮罩
+    var needMask: Bool = true
+    //弹窗背景颜色
+    var backgroundColour: Color = .clear
+    //弹窗忽略安全区域
+    var ignoresSafeArea: Bool = false
+    //点击区域外关闭弹窗
+    var touchOutsideToDismiss: Bool = false
+    //圆角弧度
+    var cornerRadius: CGFloat = 10
+    //手势关闭
+    var dragGestureProgressToClose: CGFloat = 1/3
+    //手势关闭动画
+    var dragGestureAnimation: Animation = .interactiveSpring()
+    
+    //弹窗背景阴影颜色
+    var shadowColour: Color = .black.opacity(0.2)
+    var shadowRadius: CGFloat = 5
+    var shadowOffsetX: CGFloat = 0
+    var shadowOffsetY: CGFloat = 0
+    
+    //距离顶部的padding,默认为0,Top Popup会用到
+    var topPadding: CGFloat = 0
+    //距离底部的padding,默认为0,Bottom Popup会用到
+    var bottomPadding: CGFloat = 0
+    //Bottom PopupView自动添加安全区域高度
+    var bottomAutoHeight: Bool = false
+    
+    
+    //横向的padding,默认为0,大部分情况Center Popup会用到
+    var horizontalPadding: CGFloat = 0
+    //中间弹出动画执行时间
+    var centerAnimationTime: CGFloat = 0.1
+    //Center PopupView弹出动画比例
+    var centerTransitionExitScale: CGFloat = 0.86
+    //Center PopupView弹出动画比例
+    var centerTransitionEntryScale: CGFloat = 1.1
+    
+    
+    //弹出动画
+    var transitionAnimation: Animation = .spring(response: 0.32, dampingFraction: 1, blendDuration: 0.32)
+
+    //堆栈样式--露出位置--默认6
+    var stackViewsOffset: CGFloat = 6
+    //堆栈样式--比例
+    var stackViewsScale: CGFloat = 0.06
+    //堆栈样式--圆角
+    var stackViewsCornerRadius: CGFloat = 10
+    //堆栈样式--最大堆展示数量
+    var maxStackCount: Int = 3
+    
+    
+    //是否需要自动关闭
+    var autoDismiss: Bool = false
+    //自动关闭等候时长
+    var autoDismissTime: TimeInterval = 3
 ```
 
 

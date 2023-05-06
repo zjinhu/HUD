@@ -23,7 +23,6 @@ public struct FailedView: Hud {
     
     public func setupBody() -> some View  {
         VStack(spacing: 10){
-            
             XShape()
                 .trim(from: 0.0, to: isActive ? 1.0 : 0.0)
                 .stroke(accentColor, style: StrokeStyle(lineWidth: 8, lineCap: .round, lineJoin: .round))
@@ -36,8 +35,7 @@ public struct FailedView: Hud {
                     .foregroundColor(textColor)
             }
         }
-        .padding(15)
-        .background(BlurView())
+        .padding(15) 
         .onAppear{
             isActive = true
         }

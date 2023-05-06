@@ -21,7 +21,6 @@ public struct LoadingView: Hud {
     
     public func setupBody() -> some View  {
         VStack(spacing: 10){
-            
             ProgressView()
                 .scaleEffect(2)
                 .frame(width: 50, height: 50)
@@ -33,8 +32,7 @@ public struct LoadingView: Hud {
                     .foregroundColor(textColor)
             }
         }
-        .padding(15)
-        .background(BlurView())
+        .padding(15) 
     }
     
     public func setupConfig(_ config: Config) -> Config {

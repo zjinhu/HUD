@@ -31,8 +31,7 @@ public struct ToastView: Hud {
             .backgroundColour(.clear)
             .maxStackCount(1)
             .needMask(false)
-            .autoDismiss(true)
-            .horizontalPadding(50)
+            .autoDismiss(true) 
     }
     
 }

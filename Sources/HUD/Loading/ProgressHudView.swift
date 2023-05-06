@@ -34,7 +34,6 @@ public struct ProgressHudView: Hud {
             }
         }
         .padding(15)
-        .background(BlurView())
     }
     
     public func setupConfig(_ config: Config) -> Config {

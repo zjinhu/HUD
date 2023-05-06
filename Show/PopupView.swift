@@ -54,28 +54,37 @@ struct PopCenterView: Hud {
     var position: HudPosition = .center
     
     func setupBody() -> some View  {
-        VStack{
-            Text("title")
+        VStack(spacing: 10){
+            Text("Alert")
                 .font(.system(size: 20, weight: .bold))
-            Text("text\(id)")
+            
+            Text("you have messages")
                 .font(.system(size: 14))
-            HStack{
+            Text("\(id)")
+                .font(.system(size: 10))
+            
+            HStack(spacing: 20){
                 
                 Button(action: dismiss) {
                     Text("dismiss")
+                        .frame(maxWidth: .infinity)
                         .padding(10)
                 }
-                .background(Color.gray)
-                
-                Spacer()
-                
+                .overlay(
+                    RoundedRectangle(cornerRadius: 10, style: .continuous)
+                             .stroke(.orange, lineWidth: 2)
+                )
+                .cornerRadius(10)
+  
                 Button(action: Self().show) {
                     Text("Show next")
+                        .frame(maxWidth: .infinity)
                         .padding(10)
                 }
                 .background(Color.orange)
+                .cornerRadius(10)
             }
-            .padding(15)
+            .padding(.horizontal, 30)
         }
         .padding(10)
         
@@ -86,6 +95,12 @@ struct PopCenterView: Hud {
             .horizontalPadding(20)
             .touchOutsideToDismiss(true)
             .cornerRadius(15)
+    }
+}
+
+struct PopCenterView_Previews: PreviewProvider {
+    static var previews: some View {
+        PopCenterView()
     }
 }
 
@@ -122,6 +137,7 @@ struct PopBottomView: Hud {
         .padding(.vertical, 12)
         .padding(.horizontal, 24)
     }
+    
     func setupConfig(_ config: Config) -> Config {
         config.backgroundColour(.green)
     }
