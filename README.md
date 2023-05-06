@@ -26,7 +26,7 @@ HUD是基于SwiftUI开发的Loading弹窗工具，样式参考[ProgressHUD](http
 各种内置弹窗
 
 ```swift
-		//声明弹窗
+   //声明弹窗
     @State var loading = LoadingView()
 
     @State var loadingText = LoadingView(text: "loading...")
