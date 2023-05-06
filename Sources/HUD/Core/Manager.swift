@@ -48,7 +48,9 @@ extension HudManager {
                     self.views.append(hud)
                     let config = hud.setupConfig(Config())
                     if config.autoDismiss {
-                        DispatchQueue.main.asyncAfter(deadline: .now() + config.autoDismissTime, execute: self.dismissLast)
+                        DispatchQueue.main.asyncAfter(deadline: .now() + config.autoDismissTime) {
+                            self.dismiss(hud.id)
+                        }
                     }
                 }
             }

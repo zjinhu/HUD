@@ -39,8 +39,15 @@ private extension BottomStackView {
     func setupHud(_ item: AnyHud) -> some View {
         item.body
             .padding(.bottom, contentBottomPadding)
-            .readHeight { saveHeight($0, for: item) }
-            .frame(width: width, height: height)
+            .padding(.horizontal, contentHorizontalPadding)
+            .overlay(
+                GeometryReader { geo -> AnyView in
+                    DispatchQueue.main.async{
+                        heights[item] = geo.size.height
+                    }
+                    return AnyView(EmptyView())
+                }
+            )
             .background(backgroundColour)
             .cornerRadius(getCornerRadius(for: item))
             .opacity(getOpacity(for: item))
@@ -49,6 +56,11 @@ private extension BottomStackView {
             .alignToBottom(bottomPadding)
             .transition(transition)
             .zIndex(isLast(item).doubleValue)
+            .shadow(color: config.shadowColour,
+                    radius: config.shadowRadius,
+                    x: config.shadowOffsetX,
+                    y: config.shadowOffsetY)
+
     }
 }
 
@@ -74,6 +86,7 @@ private extension BottomStackView {
 
 // MARK: -View Handlers
 private extension BottomStackView {
+    
     func getCornerRadius(for item: AnyHud) -> CGFloat {
         if isLast(item) {
             return cornerRadius.active
@@ -112,19 +125,7 @@ private extension BottomStackView {
         let progressDifference = isNextToLast(item) ? 1 - translationProgress() : max(0.7, 1 - translationProgress())
         return 1 - scaleValue * progressDifference
     }
-    
-    func saveHeight(_ height: CGFloat, for item: AnyHud) {
-        switch config.bottomAutoHeight {
-        case true: heights[item] = getMaxHeight()
-        case false: heights[item] = min(height, getMaxHeight() - bottomPadding)
-        }
-    }
-    func getMaxHeight() -> CGFloat {
-        let basicHeight = UIScreen.height - UIScreen.safeArea.top
-        let stackedViewsCount = min(max(0, config.maxStackCount - 1), items.count - 1)
-        let stackedViewsHeight = config.stackViewsOffset * .init(stackedViewsCount) * maxHeightStackedFactor
-        return basicHeight - stackedViewsHeight + maxHeightFactor
-    }
+
     func getOffset(for item: AnyHud) -> CGFloat {
         isLast(item) ? gestureTranslation : invertedIndex(of: item).floatValue * offsetFactor
     }
@@ -149,17 +150,20 @@ private extension BottomStackView {
 }
 
 private extension BottomStackView {
+    var height: CGFloat {
+        if let hud = items.last, let hei = heights[hud]{
+            return  hei
+        }
+        return  0
+    }
     var contentBottomPadding: CGFloat {
         config.ignoresSafeArea ? 0 : max(UIScreen.safeArea.bottom - config.bottomPadding, 0)
     }
+    var contentHorizontalPadding: CGFloat {
+        config.horizontalPadding
+    }
     var bottomPadding: CGFloat {
         config.bottomPadding
-    }
-    var width: CGFloat {
-        UIScreen.width - config.horizontalPadding * 2
-    }
-    var height: CGFloat {
-        heights.first { $0.key == items.last }?.value ?? 0
     }
     var maxHeightFactor: CGFloat {
         12
@@ -176,7 +180,8 @@ private extension BottomStackView {
     var scaleFactor: CGFloat {
         config.stackViewsScale
     }
-    var cornerRadius: (active: CGFloat, inactive: CGFloat) { (config.cornerRadius, config.stackViewsCornerRadius)
+    var cornerRadius: (active: CGFloat, inactive: CGFloat) {
+        (config.cornerRadius, config.stackViewsCornerRadius)
     }
     var backgroundColour: Color {
         config.backgroundColour

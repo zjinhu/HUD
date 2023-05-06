@@ -7,21 +7,21 @@
 
 import SwiftUI
 
-struct ProgressHudView: Hud {
-    var id: UUID = UUID()
-    var position: HudPosition = .center
+public struct ProgressHudView: Hud {
+    public var id: UUID = UUID()
+    public var position: HudPosition = .center
     //HUD提示
-    var text: String?
+    public var text: String?
     //HUD提示字体颜色
-    var textColor = Color.black
+    public var textColor = Color.black
     //HUD提示字体颜色
-    var textFont: Font = .system(size: 15, weight: .medium)
+    public var textFont: Font = .system(size: 15, weight: .medium)
     //HUD Loading颜色
-    var accentColor = Color.blue
+    public var accentColor = Color.blue
     ///进度条进度 0--1
-    @Binding var progress: CGFloat
+    @Binding public var progress: CGFloat
     
-    func setupBody() -> some View  {
+    public func setupBody() -> some View  {
         VStack(spacing: 10){
             ProgressView(value: progress)
                 .frame(width: 50, height: 50)
@@ -35,14 +35,14 @@ struct ProgressHudView: Hud {
         }
         .padding(15)
         .background(BlurView())
-        .shadow(color: .black.opacity(0.1), radius: 5, y: 5)
     }
     
-    func setupConfig(_ config: Config) -> Config {
+    public func setupConfig(_ config: Config) -> Config {
         config
             .backgroundColour(.white)
-            .cornerRadius(10)
             .maxStackCount(1)
+            .needMask(true)
+            .horizontalPadding(50)
     }
 }
 

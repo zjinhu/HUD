@@ -7,15 +7,16 @@
 
 import SwiftUI
 
-struct ToastView: Hud {
+public struct ToastView: Hud {
     
-    var position: HudPosition = .bottom
-    var id: UUID = UUID()
+    public var position: HudPosition = .bottom
+    public var id: UUID = UUID()
     
     public var text: String
     
-    func setupBody() -> some View  {
+    public func setupBody() -> some View  {
         Text(text)
+            .multilineTextAlignment(.center)
             .padding(10)
             .foregroundColor(.white)
             .background(
@@ -25,18 +26,19 @@ struct ToastView: Hud {
             )
     }
     
-    func setupConfig(_ config: Config) -> Config {
+    public func setupConfig(_ config: Config) -> Config {
         config
             .backgroundColour(.clear)
             .maxStackCount(1)
             .needMask(false)
             .autoDismiss(true)
+            .horizontalPadding(50)
     }
     
 }
 
 struct ToastView_Previews: PreviewProvider {
     static var previews: some View {
-        ToastView(text: "123123")
+        ToastView(text: "Compares less than or equal to all positive numbers, but greater than zero. If the target supports subnormal values, this is smaller than leastNormalMagnitude; otherwise they are equal.")
     }
 }

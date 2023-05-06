@@ -25,26 +25,26 @@ private extension ContainerView {
     
     func topStackView() -> some View {
         ZStack{
-            setupBack(items: manager.tops)
+            setupMask(items: manager.tops)
             TopStackView(items: manager.tops)
         }
     }
     
     func centerStackView() -> some View {
         ZStack{
-            setupBack(items: manager.centers)
+            setupMask(items: manager.centers)
             CenterStackView(items: manager.centers)
         }
     }
     
     func bottomStackView() -> some View {
         ZStack{
-            setupBack(items: manager.bottoms)
+            setupMask(items: manager.bottoms)
             BottomStackView(items: manager.bottoms)
         }
     }
     
-    func setupBack(items: [AnyHud]) -> some View {
+    func setupMask(items: [AnyHud]) -> some View {
         Color.black.opacity(0.3)
             .active(if: getConfig(items).needMask && !items.isEmpty)
     }

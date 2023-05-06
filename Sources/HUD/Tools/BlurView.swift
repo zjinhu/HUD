@@ -7,14 +7,14 @@
 
 import SwiftUI
 
-public struct BlurView: UIViewRepresentable {
-   public typealias UIViewType = UIVisualEffectView
+struct BlurView: UIViewRepresentable {
+   typealias UIViewType = UIVisualEffectView
    
-   public func makeUIView(context: Context) -> UIVisualEffectView {
+   func makeUIView(context: Context) -> UIVisualEffectView {
        return UIVisualEffectView(effect: UIBlurEffect(style: .systemMaterial))
    }
    
-   public func updateUIView(_ uiView: UIVisualEffectView, context: Context) {
+   func updateUIView(_ uiView: UIVisualEffectView, context: Context) {
        uiView.effect = UIBlurEffect(style: .systemMaterial)
    }
 }

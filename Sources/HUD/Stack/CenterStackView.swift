@@ -30,6 +30,10 @@ private extension CenterStackView {
             .background(config.backgroundColour)
             .cornerRadius(config.cornerRadius)
             .padding(config.horizontalPadding)
+            .shadow(color: config.shadowColour,
+                    radius: config.shadowRadius,
+                    x: config.shadowOffsetX,
+                    y: config.shadowOffsetY)
     }
     
     func setupTapArea() -> some View {

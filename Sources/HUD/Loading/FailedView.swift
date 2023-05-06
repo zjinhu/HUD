@@ -7,21 +7,21 @@
 
 import SwiftUI
 
-struct FailedView: Hud {
-    var id: UUID = UUID()
-    var position: HudPosition = .center
+public struct FailedView: Hud {
+    public var id: UUID = UUID()
+    public var position: HudPosition = .center
     
-    var text: String?
+    public var text: String?
     //HUD提示字体颜色
-    var textColor = Color.black
+    public var textColor = Color.black
     //HUD提示字体颜色
-    var textFont: Font = .system(size: 15, weight: .medium)
+    public var textFont: Font = .system(size: 15, weight: .medium)
     //HUD Loading颜色
-    var accentColor = Color.blue
+    public var accentColor = Color.blue
     
-    @State var isActive = false
+    @State private var isActive = false
     
-    func setupBody() -> some View  {
+    public func setupBody() -> some View  {
         VStack(spacing: 10){
             
             XShape()
@@ -38,7 +38,6 @@ struct FailedView: Hud {
         }
         .padding(15)
         .background(BlurView())
-        .shadow(color: .black.opacity(0.5), radius: 5, y: 5)
         .onAppear{
             isActive = true
         }
@@ -47,13 +46,14 @@ struct FailedView: Hud {
         } 
     }
     
-    func setupConfig(_ config: Config) -> Config {
+    public func setupConfig(_ config: Config) -> Config {
         config
             .backgroundColour(.white)
             .maxStackCount(1)
             .needMask(false)
             .autoDismiss(true)
             .autoDismissTime(1)
+            .horizontalPadding(50)
     }
 }
 

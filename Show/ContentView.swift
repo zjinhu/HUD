@@ -14,11 +14,12 @@ struct ContentView: View {
     @State var loading = LoadingView()
     @State var loadingText = LoadingView(text: "loading...")
     @State var loadingLong = LoadingView(text: "Compares less than or equal to all positive numbers, but greater than zero. If the target supports subnormal values, this is smaller than leastNormalMagnitude; otherwise they are equal.")
-    @State var toast = ToastView(text: "loading...")
-    @State var toastTop = ToastView(position: .top, text: "loading...")
+    @State var toast = ToastView(text: "Hello world")
+    @State var toastTop = ToastView(position: .top, text: "Compares less than or equal to all positive numbers, but greater than zero. If the target supports subnormal values, this is smaller than leastNormalMagnitude; otherwise they are equal.")
+    
+    @State var fail = FailedView()
     
     @State var succ = SuccessView()
-    @State var fail = FailedView()
     
     @State var progress: CGFloat = 0
     
@@ -26,11 +27,8 @@ struct ContentView: View {
  
     var body: some View {
         List {
-
             Section {
-
                 Button {
-                    loading.text = nil
                     loading.show()
                     dismiss()
                 } label: {
@@ -38,7 +36,6 @@ struct ContentView: View {
                 }
                 
                 Button {
- 
                     loadingText.show()
                     dismiss()
                 } label: {
@@ -144,6 +141,8 @@ struct ContentView: View {
         }
 
     }
+    
+    
     
     func dismiss(){
         DispatchQueue.main.asyncAfter(deadline: .now() + 3) {

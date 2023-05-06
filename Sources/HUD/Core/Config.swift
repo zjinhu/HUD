@@ -23,6 +23,11 @@ public struct Config: Configurable{
     //手势关闭动画
     var dragGestureAnimation: Animation = .interactiveSpring()
     
+    //弹窗背景阴影颜色
+    var shadowColour: Color = .black.opacity(0.2)
+    var shadowRadius: CGFloat = 5
+    var shadowOffsetX: CGFloat = 0
+    var shadowOffsetY: CGFloat = 0
     
     //距离顶部的padding,默认为0,Top Popup会用到
     var topPadding: CGFloat = 0
@@ -106,6 +111,19 @@ public extension Config {
     func dragGestureAnimation(_ value: Animation) -> Self {
         changing(path: \.dragGestureAnimation, to: value)
     }
+    //弹窗背景阴影颜色
+    func shadowColour(_ value: Color) -> Self {
+        changing(path: \.shadowColour, to: value)
+    }
+    func shadowRadius(_ value: CGFloat) -> Self {
+        changing(path: \.shadowRadius, to: value)
+    }
+    func shadowOffsetX(_ value: CGFloat) -> Self {
+        changing(path: \.shadowOffsetX, to: value)
+    }
+    func shadowOffsetY(_ value: CGFloat) -> Self {
+        changing(path: \.shadowOffsetY, to: value)
+    }
     //Bottom PopupView自动添加安全区域高度
     func bottomAutoHeight(_ value: Bool) -> Self {
         changing(path: \.bottomAutoHeight, to: value)
@@ -146,10 +164,9 @@ public extension Config {
     func autoDismissTime(_ value: TimeInterval) -> Self {
         changing(path: \.autoDismissTime, to: value)
     }
-    
 }
 
-public protocol Configurable {}
+protocol Configurable {}
 extension Configurable {
     func changing<T>(path: WritableKeyPath<Self, T>, to value: T) -> Self {
         var clone = self

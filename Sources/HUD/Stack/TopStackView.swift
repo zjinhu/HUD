@@ -39,16 +39,29 @@ private extension TopStackView {
     func setupHud(_ item: AnyHud) -> some View {
         item.body
             .padding(.top, contentTopPadding)
-            .readHeight { saveHeight($0, for: item) }
-            .frame(width: width, height: height)
+            .padding(.horizontal, contentHorizontalPadding)
+            .overlay(
+                GeometryReader { geo -> AnyView in
+                    DispatchQueue.main.async{
+                        heights[item] = geo.size.height
+                    }
+                    return AnyView(EmptyView())
+                }
+            )
             .background(backgroundColour)
             .cornerRadius(getCornerRadius(for: item))
             .opacity(getOpacity(for: item))
             .offset(y: getOffset(for: item))
             .scaleEffect(getScale(for: item), anchor: .bottom)
-            .alignToTop(topPadding)
+            .alignToTop(config.topPadding)
             .transition(transition)
             .zIndex(isLast(item).doubleValue)
+            .shadow(color: config.shadowColour,
+                    radius: config.shadowRadius,
+                    x: config.shadowOffsetX,
+                    y: config.shadowOffsetY)
+
+
     }
 }
 
@@ -117,10 +130,7 @@ private extension TopStackView {
     func getOffset(for item: AnyHud) -> CGFloat {
         isLast(item) ? gestureTranslation : invertedIndex(of: item).floatValue * offsetFactor
     }
-    
-    func saveHeight(_ height: CGFloat, for item: AnyHud) {
-        heights[item] = height
-    }
+
 }
 
 private extension TopStackView {
@@ -149,17 +159,16 @@ private extension TopStackView {
     var contentTopPadding: CGFloat {
         config.ignoresSafeArea ? 0 : max(UIScreen.safeArea.top - config.topPadding, 0)
     }
-    
-    var topPadding: CGFloat {
-        config.topPadding
-    }
-    
-    var width: CGFloat {
-        UIScreen.width - config.horizontalPadding * 2
+
+    var contentHorizontalPadding: CGFloat {
+        config.horizontalPadding
     }
     
     var height: CGFloat {
-        heights.first { $0.key == items.last }?.value ?? 0
+        if let hud = items.last, let hei = heights[hud]{
+            return  hei
+        }
+        return  0
     }
     
     var opacityFactor: Double {
@@ -174,7 +183,8 @@ private extension TopStackView {
         config.stackViewsScale
     }
     
-    var cornerRadius: (active: CGFloat, inactive: CGFloat) { (config.cornerRadius, config.stackViewsCornerRadius)
+    var cornerRadius: (active: CGFloat, inactive: CGFloat) {
+        (config.cornerRadius, config.stackViewsCornerRadius)
     }
     
     var backgroundColour: Color {
