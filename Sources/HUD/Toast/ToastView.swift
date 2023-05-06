@@ -24,8 +24,8 @@ struct ToastView: Hud {
                     .cornerRadius(8)
             )
     }
-
-    func setupConfig(config: Config) -> Config {
+    
+    func setupConfig(_ config: Config) -> Config {
         config
             .backgroundColour(.clear)
             .maxStackCount(1)

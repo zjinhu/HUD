@@ -32,10 +32,11 @@ public protocol Hud: View, Equatable, Hashable{
     func setupBody() -> V
     /// 配置hud
     func setupConfig(_ config: Config) -> Config
+    
 }
 
 public extension Hud {
- 
+    
     static func ==(lhs: Self, rhs: Self) -> Bool {
         lhs.id == rhs.id
     }
@@ -64,13 +65,13 @@ public extension Hud {
 
 /// 内部使用的通用协议
 struct AnyHud: Hud {
- 
+    
     let id: UUID
     var position: HudPosition
- 
+    
     private let _body: AnyView
     private let _configBuilder: (Config) -> Config
-
+    
     init(_ hud: some Hud) {
         self.id = hud.id
         self.position = hud.position

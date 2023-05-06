@@ -11,7 +11,7 @@ struct TopStackView: View {
     let items: [AnyHud]
     @State private var heights: [AnyHud: CGFloat] = [:]
     @State private var gestureTranslation: CGFloat = 0
-
+    
     var body: some View {
         ZStack(alignment: .bottom, content: setupHudStack)
             .ignoresSafeArea()
@@ -82,7 +82,7 @@ private extension TopStackView {
         if gestureTranslation.isZero || !isNextToLast(item) {
             return cornerRadius.inactive
         }
-
+        
         let difference = cornerRadius.active - cornerRadius.inactive
         let differenceProgress = difference * translationProgress()
         return cornerRadius.inactive + differenceProgress
@@ -95,7 +95,7 @@ private extension TopStackView {
         if gestureTranslation.isZero {
             return  1 - invertedIndex(of: item).doubleValue * opacityFactor
         }
-
+        
         let scaleValue = invertedIndex(of: item).doubleValue * opacityFactor
         let progressDifference = isNextToLast(item) ? 1 - translationProgress() : max(0.6, 1 - translationProgress())
         return 1 - scaleValue * progressDifference
@@ -108,7 +108,7 @@ private extension TopStackView {
         if gestureTranslation.isZero {
             return  1 - invertedIndex(of: item).floatValue * scaleFactor
         }
-
+        
         let scaleValue = invertedIndex(of: item).floatValue * scaleFactor
         let progressDifference = isNextToLast(item) ? 1 - translationProgress() : max(0.7, 1 - translationProgress())
         return 1 - scaleValue * progressDifference

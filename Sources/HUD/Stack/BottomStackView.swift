@@ -11,7 +11,7 @@ struct BottomStackView: View {
     let items: [AnyHud]
     @State private var heights: [AnyHud: CGFloat] = [:]
     @State private var gestureTranslation: CGFloat = 0
-
+    
     var body: some View {
         ZStack(alignment: .top, content: setupHudStack)
             .ignoresSafeArea()
@@ -81,7 +81,7 @@ private extension BottomStackView {
         if gestureTranslation.isZero || !isNextToLast(item) {
             return cornerRadius.inactive
         }
-
+        
         let difference = cornerRadius.active - cornerRadius.inactive
         let differenceProgress = difference * translationProgress()
         return cornerRadius.inactive + differenceProgress
@@ -94,7 +94,7 @@ private extension BottomStackView {
         if gestureTranslation.isZero {
             return  1 - invertedIndex(of: item).doubleValue * opacityFactor
         }
-
+        
         let scaleValue = invertedIndex(of: item).doubleValue * opacityFactor
         let progressDifference = isNextToLast(item) ? 1 - translationProgress() : max(0.6, 1 - translationProgress())
         return 1 - scaleValue * progressDifference
@@ -107,7 +107,7 @@ private extension BottomStackView {
         if gestureTranslation.isZero {
             return  1 - invertedIndex(of: item).floatValue * scaleFactor
         }
-
+        
         let scaleValue = invertedIndex(of: item).floatValue * scaleFactor
         let progressDifference = isNextToLast(item) ? 1 - translationProgress() : max(0.7, 1 - translationProgress())
         return 1 - scaleValue * progressDifference
@@ -115,8 +115,8 @@ private extension BottomStackView {
     
     func saveHeight(_ height: CGFloat, for item: AnyHud) {
         switch config.bottomAutoHeight {
-            case true: heights[item] = getMaxHeight()
-            case false: heights[item] = min(height, getMaxHeight() - bottomPadding)
+        case true: heights[item] = getMaxHeight()
+        case false: heights[item] = min(height, getMaxHeight() - bottomPadding)
         }
     }
     func getMaxHeight() -> CGFloat {

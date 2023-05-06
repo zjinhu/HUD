@@ -23,7 +23,7 @@ public struct Config: Configurable{
     //手势关闭动画
     var dragGestureAnimation: Animation = .interactiveSpring()
     
-
+    
     //距离顶部的padding,默认为0,Top Popup会用到
     var topPadding: CGFloat = 0
     //距离底部的padding,默认为0,Bottom Popup会用到
@@ -40,7 +40,7 @@ public struct Config: Configurable{
     var centerTransitionExitScale: CGFloat = 0.86
     //Center PopupView弹出动画比例
     var centerTransitionEntryScale: CGFloat = 1.1
-
+    
     
     //弹出动画
     var transitionAnimation: Animation = .spring(response: 0.32, dampingFraction: 1, blendDuration: 0.32)
@@ -146,7 +146,7 @@ public extension Config {
     func autoDismissTime(_ value: TimeInterval) -> Self {
         changing(path: \.autoDismissTime, to: value)
     }
-
+    
 }
 
 public protocol Configurable {}

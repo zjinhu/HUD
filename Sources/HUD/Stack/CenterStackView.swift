@@ -31,7 +31,7 @@ private extension CenterStackView {
             .cornerRadius(config.cornerRadius)
             .padding(config.horizontalPadding)
     }
-
+    
     func setupTapArea() -> some View {
         Color.black.opacity(0.00000000001)
             .onTapGesture(perform: items.last?.dismiss ?? {})

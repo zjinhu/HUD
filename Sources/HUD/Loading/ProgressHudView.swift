@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct LoadingProgressView: Hud {
+struct ProgressHudView: Hud {
     var id: UUID = UUID()
     var position: HudPosition = .center
     //HUD提示
@@ -19,7 +19,7 @@ struct LoadingProgressView: Hud {
     //HUD Loading颜色
     var accentColor = Color.blue
     ///进度条进度 0--1
-    @State var progress: CGFloat = 0
+    @Binding var progress: CGFloat
     
     func setupBody() -> some View  {
         VStack(spacing: 10){
@@ -34,19 +34,15 @@ struct LoadingProgressView: Hud {
             }
         }
         .padding(15)
+        .background(BlurView())
+        .shadow(color: .black.opacity(0.1), radius: 5, y: 5)
     }
     
-    func setupConfig(config: Config) -> Config {
+    func setupConfig(_ config: Config) -> Config {
         config
-            .backgroundColour(.blue)
+            .backgroundColour(.white)
             .cornerRadius(10)
             .maxStackCount(1)
-    }
-}
-
-struct LoadingProgressView_Previews: PreviewProvider {
-    static var previews: some View {
-        LoadingProgressView()
     }
 }
 

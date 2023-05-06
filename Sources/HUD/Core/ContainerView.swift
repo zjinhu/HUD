@@ -18,11 +18,11 @@ struct ContainerView: View {
         }
         .edgesIgnoringSafeArea(.all)
     }
-
+    
 }
 
 private extension ContainerView {
-
+    
     func topStackView() -> some View {
         ZStack{
             setupBack(items: manager.tops)

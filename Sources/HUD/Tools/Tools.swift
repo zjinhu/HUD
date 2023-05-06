@@ -77,7 +77,7 @@ extension Bool {
 }
 
 extension Array {
-
+    
     @inlinable mutating func removeLast() {
         if !isEmpty {
             removeLast(1)
