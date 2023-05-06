@@ -7,12 +7,12 @@
 
 import SwiftUI
 
-struct PopupTopView: Popup {
+struct PopupTopView: Hud {
     var id: UUID = UUID()
     
-    var popupPosition: PopupPosition = .top
+    var position: HudPosition = .top
     
-    func setupContent() -> some View  {
+    func setupBody() -> some View  {
         HStack(spacing: 0) {
             
             Image("grad")
@@ -42,18 +42,18 @@ struct PopupTopView: Popup {
         .padding(.horizontal, 24)
     }
     
-    func configPopup(config: PopupConfig) -> PopupConfig {
+    func setupConfig(config: Config) -> Config {
         config
             .backgroundColour(.blue)
             .cornerRadius(0)
     }
 }
  
-struct PopCenterView: Popup {
+struct PopCenterView: Hud {
     var id: UUID = UUID()
-    var popupPosition: PopupPosition = .center
+    var position: HudPosition = .center
     
-    func setupContent() -> some View  {
+    func setupBody() -> some View  {
         VStack{
             Text("title")
                 .font(.system(size: 20, weight: .bold))
@@ -80,7 +80,7 @@ struct PopCenterView: Popup {
         .padding(10)
         
     }
-    func configPopup(config: PopupConfig) -> PopupConfig {
+    func setupConfig(config: Config) -> Config {
         config
             .backgroundColour(.white)
             .horizontalPadding(20)
@@ -89,11 +89,11 @@ struct PopCenterView: Popup {
     }
 }
 
-struct PopBottomView: Popup {
+struct PopBottomView: Hud {
     var id: UUID = UUID()
-    var popupPosition: PopupPosition = .bottom
+    var position: HudPosition = .bottom
     
-    func setupContent() -> some View  {
+    func setupBody() -> some View  {
         HStack(spacing: 0) {
             
             Image("grad")
@@ -122,7 +122,7 @@ struct PopBottomView: Popup {
         .padding(.vertical, 12)
         .padding(.horizontal, 24)
     }
-    func configPopup(config: PopupConfig) -> PopupConfig {
+    func setupConfig(config: Config) -> Config {
         config.backgroundColour(.green)
     }
 }

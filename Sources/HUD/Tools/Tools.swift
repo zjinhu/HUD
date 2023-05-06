@@ -30,6 +30,7 @@ extension View {
         background(heightReader).onPreferenceChange(HeightPreferenceKey.self, perform: action)
     }
 }
+
 private extension View {
     var heightReader: some View {
         GeometryReader {
@@ -37,6 +38,7 @@ private extension View {
         }
     }
 }
+
 fileprivate struct HeightPreferenceKey: PreferenceKey {
     static var defaultValue: CGFloat = 0
     static func reduce(value: inout CGFloat, nextValue: () -> CGFloat) {}

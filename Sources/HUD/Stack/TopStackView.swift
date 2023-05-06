@@ -1,5 +1,5 @@
 //
-//  PopupBottomStackView.swift
+//  PopupTopStackView.swift
 //  Show
 //
 //  Created by iOS on 2023/5/4.
@@ -7,64 +7,64 @@
 
 import SwiftUI
 
-struct BottomStackView: View {
-    let items: [AnyPopup]
-    @State private var heights: [AnyPopup: CGFloat] = [:]
+struct TopStackView: View {
+    let items: [AnyHud]
+    @State private var heights: [AnyHud: CGFloat] = [:]
     @State private var gestureTranslation: CGFloat = 0
 
     var body: some View {
-        ZStack(alignment: .top, content: createPopupStack)
+        ZStack(alignment: .bottom, content: setupHudStack)
             .ignoresSafeArea()
             .animation(transitionAnimation, value: items)
             .animation(transitionAnimation, value: heights)
             .animation(dragGestureAnimation, value: gestureTranslation)
-            .background(createTapArea())
-            .gesture(popupDragGesture)
+            .background(setupTapArea())
+            .simultaneousGesture(hudDragGesture)
     }
 }
 
-private extension BottomStackView {
-    func createPopupStack() -> some View {
-        ForEach(items, id: \.self, content: createPopup)
+private extension TopStackView {
+    func setupHudStack() -> some View {
+        ForEach(items, id: \.self, content: setupHud)
     }
     
-    func createTapArea() -> some View {
+    func setupTapArea() -> some View {
         Color.black.opacity(0.00000000001)
             .onTapGesture(perform: items.last?.dismiss ?? {})
             .active(if: config.touchOutsideToDismiss)
     }
 }
 
-private extension BottomStackView {
-    func createPopup(_ item: AnyPopup) -> some View {
+private extension TopStackView {
+    func setupHud(_ item: AnyHud) -> some View {
         item.body
-            .padding(.bottom, contentBottomPadding)
+            .padding(.top, contentTopPadding)
             .readHeight { saveHeight($0, for: item) }
             .frame(width: width, height: height)
             .background(backgroundColour)
             .cornerRadius(getCornerRadius(for: item))
             .opacity(getOpacity(for: item))
             .offset(y: getOffset(for: item))
-            .scaleEffect(getScale(for: item), anchor: .top)
-            .alignToBottom(bottomPadding)
+            .scaleEffect(getScale(for: item), anchor: .bottom)
+            .alignToTop(topPadding)
             .transition(transition)
             .zIndex(isLast(item).doubleValue)
     }
 }
 
 // MARK: -Gesture Handler
-private extension BottomStackView {
-    var popupDragGesture: some Gesture {
+private extension TopStackView {
+    var hudDragGesture: some Gesture {
         DragGesture()
-            .onChanged(onPopupDragGestureChanged)
-            .onEnded(onPopupDragGestureEnded)
+            .onChanged(onHudDragGestureChanged)
+            .onEnded(onHudDragGestureEnded)
     }
     
-    func onPopupDragGestureChanged(_ value: DragGesture.Value) {
-        gestureTranslation = max(0, value.translation.height)
+    func onHudDragGestureChanged(_ value: DragGesture.Value) {
+        gestureTranslation = min(0, value.translation.height)
     }
     
-    func onPopupDragGestureEnded(_ value: DragGesture.Value) {
+    func onHudDragGestureEnded(_ value: DragGesture.Value) {
         if translationProgress() >= gestureClosingThresholdFactor {
             items.last?.dismiss()
         }
@@ -73,8 +73,9 @@ private extension BottomStackView {
 }
 
 // MARK: -View Handlers
-private extension BottomStackView {
-    func getCornerRadius(for item: AnyPopup) -> CGFloat {
+private extension TopStackView {
+    
+    func getCornerRadius(for item: AnyHud) -> CGFloat {
         if isLast(item) {
             return cornerRadius.active
         }
@@ -87,7 +88,7 @@ private extension BottomStackView {
         return cornerRadius.inactive + differenceProgress
     }
     
-    func getOpacity(for item: AnyPopup) -> Double {
+    func getOpacity(for item: AnyHud) -> Double {
         if isLast(item) {
             return 1
         }
@@ -100,7 +101,7 @@ private extension BottomStackView {
         return 1 - scaleValue * progressDifference
     }
     
-    func getScale(for item: AnyPopup) -> CGFloat {
+    func getScale(for item: AnyHud) -> CGFloat {
         if isLast(item) {
             return 1
         }
@@ -113,87 +114,90 @@ private extension BottomStackView {
         return 1 - scaleValue * progressDifference
     }
     
-    func saveHeight(_ height: CGFloat, for item: AnyPopup) {
-        switch config.bottomAutoHeight {
-            case true: heights[item] = getMaxHeight()
-            case false: heights[item] = min(height, getMaxHeight() - bottomPadding)
-        }
-    }
-    func getMaxHeight() -> CGFloat {
-        let basicHeight = UIScreen.height - UIScreen.safeArea.top
-        let stackedViewsCount = min(max(0, config.maxStackCount - 1), items.count - 1)
-        let stackedViewsHeight = config.stackViewsOffset * .init(stackedViewsCount) * maxHeightStackedFactor
-        return basicHeight - stackedViewsHeight + maxHeightFactor
-    }
-    func getOffset(for item: AnyPopup) -> CGFloat {
+    func getOffset(for item: AnyHud) -> CGFloat {
         isLast(item) ? gestureTranslation : invertedIndex(of: item).floatValue * offsetFactor
+    }
+    
+    func saveHeight(_ height: CGFloat, for item: AnyHud) {
+        heights[item] = height
     }
 }
 
-private extension BottomStackView {
+private extension TopStackView {
     func translationProgress() -> CGFloat {
         abs(gestureTranslation) / height
     }
-    func isLast(_ item: AnyPopup) -> Bool {
+    
+    func isLast(_ item: AnyHud) -> Bool {
         items.last == item
     }
-    func isNextToLast(_ item: AnyPopup) -> Bool {
+    
+    func isNextToLast(_ item: AnyHud) -> Bool {
         index(of: item) == items.count - 2
     }
-    func invertedIndex(of item: AnyPopup) -> Int {
+    
+    func invertedIndex(of item: AnyHud) -> Int {
         items.count - 1 - index(of: item)
     }
-    func index(of item: AnyPopup) -> Int {
+    
+    func index(of item: AnyHud) -> Int {
         items.firstIndex(of: item) ?? 0
     }
 }
 
-private extension BottomStackView {
-    var contentBottomPadding: CGFloat {
-        config.ignoresSafeArea ? 0 : max(UIScreen.safeArea.bottom - config.bottomPadding, 0)
+private extension TopStackView {
+    var contentTopPadding: CGFloat {
+        config.ignoresSafeArea ? 0 : max(UIScreen.safeArea.top - config.topPadding, 0)
     }
-    var bottomPadding: CGFloat {
-        config.bottomPadding
+    
+    var topPadding: CGFloat {
+        config.topPadding
     }
+    
     var width: CGFloat {
         UIScreen.width - config.horizontalPadding * 2
     }
+    
     var height: CGFloat {
         heights.first { $0.key == items.last }?.value ?? 0
     }
-    var maxHeightFactor: CGFloat {
-        12
-    }
-    var maxHeightStackedFactor: CGFloat {
-        0.85
-    }
+    
     var opacityFactor: Double {
         1 / config.maxStackCount.doubleValue
     }
+    
     var offsetFactor: CGFloat {
-        -config.stackViewsOffset
+        config.stackViewsOffset
     }
+    
     var scaleFactor: CGFloat {
         config.stackViewsScale
     }
+    
     var cornerRadius: (active: CGFloat, inactive: CGFloat) { (config.cornerRadius, config.stackViewsCornerRadius)
     }
+    
     var backgroundColour: Color {
         config.backgroundColour
     }
+    
     var transitionAnimation: Animation {
         config.transitionAnimation
     }
+    
     var dragGestureAnimation: Animation {
         config.dragGestureAnimation
     }
+    
     var gestureClosingThresholdFactor: CGFloat {
         config.dragGestureProgressToClose
     }
+    
     var transition: AnyTransition {
-        .move(edge: .bottom)
+        .move(edge: .top)
     }
-    var config: PopupConfig {
-        items.last?.configPopup(config: .init()) ?? .init()
+    
+    var config: Config {
+        items.last?.setupConfig(Config()) ?? .init()
     }
 }

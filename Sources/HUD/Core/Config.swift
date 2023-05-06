@@ -7,15 +7,17 @@
 
 import SwiftUI
 
-public struct PopupConfig {
+public struct Config: Configurable{
+    //是否需要遮罩
+    var needMask: Bool = true
     //弹窗背景颜色
-    var backgroundColour: Color = .white
+    var backgroundColour: Color = .clear
     //弹窗忽略安全区域
     var ignoresSafeArea: Bool = false
     //点击区域外关闭弹窗
     var touchOutsideToDismiss: Bool = false
     //圆角弧度
-    var cornerRadius: CGFloat = 20
+    var cornerRadius: CGFloat = 10
     //手势关闭
     var dragGestureProgressToClose: CGFloat = 1/3
     //手势关闭动画
@@ -50,116 +52,108 @@ public struct PopupConfig {
     var stackViewsCornerRadius: CGFloat = 10
     //堆栈样式--最大堆展示数量
     var maxStackCount: Int = 3
+    
+    
+    //是否需要自动关闭
+    var autoDismiss: Bool = false
+    //自动关闭等候时长
+    var autoDismissTime: TimeInterval = 3
 }
 
 
-public extension PopupConfig {
+public extension Config {
+    //是否需要遮罩
+    func needMask(_ value: Bool) -> Self {
+        changing(path: \.needMask, to: value)
+    }
     //弹窗背景颜色
     func backgroundColour(_ value: Color) -> Self {
-        var clone = self
-        clone.backgroundColour = value
-        return clone
+        changing(path: \.backgroundColour, to: value)
     }
     //弹窗忽略安全区域
     func ignoresSafeArea(_ value: Bool) -> Self {
-        var clone = self
-        clone.ignoresSafeArea = value
-        return clone
+        changing(path: \.ignoresSafeArea, to: value)
     }
     //点击区域外关闭弹窗
     func touchOutsideToDismiss(_ value: Bool) -> Self {
-        var clone = self
-        clone.touchOutsideToDismiss = value
-        return clone
+        changing(path: \.touchOutsideToDismiss, to: value)
     }
     //横向的padding,默认为0,大部分情况Center Popup会用到
     func horizontalPadding(_ value: CGFloat) -> Self {
-        var clone = self
-        clone.horizontalPadding = value
-        return clone
+        changing(path: \.horizontalPadding, to: value)
     }
     //距离顶部的padding,默认为0,Top Popup会用到
     func topPadding(_ value: CGFloat) -> Self {
-        var clone = self
-        clone.topPadding = value
-        return clone
+        changing(path: \.topPadding, to: value)
     }
     //距离底部的padding,默认为0,Bottom Popup会用到
     func bottomPadding(_ value: CGFloat) -> Self {
-        var clone = self
-        clone.bottomPadding = value
-        return clone
+        changing(path: \.bottomPadding, to: value)
     }
     //圆角弧度
     func cornerRadius(_ value: CGFloat) -> Self {
-        var clone = self
-        clone.cornerRadius = value
-        return clone
+        changing(path: \.cornerRadius, to: value)
     }
     //弹出动画执行时间
     func centerAnimationTime(_ value: CGFloat) -> Self {
-        var clone = self
-        clone.centerAnimationTime = value
-        return clone
+        changing(path: \.centerAnimationTime, to: value)
     }
     //手势关闭
     func dragGestureProgressToClose(_ value: CGFloat) -> Self {
-        var clone = self
-        clone.dragGestureProgressToClose = value
-        return clone
+        changing(path: \.dragGestureProgressToClose, to: value)
     }
     //手势关闭动画
     func dragGestureAnimation(_ value: Animation) -> Self {
-        var clone = self
-        clone.dragGestureAnimation = value
-        return clone
+        changing(path: \.dragGestureAnimation, to: value)
     }
     //Bottom PopupView自动添加安全区域高度
-    func bottomAutoHeigh(_ value: Bool) -> Self {
-        var clone = self
-        clone.bottomAutoHeight = value
-        return clone
+    func bottomAutoHeight(_ value: Bool) -> Self {
+        changing(path: \.bottomAutoHeight, to: value)
     }
     //Center PopupView弹出动画比例
     func centerTransitionEntryScale(_ value: CGFloat) -> Self {
-        var clone = self
-        clone.centerTransitionEntryScale = value
-        return clone
+        changing(path: \.centerTransitionEntryScale, to: value)
     }
     //Center PopupView弹出动画比例
     func centerTransitionExitScale(_ value: CGFloat) -> Self {
-        var clone = self
-        clone.centerTransitionExitScale = value
-        return clone
+        changing(path: \.centerTransitionExitScale, to: value)
     }
     //弹出动画
     func transitionAnimation(_ value: Animation) -> Self {
-        var clone = self
-        clone.transitionAnimation = value
-        return clone
+        changing(path: \.transitionAnimation, to: value)
     }
     //堆栈样式--露出位置--默认6
     func stackViewsOffset(_ value: CGFloat) -> Self {
-        var clone = self
-        clone.stackViewsOffset = value
-        return clone
+        changing(path: \.stackViewsOffset, to: value)
     }
     //堆栈样式--比例
     func stackViewsScale(_ value: CGFloat) -> Self {
-        var clone = self
-        clone.stackViewsScale = value
-        return clone
+        changing(path: \.stackViewsScale, to: value)
     }
     //堆栈样式--圆角
     func stackViewsCornerRadius(_ value: CGFloat) -> Self {
-        var clone = self
-        clone.stackViewsCornerRadius = value
-        return clone
+        changing(path: \.stackViewsCornerRadius, to: value)
     }
     //堆栈样式--最大堆展示数量
     func maxStackCount(_ value: Int) -> Self {
+        changing(path: \.maxStackCount, to: value)
+    }
+    //是否需要自动关闭
+    func autoDismiss(_ value: Bool) -> Self {
+        changing(path: \.autoDismiss, to: value)
+    }
+    //自动关闭等候时长
+    func autoDismissTime(_ value: TimeInterval) -> Self {
+        changing(path: \.autoDismissTime, to: value)
+    }
+
+}
+
+public protocol Configurable {}
+extension Configurable {
+    func changing<T>(path: WritableKeyPath<Self, T>, to value: T) -> Self {
         var clone = self
-        clone.maxStackCount = value
+        clone[keyPath: path] = value
         return clone
     }
 }
