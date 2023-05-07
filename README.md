@@ -20,7 +20,7 @@ HUD是基于SwiftUI开发的Loading弹窗工具，样式参考[ProgressHUD](http
 
 ## 功能
 
-在需要使用Loading或弹窗的的页面添加
+在需要使用Loading或弹窗的的页面添加，或者直接添加在ContentView上
 
 ```Swift
 .addHUD()
@@ -29,7 +29,7 @@ HUD是基于SwiftUI开发的Loading弹窗工具，样式参考[ProgressHUD](http
 各种内置弹窗
 
 ```swift
-		//声明弹窗
+    //声明弹窗
     @State var loading = LoadingView()
 
     @State var loadingText = LoadingView(text: "loading...")
