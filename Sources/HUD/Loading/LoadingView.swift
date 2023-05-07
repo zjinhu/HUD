@@ -7,13 +7,13 @@
 
 import SwiftUI
 
-public struct LoadingView: Hud {
+public struct LoadingView: HUD {
     public var id: UUID = UUID()
-    public var position: HudPosition = .center
+    public var position: HUDPosition = .center
     
-    public var text: String?
+    @Binding public var text: String?
     //HUD提示字体颜色
-    public var textColor = Color.black
+    public var textColor = Color.dynamic(light: .black, dark: .white)
     //HUD提示字体颜色
     public var textFont: Font = .system(size: 15, weight: .medium)
     //HUD Loading颜色
@@ -26,18 +26,19 @@ public struct LoadingView: Hud {
                 .frame(width: 50, height: 50)
                 .progressViewStyle(CircularProgressViewStyle(tint: accentColor))
             
-            if let status = text{
+            if let status = text, !status.isEmpty{
                 Text("\(status)")
                     .font(textFont)
                     .foregroundColor(textColor)
             }
         }
-        .padding(15) 
+        .padding(15)
+        
     }
     
     public func setupConfig(_ config: Config) -> Config {
         config
-            .backgroundColour(.white)
+            .backgroundColour(.defaultBackground)
             .maxStackCount(1)
             .needMask(true)
             .horizontalPadding(50)
@@ -46,6 +47,6 @@ public struct LoadingView: Hud {
 
 struct LoadingView_Previews: PreviewProvider {
     static var previews: some View {
-        LoadingView()
+        LoadingView(text: .constant("xxx"))
     }
 }

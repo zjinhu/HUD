@@ -7,10 +7,10 @@
 
 import SwiftUI
 
-struct PopupTopView: Hud {
+struct PopupTopView: HUD {
     var id: UUID = UUID()
     
-    var position: HudPosition = .top
+    var position: HUDPosition = .top
     
     func setupBody() -> some View  {
         HStack(spacing: 0) {
@@ -49,9 +49,9 @@ struct PopupTopView: Hud {
     }
 }
  
-struct PopCenterView: Hud {
+struct PopCenterView: HUD {
     var id: UUID = UUID()
-    var position: HudPosition = .center
+    var position: HUDPosition = .center
     
     func setupBody() -> some View  {
         VStack(spacing: 10){
@@ -104,9 +104,9 @@ struct PopCenterView_Previews: PreviewProvider {
     }
 }
 
-struct PopBottomView: Hud {
+struct PopBottomView: HUD {
     var id: UUID = UUID()
-    var position: HudPosition = .bottom
+    var position: HUDPosition = .bottom
     
     func setupBody() -> some View  {
         HStack(spacing: 0) {

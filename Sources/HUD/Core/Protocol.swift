@@ -8,7 +8,7 @@
 import SwiftUI
 
 /// hud展示所在的位置
-public enum HudPosition {
+public enum HUDPosition {
     
     case top, bottom, center
     
@@ -22,12 +22,12 @@ public enum HudPosition {
 }
 
 /// 子类需要继承hud协议
-public protocol Hud: View, Equatable, Hashable{
+public protocol HUD: View, Equatable, Hashable{
     associatedtype V: View
     ///标识唯一ID
     var id : UUID { get }
     /// hud展示所在的位置
-    var position: HudPosition { get set }
+    var position: HUDPosition { get set }
     /// 子类创建页面布局
     func setupBody() -> V
     /// 配置hud
@@ -35,7 +35,7 @@ public protocol Hud: View, Equatable, Hashable{
     
 }
 
-public extension Hud {
+public extension HUD {
     
     static func ==(lhs: Self, rhs: Self) -> Bool {
         lhs.id == rhs.id
@@ -55,24 +55,24 @@ public extension Hud {
     
     /// 弹出hud
     func show() {
-        HudManager.shared.show(AnyHud(self))
+        HUDManager.shared.show(AnyHUD(self))
     }
     /// 关闭hud
     func dismiss() { 
-        HudManager.shared.dismiss(id)
+        HUDManager.shared.dismiss(id)
     }
 }
 
 /// 内部使用的通用协议
-struct AnyHud: Hud {
+struct AnyHUD: HUD {
     
     let id: UUID
-    var position: HudPosition
+    var position: HUDPosition
     
     private let _body: AnyView
     private let _configBuilder: (Config) -> Config
     
-    init(_ hud: some Hud) {
+    init(_ hud: some HUD) {
         self.id = hud.id
         self.position = hud.position
         self._body = AnyView(hud)
@@ -80,7 +80,7 @@ struct AnyHud: Hud {
     }
 }
 
-extension AnyHud {
+extension AnyHUD {
     func setupBody() -> AnyView {
         _body
     }

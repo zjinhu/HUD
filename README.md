@@ -7,11 +7,9 @@
 
 HUD是基于SwiftUI开发的Loading弹窗工具，样式参考[ProgressHUD](https://github.com/relatedcode/ProgressHUD)  和  [PopupView](https://github.com/Mijick/PopupView)。
 
-目前功能有 Loading，Progress，Success，Failed，Toast，PopupView，支持继承协议自定义样式以及弹出动画。
+目前功能有 Loading，Progress，Success，Fail，Toast，PopupView，支持继承协议自定义样式以及弹出动画。
 
-下一步：
-
-更新支持暗色模式
+支持暗色模式
 
 | ![](Image/top.png)     | ![](Image/bottom.png)   | ![](Image/center.png)   | ![](Image/toast.png)    | ![](Image/toast2.png)    |
 | ---------------------- | ----------------------- | ----------------------- | ----------------------- | ------------------------ |
@@ -25,7 +23,7 @@ HUD是基于SwiftUI开发的Loading弹窗工具，样式参考[ProgressHUD](http
 在需要使用Loading或弹窗的的页面添加
 
 ```Swift
-.addHudView()
+.addHUD()
 ```
 
 各种内置弹窗
@@ -39,7 +37,7 @@ HUD是基于SwiftUI开发的Loading弹窗工具，样式参考[ProgressHUD](http
     @State var toast = ToastView(text: "Hello world")
     @State var toast = ToastView(position: .top, text: "Compares")
     
-    @State var fail = FailedView()
+    @State var fail = FailView()
     @State var succ = SuccessView()
 
 ```
@@ -48,10 +46,10 @@ Progress有点特殊需要绑定进度
 
 ```swift
     @State var progress: CGFloat = 0
-    @State var progressView: ProgressHudView?
+    @State var progressView: StepView?
     //在适当的位置绑定进度
     .onAppear {
-        progressView = ProgressHudView(progress: $progress)
+        progressView = StepView(progress: $progress)
     }
 
 		progressView?.show()
@@ -148,6 +146,10 @@ Progress有点特殊需要绑定进度
 
 
 
+具体使用代码api以及详细效果参见Demo
+
+
+
 ## 安装
 
 ### cocoapods
@@ -169,10 +171,6 @@ Progress有点特殊需要绑定进度
 ### 手动集成
 
 HUD 也支持手动集成，只需把Sources文件夹中的HUD文件夹拖进需要集成的项目即可
-
-
-
-具体使用代码api以及详细效果参见Demo
 
 
 

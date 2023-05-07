@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ContainerView: View {
-    @StateObject private var manager = HudManager.shared
+    @StateObject private var manager = HUDManager.shared
     
     var body: some View {
         ZStack {
@@ -44,12 +44,12 @@ private extension ContainerView {
         }
     }
     
-    func setupMask(items: [AnyHud]) -> some View {
+    func setupMask(items: [AnyHUD]) -> some View {
         Color.black.opacity(0.3)
             .active(if: getConfig(items).needMask && !items.isEmpty)
     }
     
-    func getConfig(_ items: [AnyHud]) -> Config {
+    func getConfig(_ items: [AnyHUD]) -> Config {
         items.last?.setupConfig(Config()) ?? .init()
     }
 }

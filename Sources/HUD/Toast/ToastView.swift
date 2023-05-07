@@ -7,12 +7,12 @@
 
 import SwiftUI
 
-public struct ToastView: Hud {
+public struct ToastView: HUD {
     
-    public var position: HudPosition = .bottom
+    public var position: HUDPosition = .bottom
     public var id: UUID = UUID()
     
-    public var text: String
+    @Binding public var text: String
     
     public func setupBody() -> some View  {
         Text(text)
@@ -31,13 +31,14 @@ public struct ToastView: Hud {
             .backgroundColour(.clear)
             .maxStackCount(1)
             .needMask(false)
-            .autoDismiss(true) 
+            .autoDismiss(true)
+            .horizontalPadding(20)
     }
     
 }
 
 struct ToastView_Previews: PreviewProvider {
     static var previews: some View {
-        ToastView(text: "Compares less than or equal to all positive numbers, but greater than zero. If the target supports subnormal values, this is smaller than leastNormalMagnitude; otherwise they are equal.")
+        ToastView(text: .constant("Compares less than or equal to all positive numbers, but greater than zero. If the target supports subnormal values, this is smaller than leastNormalMagnitude; otherwise they are equal."))
     }
 }

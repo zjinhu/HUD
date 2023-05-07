@@ -23,8 +23,8 @@
 		81D5D5AE2A061BE400585E31 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D5D5AD2A061BE400585E31 /* LoadingView.swift */; };
 		81D5D5B22A064D8E00585E31 /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D5D5B12A064D8E00585E31 /* ToastView.swift */; };
 		81D5D5B82A06627A00585E31 /* SuccessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D5D5B72A06627A00585E31 /* SuccessView.swift */; };
-		81D5D5BA2A06629900585E31 /* FailedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D5D5B92A06629900585E31 /* FailedView.swift */; };
-		81D5D5BC2A06668B00585E31 /* ProgressHudView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D5D5BB2A06668A00585E31 /* ProgressHudView.swift */; };
+		81D5D5BA2A06629900585E31 /* FailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D5D5B92A06629900585E31 /* FailView.swift */; };
+		81D5D5BC2A06668B00585E31 /* StepView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D5D5BB2A06668A00585E31 /* StepView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,8 +46,8 @@
 		81D5D5AD2A061BE400585E31 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		81D5D5B12A064D8E00585E31 /* ToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastView.swift; sourceTree = "<group>"; };
 		81D5D5B72A06627A00585E31 /* SuccessView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuccessView.swift; sourceTree = "<group>"; };
-		81D5D5B92A06629900585E31 /* FailedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FailedView.swift; sourceTree = "<group>"; };
-		81D5D5BB2A06668A00585E31 /* ProgressHudView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProgressHudView.swift; sourceTree = "<group>"; };
+		81D5D5B92A06629900585E31 /* FailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FailView.swift; sourceTree = "<group>"; };
+		81D5D5BB2A06668A00585E31 /* StepView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StepView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -130,10 +130,10 @@
 		818D17122A034FB800C67D70 /* Loading */ = {
 			isa = PBXGroup;
 			children = (
-				81D5D5BB2A06668A00585E31 /* ProgressHudView.swift */,
+				81D5D5BB2A06668A00585E31 /* StepView.swift */,
 				81D5D5AD2A061BE400585E31 /* LoadingView.swift */,
 				81D5D5B72A06627A00585E31 /* SuccessView.swift */,
-				81D5D5B92A06629900585E31 /* FailedView.swift */,
+				81D5D5B92A06629900585E31 /* FailView.swift */,
 			);
 			path = Loading;
 			sourceTree = "<group>";
@@ -239,7 +239,7 @@
 			files = (
 				818D17362A04A69F00C67D70 /* ContainerView.swift in Sources */,
 				818D17462A04CC3600C67D70 /* Tools.swift in Sources */,
-				81D5D5BC2A06668B00585E31 /* ProgressHudView.swift in Sources */,
+				81D5D5BC2A06668B00585E31 /* StepView.swift in Sources */,
 				81D5D5AE2A061BE400585E31 /* LoadingView.swift in Sources */,
 				818277B429FA1E5900A239C5 /* ContentView.swift in Sources */,
 				818D17412A04C68800C67D70 /* CenterStackView.swift in Sources */,
@@ -248,7 +248,7 @@
 				818277B229FA1E5900A239C5 /* ToastApp.swift in Sources */,
 				81D5D5B22A064D8E00585E31 /* ToastView.swift in Sources */,
 				818D17342A04A30A00C67D70 /* Manager.swift in Sources */,
-				81D5D5BA2A06629900585E31 /* FailedView.swift in Sources */,
+				81D5D5BA2A06629900585E31 /* FailView.swift in Sources */,
 				818D17382A04A8EF00C67D70 /* Protocol.swift in Sources */,
 				818D17442A04C68C00C67D70 /* TopStackView.swift in Sources */,
 				818D173C2A04A97000C67D70 /* Config.swift in Sources */,

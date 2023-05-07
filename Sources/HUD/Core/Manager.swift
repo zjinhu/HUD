@@ -9,20 +9,20 @@ import SwiftUI
 
 public extension View {
     /// 添加popView控制器,需要弹窗的页面最外层添加
-    func addHudView() -> some View {
+    func addHUD() -> some View {
         overlay(
             ContainerView() 
         )
     }
 }
 
-public class HudManager: ObservableObject {
-    @Published var views: [AnyHud] = []
-    static let shared = HudManager()
+public class HUDManager: ObservableObject {
+    @Published var views: [AnyHUD] = []
+    static let shared = HUDManager()
     private init() {}
 }
 
-public extension HudManager {
+public extension HUDManager {
     /// 收起最后一个hud
     func dismissLast() {
         views.removeLast()
@@ -39,9 +39,9 @@ public extension HudManager {
     }
 }
 
-extension HudManager {
+extension HUDManager {
     /// 弹出hud
-    func show(_ hud: AnyHud) {
+    func show(_ hud: AnyHUD) {
         DispatchQueue.main.async {
             withAnimation{
                 if self.canBeInserted(hud){
@@ -58,8 +58,8 @@ extension HudManager {
     }
 }
 
-extension HudManager {
-    var tops: [AnyHud] {
+extension HUDManager {
+    var tops: [AnyHUD] {
         views.compactMap { now in
             if now.position == .top{
                 return now
@@ -67,7 +67,7 @@ extension HudManager {
             return nil
         }
     }
-    var centers: [AnyHud] {
+    var centers: [AnyHUD] {
         views.compactMap { now in
             if now.position == .center{
                 return now
@@ -75,7 +75,7 @@ extension HudManager {
             return nil
         }
     }
-    var bottoms: [AnyHud] {
+    var bottoms: [AnyHUD] {
         views.compactMap { now in
             if now.position == .bottom{
                 return now
@@ -85,8 +85,8 @@ extension HudManager {
     }
 }
 
-private extension HudManager {
-    func canBeInserted(_ hud: AnyHud) -> Bool {
+private extension HUDManager {
+    func canBeInserted(_ hud: AnyHUD) -> Bool {
         !views.contains { current in
             current.id == hud.id
         }

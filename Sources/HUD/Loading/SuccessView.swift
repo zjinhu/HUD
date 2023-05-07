@@ -7,13 +7,13 @@
 
 import SwiftUI
 
-public struct SuccessView: Hud {
+public struct SuccessView: HUD {
     public var id: UUID = UUID()
-    public var position: HudPosition = .center
+    public var position: HUDPosition = .center
     
-    public var text: String?
+    @Binding public var text: String?
     //HUD提示字体颜色
-    public var textColor = Color.black
+    public var textColor = Color.dynamic(light: .black, dark: .white)
     //HUD提示字体颜色
     public var textFont: Font = .system(size: 15, weight: .medium)
     //HUD Loading颜色
@@ -30,7 +30,7 @@ public struct SuccessView: Hud {
                 .frame(width: 50, height: 50)
                 .offset(x: -3)
             
-            if let status = text{
+            if let status = text, !status.isEmpty{
                 Text("\(status)")
                     .font(textFont)
                     .foregroundColor(textColor)
@@ -47,7 +47,7 @@ public struct SuccessView: Hud {
     
     public func setupConfig(_ config: Config) -> Config {
         config
-            .backgroundColour(.white)
+            .backgroundColour(.defaultBackground)
             .maxStackCount(1)
             .needMask(false)
             .autoDismiss(true)
@@ -58,7 +58,7 @@ public struct SuccessView: Hud {
 
 struct SuccessView_Previews: PreviewProvider {
     static var previews: some View {
-        SuccessView()
+        SuccessView(text: .constant("xxx"))
     }
 }
 

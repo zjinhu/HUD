@@ -11,43 +11,46 @@ struct ContentView: View {
 
     @StateObject var timer = TimeHelp()
  
-    @State var loading = LoadingView()
-    @State var loadingText = LoadingView(text: "loading...")
-    @State var loadingLong = LoadingView(text: "Compares less than or equal to all positive numbers, but greater than zero. If the target supports subnormal values, this is smaller than leastNormalMagnitude; otherwise they are equal.")
-    @State var toast = ToastView(text: "Hello world")
-    @State var toastTop = ToastView(position: .top, text: "Compares less than or equal to all positive numbers, but greater than zero. If the target supports subnormal values, this is smaller than leastNormalMagnitude; otherwise they are equal.")
-    
-    @State var fail = FailedView()
-    
-    @State var succ = SuccessView()
-    
-    @State var failText = FailedView(text: "Hello world")
-    @State var succText = SuccessView(text: "Hello world")
-    
+    @State var loadingText: String?
     @State var progress: CGFloat = 0
+    @State var loading: LoadingView?
+    @State var progressView: StepView?
+    @State var progressTextView: StepView?
+
     
-    @State var progressView: ProgressHudView?
-    @State var progressTextView: ProgressHudView?
- 
+    @State var toast = ToastView(text: .constant("Toast"))
+    @State var toastTop = ToastView(position: .top, text: .constant("Compares less than or equal to all positive numbers, but greater than zero. If the target supports subnormal values, this is smaller than leastNormalMagnitude; otherwise they are equal."))
+    
+    @State var fail = FailView(text: .constant(nil))
+    
+    @State var succ = SuccessView(text: .constant(""))
+    
+    @State var failText = FailView(text: .constant("Failed"))
+    @State var succText = SuccessView(text: .constant("Success"))
+
+
     var body: some View {
         List {
             Section {
                 Button {
-                    loading.show()
+                    loadingText = nil
+                    loading?.show()
                     dismiss()
                 } label: {
                     Text("Loading")
                 }
                 
                 Button {
-                    loadingText.show()
+                    loadingText = "Loading"
+                    loading?.show()
                     dismiss()
                 } label: {
                     Text("Loading text")
                 }
                 
                 Button {
-                    loadingLong.show()
+                    loadingText = "Compares less than or equal to all positive numbers, but greater than zero. If the target supports subnormal values, this is smaller than leastNormalMagnitude; otherwise they are equal."
+                    loading?.show()
                     dismiss()
                 } label: {
                     Text("Loading long text")
@@ -146,7 +149,7 @@ struct ContentView: View {
                 Text("PopupView")
             }
         }
-        .addHudView()
+        .addHUD()
         .onChange(of: timer.progress) { newValue in
             progress = newValue
             debugPrint("\(newValue)")
@@ -158,8 +161,9 @@ struct ContentView: View {
             }
         }
         .onAppear {
-            progressView = ProgressHudView(progress: $progress)
-            progressTextView = ProgressHudView(text: "Hello world", progress: $progress)
+            loading = LoadingView(text: $loadingText)
+            progressView = StepView(text: .constant(""), progress: $progress)
+            progressTextView = StepView(text: .constant("Hello world"), progress: $progress)
         }
 
     }
@@ -168,9 +172,7 @@ struct ContentView: View {
     
     func dismiss(){
         DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-            loading.dismiss()
-            loadingLong.dismiss()
-            loadingText.dismiss()
+            loading?.dismiss()
         }
     }
     

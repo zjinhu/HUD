@@ -7,13 +7,13 @@
 
 import SwiftUI
 
-public struct FailedView: Hud {
+public struct FailView: HUD {
     public var id: UUID = UUID()
-    public var position: HudPosition = .center
+    public var position: HUDPosition = .center
     
-    public var text: String?
+    @Binding public var text: String?
     //HUD提示字体颜色
-    public var textColor = Color.black
+    public var textColor = Color.dynamic(light: .black, dark: .white)
     //HUD提示字体颜色
     public var textFont: Font = .system(size: 15, weight: .medium)
     //HUD Loading颜色
@@ -29,7 +29,7 @@ public struct FailedView: Hud {
                 .animation(.easeInOut(duration: 0.5), value: UUID())
                 .frame(width: 50, height: 50)
             
-            if let status = text{
+            if let status = text, !status.isEmpty{
                 Text("\(status)")
                     .font(textFont)
                     .foregroundColor(textColor)
@@ -46,7 +46,7 @@ public struct FailedView: Hud {
     
     public func setupConfig(_ config: Config) -> Config {
         config
-            .backgroundColour(.white)
+            .backgroundColour(.defaultBackground)
             .maxStackCount(1)
             .needMask(false)
             .autoDismiss(true)
@@ -57,7 +57,7 @@ public struct FailedView: Hud {
 
 struct FailedView_Previews: PreviewProvider {
     static var previews: some View {
-        FailedView()
+        FailView(text: .constant("xxx"))
     }
 }
 

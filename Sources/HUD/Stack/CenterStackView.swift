@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct CenterStackView: View {
-    let items: [AnyHud]
+    let items: [AnyHUD]
     @State private var activeView: AnyView?
     @State private var configTemp: Config?
     @State private var contentIsAnimated: Bool = false
@@ -45,7 +45,7 @@ private extension CenterStackView {
 
 // MARK: -Logic Handlers
 private extension CenterStackView {
-    func onItemsChange(_ items: [AnyHud]) {
+    func onItemsChange(_ items: [AnyHUD]) {
         guard let popup = items.last else { return handleClosingHud() }
         
         showNewHud(popup)
@@ -53,7 +53,7 @@ private extension CenterStackView {
     }
 }
 private extension CenterStackView {
-    func showNewHud(_ popup: AnyHud) {
+    func showNewHud(_ popup: AnyHUD) {
         DispatchQueue.main.async {
             activeView = AnyView(popup.body)
             configTemp = popup.setupConfig(Config())

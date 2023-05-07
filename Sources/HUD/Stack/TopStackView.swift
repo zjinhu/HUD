@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct TopStackView: View {
-    let items: [AnyHud]
-    @State private var heights: [AnyHud: CGFloat] = [:]
+    let items: [AnyHUD]
+    @State private var heights: [AnyHUD: CGFloat] = [:]
     @State private var gestureTranslation: CGFloat = 0
     
     var body: some View {
@@ -36,7 +36,7 @@ private extension TopStackView {
 }
 
 private extension TopStackView {
-    func setupHud(_ item: AnyHud) -> some View {
+    func setupHud(_ item: AnyHUD) -> some View {
         item.body
             .padding(.top, contentTopPadding)
             .padding(.horizontal, contentHorizontalPadding)
@@ -88,7 +88,7 @@ private extension TopStackView {
 // MARK: -View Handlers
 private extension TopStackView {
     
-    func getCornerRadius(for item: AnyHud) -> CGFloat {
+    func getCornerRadius(for item: AnyHUD) -> CGFloat {
         if isLast(item) {
             return cornerRadius.active
         }
@@ -101,7 +101,7 @@ private extension TopStackView {
         return cornerRadius.inactive + differenceProgress
     }
     
-    func getOpacity(for item: AnyHud) -> Double {
+    func getOpacity(for item: AnyHUD) -> Double {
         if isLast(item) {
             return 1
         }
@@ -114,7 +114,7 @@ private extension TopStackView {
         return 1 - scaleValue * progressDifference
     }
     
-    func getScale(for item: AnyHud) -> CGFloat {
+    func getScale(for item: AnyHUD) -> CGFloat {
         if isLast(item) {
             return 1
         }
@@ -127,7 +127,7 @@ private extension TopStackView {
         return 1 - scaleValue * progressDifference
     }
     
-    func getOffset(for item: AnyHud) -> CGFloat {
+    func getOffset(for item: AnyHUD) -> CGFloat {
         isLast(item) ? gestureTranslation : invertedIndex(of: item).floatValue * offsetFactor
     }
 
@@ -138,19 +138,19 @@ private extension TopStackView {
         abs(gestureTranslation) / height
     }
     
-    func isLast(_ item: AnyHud) -> Bool {
+    func isLast(_ item: AnyHUD) -> Bool {
         items.last == item
     }
     
-    func isNextToLast(_ item: AnyHud) -> Bool {
+    func isNextToLast(_ item: AnyHUD) -> Bool {
         index(of: item) == items.count - 2
     }
     
-    func invertedIndex(of item: AnyHud) -> Int {
+    func invertedIndex(of item: AnyHUD) -> Int {
         items.count - 1 - index(of: item)
     }
     
-    func index(of item: AnyHud) -> Int {
+    func index(of item: AnyHUD) -> Int {
         items.firstIndex(of: item) ?? 0
     }
 }

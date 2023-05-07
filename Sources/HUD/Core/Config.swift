@@ -24,8 +24,8 @@ public struct Config: Configurable{
     var dragGestureAnimation: Animation = .interactiveSpring()
     
     //弹窗背景阴影颜色
-    var shadowColour: Color = .black.opacity(0.2)
-    var shadowRadius: CGFloat = 5
+    var shadowColour: Color = .primary.opacity(0.3)
+    var shadowRadius: CGFloat = 8
     var shadowOffsetX: CGFloat = 0
     var shadowOffsetY: CGFloat = 0
     
