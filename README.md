@@ -51,8 +51,8 @@ Progress有点特殊需要绑定进度
     .onAppear {
         progressView = StepView(progress: $progress)
     }
-
-		progressView?.show()
+ 
+    progressView?.show()
 ```
 
 剩下的只需要在触发位置
