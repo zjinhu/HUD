@@ -12,8 +12,9 @@ struct ContentView: View {
     @StateObject var timer = TimeHelp()
  
     @State var loadingText: String?
-    @State var progress: CGFloat = 0
     @State var loading: LoadingView?
+    
+    @State var progress: CGFloat = 0
     @State var progressView: StepView?
     @State var progressTextView: StepView?
 

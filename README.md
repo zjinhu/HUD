@@ -1,9 +1,9 @@
 
 
 [![SPM](https://img.shields.io/badge/SPM-supported-DE5C43.svg?style=flat)](https://swift.org/package-manager/)
-![Xcode 11.0+](https://img.shields.io/badge/Xcode-11.0%2B-blue.svg)
+![Xcode 14.2+](https://img.shields.io/badge/Xcode-14.2%2B-blue.svg)
 ![iOS 13.0+](https://img.shields.io/badge/iOS-14.0%2B-blue.svg)
-![Swift 5.0+](https://img.shields.io/badge/Swift-5.0%2B-orange.svg)
+![SwiftUI 3.0+](https://img.shields.io/badge/SwiftUI-3.0%2B-orange.svg)
 
 HUD是基于SwiftUI开发的Loading弹窗工具，样式参考[ProgressHUD](https://github.com/relatedcode/ProgressHUD)  和  [PopupView](https://github.com/Mijick/PopupView)。
 
@@ -30,29 +30,33 @@ HUD是基于SwiftUI开发的Loading弹窗工具，样式参考[ProgressHUD](http
 
 ```swift
     //声明弹窗
-    @State var loading = LoadingView()
+    @State var loading = LoadingView(text: .constant(nil))
 
-    @State var loadingText = LoadingView(text: "loading...")
+    @State var loadingText = LoadingView(text: .constant("loading...")）
 
-    @State var toast = ToastView(text: "Hello world")
-    @State var toast = ToastView(position: .top, text: "Compares")
+    @State var toast = ToastView(text: .constant("Toast"))
+    @State var toast = ToastView(position: .top, text: .constant("Toast"))
     
-    @State var fail = FailView()
-    @State var succ = SuccessView()
+    @State var fail = FailView(text: .constant(nil))
+    @State var succ = SuccessView(text: .constant(""))
 
 ```
 
-Progress有点特殊需要绑定进度
+Text和Progress需要绑定外部参数，所以可以这样用
 
 ```swift
     @State var progress: CGFloat = 0
     @State var progressView: StepView?
-    //在适当的位置绑定进度
+
+    @State var loadingText: String?
+    @State var loading: LoadingView?
+    //在适当的位置绑定
     .onAppear {
         progressView = StepView(progress: $progress)
+        loading = LoadingView(text: $loadingText)
     }
- 
-    progressView?.show()
+    //修改当前progress或loadingText然后就可以自动变化了
+
 ```
 
 剩下的只需要在触发位置
