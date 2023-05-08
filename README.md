@@ -50,10 +50,14 @@ Text和Progress需要绑定外部参数，所以可以这样用
 
     @State var loadingText: String?
     @State var loading: LoadingView?
+
+    @State var toastText: String?
+    @State var toast: ToastView?
     //在适当的位置绑定
     .onAppear {
         progressView = StepView(progress: $progress)
         loading = LoadingView(text: $loadingText)
+        toast = ToastView(position: .top, text: $toastText)
     }
     //修改当前progress或loadingText然后就可以自动变化了
 

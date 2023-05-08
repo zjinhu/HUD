@@ -24,7 +24,7 @@ public struct StepView: HUD {
     public func setupBody() -> some View  {
         VStack(spacing: 10){
             ProgressView(value: progress)
-                .frame(width: 50, height: 50)
+                .frame(width: 70, height: 70)
                 .progressViewStyle(GaugeProgressStyle(strokeColor: accentColor))
             
             if let status = text, !status.isEmpty{
@@ -42,6 +42,15 @@ public struct StepView: HUD {
             .maxStackCount(1)
             .needMask(true)
             .horizontalPadding(50)
+    }
+}
+
+struct StepView_Previews: PreviewProvider {
+    static var previews: some View {
+        StepView(text: .constant("Progressing"), progress: .constant(0.5))
+            .previewLayout(.sizeThatFits)
+            .background(Color.purple)
+            .cornerRadius(10)
     }
 }
 

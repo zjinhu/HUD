@@ -17,7 +17,7 @@ public struct ToastView: HUD {
     public func setupBody() -> some View  {
         Text(text)
             .multilineTextAlignment(.center)
-            .padding(10)
+            .padding(15)
             .foregroundColor(.white)
             .background(
                 Color.black
