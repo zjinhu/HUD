@@ -1,0 +1,44 @@
+PODS:
+  - SwiftBrick (2.3.4):
+    - SwiftBrick/BaseCell (= 2.3.4)
+    - SwiftBrick/BaseVC (= 2.3.4)
+    - SwiftBrick/Extensions (= 2.3.4)
+    - SwiftBrick/SwiftUI (= 2.3.4)
+    - SwiftBrick/Util (= 2.3.4)
+    - SwiftBrick/ViewFactory (= 2.3.4)
+  - SwiftBrick/BaseCell (2.3.4):
+    - SwiftBrick/Extensions
+  - SwiftBrick/BaseVC (2.3.4):
+    - SwiftBrick/BaseCell
+    - SwiftBrick/Extensions
+    - SwiftBrick/Util
+  - SwiftBrick/Extensions (2.3.4):
+    - SwiftBrick/Util
+  - SwiftBrick/SwiftUI (2.3.4):
+    - SwiftBrick/BaseVC
+    - SwiftBrick/Extensions
+  - SwiftBrick/Util (2.3.4)
+  - SwiftBrick/ViewFactory (2.3.4):
+    - SwiftBrick/Extensions
+    - SwiftBrick/Util
+  - SwiftUIHUD (0.1.1)
+
+DEPENDENCIES:
+  - SwiftBrick
+  - SwiftUIHUD (from `../`)
+
+SPEC REPOS:
+  trunk:
+    - SwiftBrick
+
+EXTERNAL SOURCES:
+  SwiftUIHUD:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  SwiftBrick: df823f3235993f204b3dcf60ace29ef28193f74c
+  SwiftUIHUD: e9411a0702bb59daa3f5fae882a5049e4d2d9707
+
+PODFILE CHECKSUM: a5f1d53d6ed8fde05988399a94db08a5f152534e
+
+COCOAPODS: 1.12.1
