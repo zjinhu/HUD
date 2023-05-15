@@ -1,6 +1,6 @@
 {
   "name": "SwiftUIHUD",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "summary": "Loading组件.",
   "description": "Loading组件",
   "homepage": "https://github.com/jackiehu/",
@@ -13,7 +13,7 @@
   },
   "source": {
     "git": "https://github.com/jackiehu/HUD",
-    "tag": "0.1.1"
+    "tag": "0.2.0"
   },
   "platforms": {
     "ios": "14.0"
@@ -31,6 +31,6 @@
     "SwiftUI",
     "Foundation"
   ],
-  "source_files": "Sources/SwiftUIHUD/**/*",
+  "source_files": "Sources/HUD/**/*",
   "swift_version": "5.5"
 }

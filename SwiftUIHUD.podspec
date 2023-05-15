@@ -1,7 +1,7 @@
 
 Pod::Spec.new do |s|
 s.name             = 'SwiftUIHUD'
-s.version          = '0.2.0'
+s.version          = '0.2.1'
 s.summary          = 'Loading组件.'
 
 s.description      = <<-DESC
@@ -19,6 +19,6 @@ s.requires_arc = true
 
 s.frameworks   = "SwiftUI", "Foundation"#支持的框架
 
-s.source_files = 'Sources/SwiftUIHUD/**/*'
+s.source_files = 'Sources/HUD/**/*'
 
 end

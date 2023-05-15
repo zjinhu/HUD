@@ -21,7 +21,7 @@ PODS:
   - SwiftBrick/ViewFactory (2.3.4):
     - SwiftBrick/Extensions
     - SwiftBrick/Util
-  - SwiftUIHUD (0.1.1)
+  - SwiftUIHUD (0.2.0)
 
 DEPENDENCIES:
   - SwiftBrick
@@ -37,7 +37,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   SwiftBrick: df823f3235993f204b3dcf60ace29ef28193f74c
-  SwiftUIHUD: e9411a0702bb59daa3f5fae882a5049e4d2d9707
+  SwiftUIHUD: e9fa4e190d8091ac2cc47c87be7c4e01ffe0087a
 
 PODFILE CHECKSUM: a5f1d53d6ed8fde05988399a94db08a5f152534e
 
