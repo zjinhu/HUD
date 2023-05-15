@@ -23,6 +23,7 @@ HUD是基于SwiftUI开发的Loading弹窗工具，样式参考[ProgressHUD](http
 在需要使用Loading或弹窗的的页面添加，或者直接添加在ContentView上
 
 ```Swift
+//如果是UIViewController使用UIHostController的方式可以不添加
 .addHUD()
 ```
 
