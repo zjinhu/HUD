@@ -88,3 +88,27 @@ extension UIColor {
         return Color(self)
     }
 }
+
+extension UIViewController{
+   func canUseVC() -> Bool {
+       if let _ = self as? UITabBarController {
+           // tabBar 的跟控制器
+           return true
+       } else if let _ = self as? UINavigationController {
+           // 控制器是 nav
+           return true
+       } else {
+           // 返回顶控制器
+           return false
+       }
+   }
+}
+
+extension UIApplication {
+   var keyWindow: UIWindow? {
+       connectedScenes
+           .compactMap {  $0 as? UIWindowScene }
+           .flatMap { $0.windows }
+           .first { $0.isKeyWindow }
+   }
+}

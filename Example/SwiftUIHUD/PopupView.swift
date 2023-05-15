@@ -46,6 +46,7 @@ struct PopupTopView: HUD {
         config
             .backgroundColour(.blue)
             .cornerRadius(0)
+            .touchOutsideToDismiss(true)
     }
 }
  

@@ -11,13 +11,14 @@ public extension View {
     /// 添加popView控制器,需要弹窗的页面最外层添加
     func addHUD() -> some View {
         overlay(
-            ContainerView() 
+            ContainerView()
         )
     }
 }
 
 public class HUDManager: ObservableObject {
     @Published var views: [AnyHUD] = []
+    @Published var isPresent: Bool = false
     static let shared = HUDManager()
     private init() {}
 }
@@ -26,33 +27,74 @@ public extension HUDManager {
     /// 收起最后一个hud
     func dismissLast() {
         views.removeLast()
+        dismissVC()
     }
     /// 收起指定hud
     func dismiss(_ id: UUID) {
-        views.removeAll { vi in
-            vi.id == id
+        withAnimation{
+            views.removeAll { vi in
+                vi.id == id
+            }
         }
+        dismissVC()
     }
     /// 收起所有hud
     func dismissAll() {
         views.removeAll()
+        dismissVC()
+    }
+    
+    func dismissVC(){
+        if views.isEmpty,
+           let vc = UIApplication.shared.keyWindow?.rootViewController as? UIViewController,
+           isPresent{
+            DispatchQueue.main.async {
+                vc.dismiss(animated: false) {
+                    self.isPresent = false
+                }
+            }
+        }
     }
 }
 
 extension HUDManager {
     /// 弹出hud
     func show(_ hud: AnyHUD) {
+
         DispatchQueue.main.async {
+            if let vc = UIApplication.shared.keyWindow?.rootViewController as? UIViewController,
+               vc.canUseVC(),
+               !self.isPresent,
+               self.canBeInserted(hud){
+                let toPresent = UIHostingController(rootView: Color.clear.addHUD())
+                toPresent.modalPresentationStyle = .overCurrentContext
+                toPresent.modalTransitionStyle = .crossDissolve
+                toPresent.view.backgroundColor = .clear
+                
+                vc.present(toPresent, animated: false) {
+                    withAnimation{
+                        self.addHud(hud)
+                    }
+                    
+                    self.isPresent = true
+                }
+                return
+            }
+ 
             withAnimation{
                 if self.canBeInserted(hud){
-                    self.views.append(hud)
-                    let config = hud.setupConfig(Config())
-                    if config.autoDismiss {
-                        DispatchQueue.main.asyncAfter(deadline: .now() + config.autoDismissTime) {
-                            self.dismiss(hud.id)
-                        }
-                    }
+                    self.addHud(hud)
                 }
+            }
+        }
+    }
+    
+    func addHud(_ hud: AnyHUD){
+        views.append(hud)
+        let config = hud.setupConfig(Config())
+        if config.autoDismiss {
+            DispatchQueue.main.asyncAfter(deadline: .now() + config.autoDismissTime) {
+                self.dismiss(hud.id)
             }
         }
     }
