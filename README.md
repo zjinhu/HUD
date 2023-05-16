@@ -20,12 +20,19 @@ HUD是基于SwiftUI开发的Loading弹窗工具，样式参考[ProgressHUD](http
 
 ## 功能
 
-在需要使用Loading或弹窗的的页面添加，或者直接添加在ContentView上
+在需要使用Loading或弹窗的的页面添加（仅遮盖当前页面，如果需要遮盖TabView或者NavigationView请直接添加在根View上，比如ContentView()）
 
 ```Swift
 //如果是UIViewController使用UIHostController的方式不需要添加
 .addHUD()
 ```
+
+当你的SwiftUI使用了UIHostingController的方式添加到了UITabBarController或者UINavigationController上使用SwiftUI方式的弹窗是无法遮盖UITabBar和UINavigationBar的，所以HUD在show执行的时候会判断最上层级的VC，然后再判断执行哪种遮盖方案，完美遮盖UIKit层级的导航栏，放心使用吧，如下图：
+
+| ![](Image/遮盖导航栏.png) | ![](Image/遮盖Tabbar.png) |
+| ------------------------- | ------------------------- |
+
+具体用法以及效果详见[Demo](https://github.com/jackiehu/HUDDemo)
 
 各种内置弹窗
 

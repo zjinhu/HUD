@@ -141,6 +141,7 @@ struct PopBottomView: HUD {
     
     func setupConfig(_ config: Config) -> Config {
         config.backgroundColour(.green)
+             .touchOutsideToDismiss(true)
     }
 }
  
