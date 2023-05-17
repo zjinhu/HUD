@@ -18,10 +18,6 @@ struct ContentView: View {
     @State var progressView: StepView?
     @State var progressTextView: StepView?
 
-    
-    @State var toast = ToastView(text: .constant("Toast"))
-    @State var toastTop = ToastView(position: .top, text: .constant("Compares less than or equal to all positive numbers, but greater than zero. If the target supports subnormal values, this is smaller than leastNormalMagnitude; otherwise they are equal."))
-    
     @State var fail = FailView(text: .constant(nil))
     
     @State var succ = SuccessView(text: .constant(""))
@@ -109,22 +105,6 @@ struct ContentView: View {
                 }
             } header: {
                 Text("Failed")
-            }
-
-            Section {
-                Button {
-                    toast.show()
-                } label: {
-                    Text("Toast at bottom")
-                }
-
-                Button {
-                    toastTop.show()
-                } label: {
-                    Text("Toast at Top")
-                }
-            } header: {
-                Text("Toast")
             }
             
             Section {

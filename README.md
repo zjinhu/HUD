@@ -7,11 +7,11 @@
 
 HUD是基于SwiftUI开发的Loading弹窗工具，样式参考[ProgressHUD](https://github.com/relatedcode/ProgressHUD)  和  [PopupView](https://github.com/Mijick/PopupView)。
 
-目前功能有 Loading，Progress，Success，Fail，Toast，PopupView，支持继承协议自定义样式以及弹出动画。
+目前功能有 Loading，Progress，Success，Fail，PopupView，支持继承协议自定义样式以及弹出动画。
 
 支持暗色模式
 
-| ![](Image/top.png)     | ![](Image/bottom.png)   | ![](Image/center.png)   | ![](Image/toast.png)    | ![](Image/toast2.png)    |
+| ![](Image/top.png)     | ![](Image/bottom.png)   | ![](Image/center.png)   |                         |                          |
 | ---------------------- | ----------------------- | ----------------------- | ----------------------- | ------------------------ |
 | ![](Image/loading.png) | ![](Image/loading2.png) | ![](Image/loading3.png) | ![](Image/progress.png) | ![](Image/progress2.png) |
 | ![](Image/succ.png)    | ![](Image/succ2.png)    | ![](Image/fail.png)     | ![](Image/fail2.png)    |                          |
@@ -27,7 +27,7 @@ HUD是基于SwiftUI开发的Loading弹窗工具，样式参考[ProgressHUD](http
 .addHUD()
 ```
 
-当你的SwiftUI使用了UIHostingController的方式添加到了UITabBarController或者UINavigationController上使用SwiftUI方式的弹窗是无法遮盖UITabBar和UINavigationBar的，所以HUD在show执行的时候会判断最上层级的VC，然后再判断执行哪种遮盖方案，完美遮盖UIKit层级的导航栏，放心使用吧，如下图：
+当你的SwiftUI使用了UIHostingController的方式添加到了UITabBarController或者UINavigationController上使用SwiftUI方式的弹窗是无法遮盖UITabBar和UINavigationBar的，所以HUD在show执行的时候会判断最上层级的VC，然后再判断执行哪种遮盖方案，完美遮盖UIKit层级的导航栏，如下图：
 
 | ![](Image/遮盖导航栏.png) | ![](Image/遮盖Tabbar.png) |
 | ------------------------- | ------------------------- |
@@ -42,9 +42,6 @@ HUD是基于SwiftUI开发的Loading弹窗工具，样式参考[ProgressHUD](http
 
     @State var loadingText = LoadingView(text: .constant("loading...")）
 
-    @State var toast = ToastView(text: .constant("Toast"))
-    @State var toast = ToastView(position: .top, text: .constant("Toast"))
-    
     @State var fail = FailView(text: .constant(nil))
     @State var succ = SuccessView(text: .constant(""))
 
@@ -59,13 +56,10 @@ Text和Progress需要绑定外部参数，所以可以这样用
     @State var loadingText: String?
     @State var loading: LoadingView?
 
-    @State var toastText: String?
-    @State var toast: ToastView?
     //在适当的位置绑定
     .onAppear {
         progressView = StepView(progress: $progress)
         loading = LoadingView(text: $loadingText)
-        toast = ToastView(position: .top, text: $toastText)
     }
     //修改当前progress或loadingText然后就可以自动变化了
 

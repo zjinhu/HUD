@@ -85,7 +85,6 @@
 		BE30C6C4FBB114B78B2F48EB88D0126D /* SuccessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFF6DE9281597FE3DF5DB791D4A8E861 /* SuccessView.swift */; };
 		C4430A5A27EC01AC4350F701A4164A8E /* Font.TextStyle++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DAA569015D3192423FC99EEAEB9BF78 /* Font.TextStyle++.swift */; };
 		CC45944603065250F699C143413A912B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61AF63D95B16B818439A8C7C83AFCB50 /* Foundation.framework */; };
-		CD99105BEF9793471A6C47810E989AD4 /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4D827F6BE2AF4E432AD0706686E7611 /* ToastView.swift */; };
 		CF276D4BDC2338532975A3957034105B /* JHCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BBC2933DC957DB4D4B9051DA5E4C2E8 /* JHCollectionViewCell.swift */; };
 		D6B29F859E29AF3C4F8AC8D871A26581 /* UITextViewEx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6459DE27888F73F5F47190963FE8DCF4 /* UITextViewEx.swift */; };
 		D746419ABD4F81EFD2B922DB0ABD68EA /* ContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECCFD053F99F7CDB5FAF8FBF742C6D17 /* ContainerView.swift */; };
@@ -152,7 +151,7 @@
 		39BAA8D3E5B75BA6D2B0D13A5B49CBBE /* List++.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "List++.swift"; path = "Sources/SwiftBrick/SwiftUI/SwiftUIX/List++.swift"; sourceTree = "<group>"; };
 		3BA1B4A152FD808004EAC3215F0241B6 /* View++.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "View++.swift"; path = "Sources/SwiftBrick/SwiftUI/SwiftUIX/View++.swift"; sourceTree = "<group>"; };
 		4063289FECE9CD1AC80D68897E9C8178 /* UIViewEx.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = UIViewEx.swift; path = Sources/SwiftBrick/Extensions/UIViewEx.swift; sourceTree = "<group>"; };
-		43F9BAC8E1F880F3E8963B8F112320E1 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; path = README.md; sourceTree = "<group>"; };
+		43F9BAC8E1F880F3E8963B8F112320E1 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		441854E35F81731E63E53DC7E4EEAD9D /* Pods-Example-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-Example-acknowledgements.markdown"; sourceTree = "<group>"; };
 		447DF8DEEC56B07153D99FA2F7AAD5A4 /* SwiftUIHUD.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = SwiftUIHUD.debug.xcconfig; sourceTree = "<group>"; };
 		45D66B09CFD8DED4EB516DCF26CBA33C /* Image++.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Image++.swift"; path = "Sources/SwiftBrick/SwiftUI/SwiftUIX/Image++.swift"; sourceTree = "<group>"; };
@@ -195,16 +194,16 @@
 		8C4916555E23A6850EAA5BCCA5E0046C /* DispatchQueueEx.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DispatchQueueEx.swift; path = Sources/SwiftBrick/Extensions/DispatchQueueEx.swift; sourceTree = "<group>"; };
 		8D4007D97760A7BC51DAB697BA33D687 /* LoadingView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		8DAA569015D3192423FC99EEAEB9BF78 /* Font.TextStyle++.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Font.TextStyle++.swift"; path = "Sources/SwiftBrick/SwiftUI/SwiftUIX/Font.TextStyle++.swift"; sourceTree = "<group>"; };
-		8DFB43C0F5563242844FC87F951275C8 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; path = LICENSE; sourceTree = "<group>"; };
+		8DFB43C0F5563242844FC87F951275C8 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		8EBEB87F1E45E8AD958E6858918A288D /* GridIem++.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "GridIem++.swift"; path = "Sources/SwiftBrick/SwiftUI/SwiftUIX/GridIem++.swift"; sourceTree = "<group>"; };
 		908406DE12AE6AF7B99D27F77AF28333 /* CALayerEx.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CALayerEx.swift; path = Sources/SwiftBrick/Extensions/CALayerEx.swift; sourceTree = "<group>"; };
 		9552720FD309284B53211FACEF52B422 /* SwiftBrick.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = SwiftBrick.modulemap; sourceTree = "<group>"; };
-		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		A26DE3408EAE78F9C89CD09FBD092296 /* ViewEx.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ViewEx.swift; path = Sources/SwiftBrick/SwiftUI/ViewEx.swift; sourceTree = "<group>"; };
 		A5AFFB54096B99B5DC3F0B59E693D7A3 /* UIColorEx.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = UIColorEx.swift; path = Sources/SwiftBrick/Extensions/UIColorEx.swift; sourceTree = "<group>"; };
 		A68649B7ABC0D3F3B237A528D5E845CB /* Version.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Version.swift; path = Sources/SwiftBrick/Util/Version.swift; sourceTree = "<group>"; };
 		A6EA76D62A77E6EE20142193660BA16F /* Binding++.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Binding++.swift"; path = "Sources/SwiftBrick/SwiftUI/SwiftUIX/Binding++.swift"; sourceTree = "<group>"; };
-		A7589DF3D6600456A47870B31A6AC235 /* SwiftUIHUD.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; path = SwiftUIHUD.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		A7589DF3D6600456A47870B31A6AC235 /* SwiftUIHUD.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; path = SwiftUIHUD.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		A7FC8D8827C4C4B397950C18BEC808C8 /* TapBuzz.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TapBuzz.swift; path = Sources/SwiftBrick/Util/TapBuzz.swift; sourceTree = "<group>"; };
 		A9E3B06907CD4F85EAEDE342ADDBBA59 /* Angle++.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Angle++.swift"; path = "Sources/SwiftBrick/SwiftUI/SwiftUIX/Angle++.swift"; sourceTree = "<group>"; };
 		AFECBC24E09D0D25F822C27BD944AFD4 /* Pods-Example-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Example-frameworks.sh"; sourceTree = "<group>"; };
@@ -222,7 +221,6 @@
 		CDC607F6C3F5C5454801D9527DA97C5B /* AppState.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AppState.swift; path = Sources/SwiftBrick/Util/AppState.swift; sourceTree = "<group>"; };
 		CFB7A099E2D1C072EF962766D3C204E6 /* Loader.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Loader.swift; path = Sources/SwiftBrick/Util/Loader.swift; sourceTree = "<group>"; };
 		D0AFB7F6F8865CCDC2EEC3F83670BB11 /* SFSymbolName.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SFSymbolName.swift; path = Sources/SwiftBrick/Extensions/SFSymbolName.swift; sourceTree = "<group>"; };
-		D4D827F6BE2AF4E432AD0706686E7611 /* ToastView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ToastView.swift; sourceTree = "<group>"; };
 		D6D7C498FA339E02BD53ECB8916CEA8E /* Pods-Example-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Example-dummy.m"; sourceTree = "<group>"; };
 		D7BBE57F6AF845FEA8B46E2E73CB7519 /* ResourceBundle-SwiftBrick-SwiftBrick-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "ResourceBundle-SwiftBrick-SwiftBrick-Info.plist"; sourceTree = "<group>"; };
 		D80F1B1C5F35E7C24442F342319504B0 /* Haptic.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Haptic.swift; path = Sources/SwiftBrick/SwiftUI/Haptic.swift; sourceTree = "<group>"; };
@@ -382,7 +380,6 @@
 				204E8E1E562C2C73E37C6D59C35535DB /* Pod */,
 				35568CFC3809A6CB8182BCD3243DCFF5 /* Stack */,
 				2B1B44AD924A59477ECE1D6F4ECFFB58 /* Support Files */,
-				E479E988BAAE032DE9E01DC324CA4CD7 /* Toast */,
 				BD8BEED46FE2A51A41B03E9DFFE84C65 /* Tools */,
 			);
 			name = SwiftUIHUD;
@@ -464,7 +461,6 @@
 				7E7F60EBBD2234B03203647B52062DBA /* Util */,
 				38116B324E4B35E6A9B0C1BA9F62530C /* ViewFactory */,
 			);
-			name = SwiftBrick;
 			path = SwiftBrick;
 			sourceTree = "<group>";
 		};
@@ -602,15 +598,6 @@
 			);
 			name = Loading;
 			path = Sources/HUD/Loading;
-			sourceTree = "<group>";
-		};
-		E479E988BAAE032DE9E01DC324CA4CD7 /* Toast */ = {
-			isa = PBXGroup;
-			children = (
-				D4D827F6BE2AF4E432AD0706686E7611 /* ToastView.swift */,
-			);
-			name = Toast;
-			path = Sources/HUD/Toast;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -796,7 +783,6 @@
 				24244E324FAF51280830120F8CB99A71 /* StepView.swift in Sources */,
 				BE30C6C4FBB114B78B2F48EB88D0126D /* SuccessView.swift in Sources */,
 				A6815BAD63CCE6236D8AF7161351F48C /* SwiftUIHUD-dummy.m in Sources */,
-				CD99105BEF9793471A6C47810E989AD4 /* ToastView.swift in Sources */,
 				30961A23A4EBDF3E651ADB5196A50ADD /* Tools.swift in Sources */,
 				051F55543612937A26D107D55075BF57 /* TopStackView.swift in Sources */,
 			);
