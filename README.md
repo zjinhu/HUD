@@ -5,11 +5,11 @@
 ![iOS 13.0+](https://img.shields.io/badge/iOS-14.0%2B-blue.svg)
 ![SwiftUI 3.0+](https://img.shields.io/badge/SwiftUI-3.0%2B-orange.svg)
 
-HUD是基于SwiftUI开发的Loading弹窗工具，样式参考[ProgressHUD](https://github.com/relatedcode/ProgressHUD)  和  [PopupView](https://github.com/Mijick/PopupView)。
+HUD is a Loading pop-up tool developed based on SwiftUI, style reference [ProgressHUD](https://github.com/relatedcode/ProgressHUD) and [PopupView](https://github.com/Mijick/PopupView).
 
-目前功能有 Loading，Progress，Success，Fail，PopupView，支持继承协议自定义样式以及弹出动画。
+The current functions include Loading, Progress, Success, Fail, and PopupView, which support custom styles inherited from protocols and pop-up animations.
 
-支持暗色模式
+Support dark mode
 
 | ![](Image/top.png)     | ![](Image/bottom.png)   | ![](Image/center.png)   |                         |                          |
 | ---------------------- | ----------------------- | ----------------------- | ----------------------- | ------------------------ |
@@ -18,26 +18,26 @@ HUD是基于SwiftUI开发的Loading弹窗工具，样式参考[ProgressHUD](http
 
 
 
-## 功能
+## Usage
 
-在需要使用Loading或弹窗的的页面添加（仅遮盖当前页面，如果需要遮盖TabView或者NavigationView请直接添加在根View上，比如ContentView()）
+Add it on the page that needs to use Loading or pop-up window (only cover the current page, if you need to cover TabView or NavigationView, please add it directly on the root View, such as ContentView())
 
 ```Swift
-//如果是UIViewController使用UIHostController的方式不需要添加
+//If UIViewController uses UIHostController, you don't need to add
 .addHUD()
 ```
 
-当你的SwiftUI使用了UIHostingController的方式添加到了UITabBarController或者UINavigationController上使用SwiftUI方式的弹窗是无法遮盖UITabBar和UINavigationBar的，所以HUD在show执行的时候会判断最上层级的VC，然后再判断执行哪种遮盖方案，完美遮盖UIKit层级的导航栏，如下图：
+When your SwiftUI uses UIHostingController and adds it to UITabBarController or UINavigationController, the pop-up window using SwiftUI cannot cover UITabBar and UINavigationBar, so the HUD will judge the top-level VC when the show is executed, and then judge which kind of covering to perform Solution, perfectly cover the UIKit-level navigation bar, as shown below:
 
 | ![](Image/遮盖导航栏.png) | ![](Image/遮盖Tabbar.png) |
 | ------------------------- | ------------------------- |
 
-具体用法以及效果详见[Demo](https://github.com/jackiehu/HUDDemo)
+For specific usage and effects, see [Demo](https://github.com/jackiehu/HUDDemo)
 
-各种内置弹窗
+Various built-in pop-up windows
 
 ```swift
-    //声明弹窗
+
     @State var loading = LoadingView(text: .constant(nil))
 
     @State var loadingText = LoadingView(text: .constant("loading...")）
@@ -47,7 +47,7 @@ HUD是基于SwiftUI开发的Loading弹窗工具，样式参考[ProgressHUD](http
 
 ```
 
-Text和Progress需要绑定外部参数，所以可以这样用
+Text and Progress need to bind external parameters, so they can be used like this
 
 ```swift
     @State var progress: CGFloat = 0
@@ -56,16 +56,16 @@ Text和Progress需要绑定外部参数，所以可以这样用
     @State var loadingText: String?
     @State var loading: LoadingView?
 
-    //在适当的位置绑定
+    //bind in place
     .onAppear {
         progressView = StepView(progress: $progress)
         loading = LoadingView(text: $loadingText)
     }
-    //修改当前progress或loadingText然后就可以自动变化了
+    //Modify the current progress or loadingText and then it can change automatically
 
 ```
 
-剩下的只需要在触发位置
+The rest only needs to be in the trigger position
 
 ```swift
    Button {
@@ -75,7 +75,7 @@ Text和Progress需要绑定外部参数，所以可以这样用
    }
 ```
 
- 或者根据状态控制
+or according to state control
 
 ```swift
   .onChange(of: revenueCat.isPurchasing) { newValue in
@@ -87,126 +87,108 @@ Text和Progress需要绑定外部参数，所以可以这样用
    }
 ```
 
-关闭HUD
+close HUD
 
 ```
 .dismiss()
 ```
 
-适配器内有超多自定义功能
+There are many custom functions in the adapter
 
 ```Swift
-    //是否需要遮罩
-    var needMask: Bool = true
-    //弹窗背景颜色
-    var backgroundColour: Color = .clear
-    //弹窗忽略安全区域
-    var ignoresSafeArea: Bool = false
-    //点击区域外关闭弹窗
-    var touchOutsideToDismiss: Bool = false
-    //圆角弧度
-    var cornerRadius: CGFloat = 10
-    //手势关闭
-    var dragGestureProgressToClose: CGFloat = 1/3
-    //手势关闭动画
-    var dragGestureAnimation: Animation = .interactiveSpring()
+    // Do you need a mask
+     var needMask: Bool = true
+     // popup window background color
+     var backgroundColour: Color = .clear
+     //The pop-up window ignores the safe area
+     var ignoresSafeArea: Bool = false
+     //Click outside the area to close the popup window
+     var touchOutsideToDismiss: Bool = false
+     // rounded corner radian
+     var cornerRadius: CGFloat = 10
+     // Gesture off
+     var dragGestureProgressToClose: CGFloat = 1/3
+     // Gesture close animation
+     var dragGestureAnimation: Animation = .interactiveSpring()
     
-    //弹窗背景阴影颜色
-    var shadowColour: Color = .black.opacity(0.2)
-    var shadowRadius: CGFloat = 5
-    var shadowOffsetX: CGFloat = 0
-    var shadowOffsetY: CGFloat = 0
+     // popup window background shadow color
+     var shadowColour: Color = .black.opacity(0.2)
+     var shadowRadius: CGFloat = 5
+     var shadowOffsetX: CGFloat = 0
+     var shadowOffsetY: CGFloat = 0
     
-    //距离顶部的padding,默认为0,Top Popup会用到
-    var topPadding: CGFloat = 0
-    //距离底部的padding,默认为0,Bottom Popup会用到
-    var bottomPadding: CGFloat = 0
-    //Bottom PopupView自动添加安全区域高度
-    var bottomAutoHeight: Bool = false
-    
-    
-    //横向的padding,默认为0,大部分情况Center Popup会用到
-    var horizontalPadding: CGFloat = 0
-    //中间弹出动画执行时间
-    var centerAnimationTime: CGFloat = 0.1
-    //Center PopupView弹出动画比例
-    var centerTransitionExitScale: CGFloat = 0.86
-    //Center PopupView弹出动画比例
-    var centerTransitionEntryScale: CGFloat = 1.1
+     //The padding from the top, the default is 0, Top Popup will use it
+     var topPadding: CGFloat = 0
+     //The padding from the bottom, the default is 0, Bottom Popup will use it
+     var bottomPadding: CGFloat = 0
+     //Bottom PopupView automatically adds the height of the safe area
+     var bottomAutoHeight: Bool = false
     
     
-    //弹出动画
-    var transitionAnimation: Animation = .spring(response: 0.32, dampingFraction: 1, blendDuration: 0.32)
+     //horizontal padding, the default is 0, most cases will be used by Center Popup
+     var horizontalPadding: CGFloat = 0
+     //The execution time of pop-up animation in the middle
+     var centerAnimationTime: CGFloat = 0.1
+     //Center PopupView pop-up animation ratio
+     var centerTransitionExitScale: CGFloat = 0.86
+     //Center PopupView pop-up animation ratio
+     var centerTransitionEntryScale: CGFloat = 1.1
+    
+    
+     // popup animation
+     var transitionAnimation: Animation = .spring(response: 0.32, dampingFraction: 1, blendDuration: 0.32)
 
-    //堆栈样式--露出位置--默认6
-    var stackViewsOffset: CGFloat = 6
-    //堆栈样式--比例
-    var stackViewsScale: CGFloat = 0.06
-    //堆栈样式--圆角
-    var stackViewsCornerRadius: CGFloat = 10
-    //堆栈样式--最大堆展示数量
-    var maxStackCount: Int = 3
+     //Stack style--exposed position--default 6
+     var stackViewsOffset: CGFloat = 6
+     //stack style -- scale
+     var stackViewsScale: CGFloat = 0.06
+     //stack style - rounded corners
+     var stackViewsCornerRadius: CGFloat = 10
+     //stack style--maximum heap display quantity
+     var maxStackCount: Int = 3
     
     
-    //是否需要自动关闭
-    var autoDismiss: Bool = false
-    //自动关闭等候时长
-    var autoDismissTime: TimeInterval = 3
+     // Whether to automatically close
+     var autoDismiss: Bool = false
+     //automatic shutdown waiting time
+     var autoDismissTime: TimeInterval = 3
 ```
 
 
 
-具体使用代码api以及详细效果参见Demo
+Please refer to Demo for the specific use of the code api and detailed effects
 
 
 
-## 安装
+## Install
 
-### cocoapods
+### Cocoapods
 
-1.在 Podfile 中添加 `pod ‘SwiftUIHUD’`
+1. Add `pod 'SwiftUIHUD'` in Podfile
 
-2.执行 `pod install 或 pod update`
+2. Execute `pod install or pod update`
 
-3.导入 `import SwiftUIHUD`
+3. Import `import SwiftUIHUD`
 
 ### Swift Package Manager
 
-从 Xcode 11 开始，集成了 Swift Package Manager，使用起来非常方便。HUD 也支持通过 Swift Package Manager 集成。
+Starting from Xcode 11, the Swift Package Manager is integrated, which is very convenient to use. HUD also supports integration via Swift Package Manager.
 
-在 Xcode 的菜单栏中选择 `File > Swift Packages > Add Pacakage Dependency`，然后在搜索栏输入
+Select `File > Swift Packages > Add Pacakage Dependency` in Xcode's menu bar, and enter in the search bar
 
-`https://github.com/jackiehu/HUD`，即可完成集成
-
-### 手动集成
-
-HUD 也支持手动集成，只需把Sources文件夹中的HUD文件夹拖进需要集成的项目即可
+`https://github.com/jackiehu/HUD`, you can complete the integration
 
 
 
-## 更多砖块工具加速APP开发
+## More tools to speed up APP development
 
 [![ReadMe Card](https://github-readme-stats.vercel.app/api/pin/?username=jackiehu&repo=SwiftMediator&theme=radical&locale=cn)](https://github.com/jackiehu/SwiftMediator)
 
-[![ReadMe Card](https://github-readme-stats.vercel.app/api/pin/?username=jackiehu&repo=SwiftShow&theme=radical&locale=cn)](https://github.com/jackiehu/SwiftShow)
+[![ReadMe Card](https://github-readme-stats.vercel.app/api/pin/?username=jackiehu&repo=Toast_SwiftUI&theme=radical&locale=cn)]([jackiehu/Toast_SwiftUI (github.com)](https://github.com/jackiehu/Toast_SwiftUI))
 
 [![ReadMe Card](https://github-readme-stats.vercel.app/api/pin/?username=jackiehu&repo=SwiftLog&theme=radical&locale=cn)](https://github.com/jackiehu/SwiftLog)
-
-[![ReadMe Card](https://github-readme-stats.vercel.app/api/pin/?username=jackiehu&repo=SwiftyForm&theme=radical&locale=cn)](https://github.com/jackiehu/SwiftyForm)
-
-[![ReadMe Card](https://github-readme-stats.vercel.app/api/pin/?username=jackiehu&repo=SwiftEmptyData&theme=radical&locale=cn)](https://github.com/jackiehu/SwiftEmptyData)
-
-[![ReadMe Card](https://github-readme-stats.vercel.app/api/pin/?username=jackiehu&repo=SwiftPageView&theme=radical&locale=cn)](https://github.com/jackiehu/SwiftPageView)
-
-[![ReadMe Card](https://github-readme-stats.vercel.app/api/pin/?username=jackiehu&repo=JHTabBarController&theme=radical&locale=cn)](https://github.com/jackiehu/JHTabBarController)
 
 [![ReadMe Card](https://github-readme-stats.vercel.app/api/pin/?username=jackiehu&repo=SwiftMesh&theme=radical&locale=cn)](https://github.com/jackiehu/SwiftMesh)
 
 [![ReadMe Card](https://github-readme-stats.vercel.app/api/pin/?username=jackiehu&repo=SwiftNotification&theme=radical&locale=cn)](https://github.com/jackiehu/SwiftNotification)
-
-[![ReadMe Card](https://github-readme-stats.vercel.app/api/pin/?username=jackiehu&repo=SwiftNetSwitch&theme=radical&locale=cn)](https://github.com/jackiehu/SwiftNetSwitch)
-
-[![ReadMe Card](https://github-readme-stats.vercel.app/api/pin/?username=jackiehu&repo=SwiftButton&theme=radical&locale=cn)](https://github.com/jackiehu/SwiftButton)
-
-[![ReadMe Card](https://github-readme-stats.vercel.app/api/pin/?username=jackiehu&repo=SwiftDatePicker&theme=radical&locale=cn)](https://github.com/jackiehu/SwiftDatePicker)
 
