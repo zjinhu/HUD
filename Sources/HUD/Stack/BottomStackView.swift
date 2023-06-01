@@ -9,17 +9,20 @@ import SwiftUI
 
 struct BottomStackView: View {
     let items: [AnyHUD]
+    let keyboardHeight: CGFloat
     @State private var heights: [AnyHUD: CGFloat] = [:]
     @State private var gestureTranslation: CGFloat = 0
+    @State private var cacheCleanerTrigger: Bool = false
     
     var body: some View {
         ZStack(alignment: .top, content: setupHudStack)
             .ignoresSafeArea()
+            .background(setupTapArea())
             .animation(transitionAnimation, value: items)
             .animation(transitionAnimation, value: heights)
             .animation(dragGestureAnimation, value: gestureTranslation)
-            .background(setupTapArea())
             .gesture(hudDragGesture)
+            .clearCacheObjects(shouldClear: items.isEmpty, trigger: $cacheCleanerTrigger)
     }
 }
 
@@ -53,6 +56,7 @@ private extension BottomStackView {
             .opacity(getOpacity(for: item))
             .offset(y: getOffset(for: item))
             .scaleEffect(getScale(for: item), anchor: .top)
+            .compositingGroup()
             .alignToBottom(bottomPadding)
             .transition(transition)
             .zIndex(isLast(item).doubleValue)
@@ -125,7 +129,14 @@ private extension BottomStackView {
         let progressDifference = isNextToLast(item) ? 1 - translationProgress() : max(0.7, 1 - translationProgress())
         return 1 - scaleValue * progressDifference
     }
+    
+    func getContentBottomPadding() -> CGFloat {
+        if isKeyboardVisible { return keyboardHeight + config.distanceFromKeyboard }
+        if config.contentIgnoresSafeArea { return 0 }
 
+        return max(UIScreen.safeArea.bottom - bottomPadding, 0)
+    }
+    
     func getOffset(for item: AnyHUD) -> CGFloat {
         isLast(item) ? gestureTranslation : invertedIndex(of: item).floatValue * offsetFactor
     }
@@ -200,5 +211,8 @@ private extension BottomStackView {
     }
     var config: Config {
         items.last?.setupConfig(Config()) ?? .init()
+    }
+    var isKeyboardVisible: Bool {
+        keyboardHeight > 0
     }
 }

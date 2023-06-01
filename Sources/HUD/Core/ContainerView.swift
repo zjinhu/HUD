@@ -9,6 +9,8 @@ import SwiftUI
 
 struct ContainerView: View {
     @StateObject private var manager = HUDManager.shared
+    @StateObject private var keyboardObserver: KeyboardManager = .init()
+    @StateObject private var screenObserver: ScreenManager = .init()
     
     var body: some View {
         ZStack {
@@ -17,6 +19,8 @@ struct ContainerView: View {
             bottomStackView()
         }
         .edgesIgnoringSafeArea(.all)
+        .visible(if: !manager.views.isEmpty)
+        .animation(.easeInOut, value: manager.views.isEmpty)
     }
     
 }
@@ -40,7 +44,7 @@ private extension ContainerView {
     func bottomStackView() -> some View {
         ZStack{
             setupMask(items: manager.bottoms)
-            BottomStackView(items: manager.bottoms)
+            BottomStackView(items: manager.bottoms, keyboardHeight: keyboardObserver.keyboardHeight)
         }
     }
     

@@ -29,6 +29,25 @@ extension View {
     @ViewBuilder func active(if condition: Bool) -> some View {
         if condition { self }
     }
+    
+    func visible(if condition: Bool) -> some View {
+        opacity(condition.doubleValue)
+    }
+}
+
+extension View {
+    func clearCacheObjects(shouldClear: Bool, trigger: Binding<Bool>) -> some View {
+        onChange(of: shouldClear) { $0 ? trigger.toggleAfter(seconds: 0.4) : () }
+        .id(trigger.wrappedValue)
+    }
+}
+
+extension Binding<Bool> {
+    func toggleAfter(seconds: Double) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {
+            wrappedValue.toggle()
+        }
+    }
 }
 
 extension UIScreen {
@@ -55,7 +74,17 @@ extension Bool {
 }
 
 extension Array {
-    
+    @inlinable mutating func append(_ newElement: Element, if prerequisite: Bool) {
+        if prerequisite { append(newElement) }
+    }
+    @inlinable mutating func replaceLast(_ newElement: Element, if prerequisite: Bool) {
+        guard prerequisite else { return }
+
+        switch isEmpty {
+            case true: append(newElement)
+            case false: self[count - 1] = newElement
+        }
+    }
     @inlinable mutating func removeLast() {
         if !isEmpty {
             removeLast(1)

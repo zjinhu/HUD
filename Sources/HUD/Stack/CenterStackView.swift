@@ -12,6 +12,7 @@ struct CenterStackView: View {
     @State private var activeView: AnyView?
     @State private var configTemp: Config?
     @State private var contentIsAnimated: Bool = false
+    @State private var cacheCleanerTrigger: Bool = false
     
     var body: some View {
         setupHud()
@@ -20,6 +21,7 @@ struct CenterStackView: View {
             .animation(config.transitionAnimation, value: contentIsAnimated)
             .transition(getTransition())
             .onChange(of: items, perform: onItemsChange)
+            .clearCacheObjects(shouldClear: items.isEmpty, trigger: $cacheCleanerTrigger)
     }
 }
 
@@ -30,6 +32,7 @@ private extension CenterStackView {
             .background(config.backgroundColour)
             .cornerRadius(config.cornerRadius)
             .padding(config.horizontalPadding)
+            .compositingGroup()
             .shadow(color: config.shadowColour,
                     radius: config.shadowRadius,
                     x: config.shadowOffsetX,

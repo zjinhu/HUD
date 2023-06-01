@@ -11,6 +11,7 @@ struct TopStackView: View {
     let items: [AnyHUD]
     @State private var heights: [AnyHUD: CGFloat] = [:]
     @State private var gestureTranslation: CGFloat = 0
+    @State private var cacheCleanerTrigger: Bool = false
     
     var body: some View {
         ZStack(alignment: .bottom, content: setupHudStack)
@@ -20,6 +21,7 @@ struct TopStackView: View {
             .animation(dragGestureAnimation, value: gestureTranslation)
             .background(setupTapArea())
             .simultaneousGesture(hudDragGesture)
+            .clearCacheObjects(shouldClear: items.isEmpty, trigger: $cacheCleanerTrigger)
     }
 }
 
@@ -53,6 +55,7 @@ private extension TopStackView {
             .opacity(getOpacity(for: item))
             .offset(y: getOffset(for: item))
             .scaleEffect(getScale(for: item), anchor: .bottom)
+            .compositingGroup()
             .alignToTop(config.topPadding)
             .transition(transition)
             .zIndex(isLast(item).doubleValue)

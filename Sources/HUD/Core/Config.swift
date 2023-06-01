@@ -63,6 +63,9 @@ public struct Config: Configurable{
     var autoDismiss: Bool = false
     //自动关闭等候时长
     var autoDismissTime: TimeInterval = 3
+    
+    var contentIgnoresSafeArea: Bool = false
+    var distanceFromKeyboard: CGFloat = 8
 }
 
 
@@ -164,6 +167,15 @@ public extension Config {
     func autoDismissTime(_ value: TimeInterval) -> Self {
         changing(path: \.autoDismissTime, to: value)
     }
+    
+    func contentIgnoresSafeArea(_ value: Bool) -> Self {
+        changing(path: \.contentIgnoresSafeArea, to: value)
+    }
+    
+    func distanceFromKeyboard(_ value: CGFloat) -> Self {
+        changing(path: \.distanceFromKeyboard, to: value)
+    }
+
 }
 
 protocol Configurable {}

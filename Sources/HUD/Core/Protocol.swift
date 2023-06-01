@@ -22,7 +22,7 @@ public enum HUDPosition {
 }
 
 /// 子类需要继承hud协议
-public protocol HUD: View, Equatable, Hashable{
+public protocol HUD: View{
     associatedtype V: View
     ///标识唯一ID
     var id : UUID { get }
@@ -36,15 +36,7 @@ public protocol HUD: View, Equatable, Hashable{
 }
 
 public extension HUD {
-    
-    static func ==(lhs: Self, rhs: Self) -> Bool {
-        lhs.id == rhs.id
-    }
-    
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(id)
-    }
-    
+
     var body: V{
         setupBody()
     }
@@ -64,7 +56,7 @@ public extension HUD {
 }
 
 /// 内部使用的通用协议
-struct AnyHUD: HUD {
+struct AnyHUD: HUD, Hashable {
     
     let id: UUID
     var position: HUDPosition
@@ -77,6 +69,16 @@ struct AnyHUD: HUD {
         self.position = hud.position
         self._body = AnyView(hud)
         self._configBuilder = hud.setupConfig
+    }
+}
+
+extension AnyHUD {
+    static func ==(lhs: Self, rhs: Self) -> Bool {
+        lhs.id == rhs.id
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
     }
 }
 
