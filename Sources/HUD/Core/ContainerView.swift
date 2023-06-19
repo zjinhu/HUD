@@ -50,7 +50,10 @@ private extension ContainerView {
     
     func setupMask(items: [AnyHUD]) -> some View {
         Color.black.opacity(0.3)
+            .frame(size: screenObserver.screenSize)
+            .ignoresSafeArea()
             .active(if: getConfig(items).needMask && !items.isEmpty)
+            .animation(.easeInOut, value: items.isEmpty)
     }
     
     func getConfig(_ items: [AnyHUD]) -> Config {

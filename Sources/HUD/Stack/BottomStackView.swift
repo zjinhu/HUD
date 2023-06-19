@@ -22,6 +22,7 @@ struct BottomStackView: View {
             .animation(transitionAnimation, value: heights)
             .animation(dragGestureAnimation, value: gestureTranslation)
             .gesture(hudDragGesture)
+            .onChange(of: items, perform: onItemsChange)
             .clearCacheObjects(shouldClear: items.isEmpty, trigger: $cacheCleanerTrigger)
     }
 }
@@ -41,7 +42,7 @@ private extension BottomStackView {
 private extension BottomStackView {
     func setupHud(_ item: AnyHUD) -> some View {
         item.body
-            .padding(.bottom, contentBottomPadding)
+            .padding(.bottom, getContentBottomPadding())
             .padding(.horizontal, contentHorizontalPadding)
             .overlay(
                 GeometryReader { geo -> AnyView in
@@ -51,8 +52,9 @@ private extension BottomStackView {
                     return AnyView(EmptyView())
                 }
             )
-            .background(backgroundColour)
-            .cornerRadius(getCornerRadius(for: item))
+            .background(backgroundColour,
+                        radius: getCornerRadius(for: item),
+                        corners: getCorners())
             .opacity(getOpacity(for: item))
             .offset(y: getOffset(for: item))
             .scaleEffect(getScale(for: item), anchor: .top)
@@ -77,7 +79,9 @@ private extension BottomStackView {
     }
     
     func onHudDragGestureChanged(_ value: DragGesture.Value) {
-        gestureTranslation = max(0, value.translation.height)
+        if config.dragGestureEnabled {
+            gestureTranslation = max(0, value.translation.height)
+        }
     }
     
     func onHudDragGestureEnded(_ value: DragGesture.Value) {
@@ -85,6 +89,8 @@ private extension BottomStackView {
             items.last?.dismiss()
         }
         gestureTranslation = 0
+    }
+    func onItemsChange(_ items: [AnyHUD]) { items.last?.setupConfig(Config()).onFocus()
     }
 }
 
@@ -102,6 +108,13 @@ private extension BottomStackView {
         let difference = cornerRadius.active - cornerRadius.inactive
         let differenceProgress = difference * translationProgress()
         return cornerRadius.inactive + differenceProgress
+    }
+    
+    func getCorners() -> UIRectCorner {
+        switch bottomPadding {
+            case 0: return [.topLeft, .topRight]
+            default: return .allCorners
+        }
     }
     
     func getOpacity(for item: AnyHUD) -> Double {
@@ -167,9 +180,7 @@ private extension BottomStackView {
         }
         return  0
     }
-    var contentBottomPadding: CGFloat {
-        config.ignoresSafeArea ? 0 : max(UIScreen.safeArea.bottom - config.bottomPadding, 0)
-    }
+ 
     var contentHorizontalPadding: CGFloat {
         config.horizontalPadding
     }

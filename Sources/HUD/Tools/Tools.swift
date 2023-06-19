@@ -15,6 +15,13 @@ extension View {
             Spacer().frame(height: value)
         }
     }
+    func alignToBottom(if shouldAlign: Bool = true, _ value: CGFloat = 0) -> some View {
+        VStack(spacing: 0) {
+            if shouldAlign { Spacer() }
+            self
+            Spacer().frame(height: value)
+        }
+    }
     func alignToTop(_ value: CGFloat = 0) -> some View {
         VStack(spacing: 0) {
             Spacer().frame(height: value)
@@ -24,6 +31,15 @@ extension View {
     }
 }
 
+extension View {
+    func frame(size: CGSize) -> some View { frame(width: size.width, height: size.height) }
+}
+extension View {
+    func clearCacheObjects(shouldClear: Bool, trigger: Binding<Bool>) -> some View {
+        onChange(of: shouldClear) { $0 ? trigger.toggleAfter(seconds: 0.4) : () }
+        .id(trigger.wrappedValue)
+    }
+}
 // MARK: -Others
 extension View {
     @ViewBuilder func active(if condition: Bool) -> some View {
@@ -36,9 +52,22 @@ extension View {
 }
 
 extension View {
-    func clearCacheObjects(shouldClear: Bool, trigger: Binding<Bool>) -> some View {
-        onChange(of: shouldClear) { $0 ? trigger.toggleAfter(seconds: 0.4) : () }
-        .id(trigger.wrappedValue)
+    func background(_ colour: Color, radius: CGFloat, corners: UIRectCorner) -> some View { background(RoundedCorner(radius: radius, corners: corners).fill(colour)) }
+}
+
+// MARK: - Implementation
+fileprivate struct RoundedCorner: Shape {
+    var radius: CGFloat
+    var corners: UIRectCorner
+
+    
+    var animatableData: CGFloat {
+        get { radius }
+        set { radius = newValue }
+    }
+    func path(in rect: CGRect) -> Path {
+        let path = UIBezierPath(roundedRect: rect, byRoundingCorners: corners, cornerRadii: .init(width: radius, height: radius))
+        return Path(path.cgPath)
     }
 }
 
@@ -51,17 +80,28 @@ extension Binding<Bool> {
 }
 
 extension UIScreen {
-    static let safeArea: UIEdgeInsets = {
+    static var safeArea: UIEdgeInsets = {
         UIApplication.shared.connectedScenes
-            .filter({$0.activationState == .foregroundActive})
-            .map({$0 as? UIWindowScene})
-            .compactMap({$0})
+            .filter { $0.activationState == .foregroundActive }
+            .map { $0 as? UIWindowScene }
+            .compactMap { $0 }
             .first?.windows
-            .filter({$0.isKeyWindow})
+            .filter { $0.isKeyWindow }
             .first?
             .safeAreaInsets ?? .zero
     }()
 }
+ 
+extension UIScreen {
+    static var displayCornerRadius: CGFloat? = { main.value(forKey: cornerRadiusKey) as? CGFloat }()
+}
+private extension UIScreen {
+    static let cornerRadiusKey: String = {
+        ["Radius", "Corner", "display", "_"]
+            .reversed().joined()
+    }()
+}
+
 
 extension Int {
     var doubleValue: Double { Double(self) }

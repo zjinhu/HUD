@@ -29,8 +29,9 @@ private extension CenterStackView {
     func setupHud() -> some View {
         activeView?
             .opacity(contentOpacity)
-            .background(config.backgroundColour)
-            .cornerRadius(config.cornerRadius)
+            .background(config.backgroundColour,
+                        radius: config.cornerRadius,
+                        corners: .allCorners)
             .padding(config.horizontalPadding)
             .compositingGroup()
             .shadow(color: config.shadowColour,
@@ -53,6 +54,7 @@ private extension CenterStackView {
         
         showNewHud(popup)
         animateContentIfNeeded()
+        items.last?.setupConfig(Config()).onFocus()
     }
 }
 private extension CenterStackView {
@@ -68,7 +70,6 @@ private extension CenterStackView {
         DispatchQueue.main.asyncAfter(deadline: .now() + config.centerAnimationTime) {
             contentIsAnimated = false
         }
-        
     }
     
     func handleClosingHud() {

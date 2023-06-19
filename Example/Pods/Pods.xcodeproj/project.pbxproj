@@ -60,6 +60,7 @@
 		79DED65E7801218EDA9FA4AE7F865569 /* Version.swift in Sources */ = {isa = PBXBuildFile; fileRef = A68649B7ABC0D3F3B237A528D5E845CB /* Version.swift */; };
 		7D30EB114F2A382A7FEA54BABB66339F /* TextField++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58BA9B4677B046B3B0986C2B995B17B6 /* TextField++.swift */; };
 		7D6C6C31C7220657D688FF98CC5D0642 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61AF63D95B16B818439A8C7C83AFCB50 /* Foundation.framework */; };
+		812E298F2A40018000DDD0B8 /* Keyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 812E298E2A40018000DDD0B8 /* Keyboard.swift */; };
 		8275D52C45BC6EBB61691D4D48A61A89 /* List++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39BAA8D3E5B75BA6D2B0D13A5B49CBBE /* List++.swift */; };
 		879D8B493193EDDFC9821D575BEB7BB6 /* Label++.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA8F5EBA35B654C60B61A711AA344A46 /* Label++.swift */; };
 		8C7F739912DE524634312184D9AF7CCB /* CALayerEx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 908406DE12AE6AF7B99D27F77AF28333 /* CALayerEx.swift */; };
@@ -187,6 +188,7 @@
 		7BAAA0FC0524E877A7302E344355ACFB /* Text++.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Text++.swift"; path = "Sources/SwiftBrick/SwiftUI/SwiftUIX/Text++.swift"; sourceTree = "<group>"; };
 		7BBC2933DC957DB4D4B9051DA5E4C2E8 /* JHCollectionViewCell.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = JHCollectionViewCell.swift; path = Sources/SwiftBrick/BaseCell/JHCollectionViewCell.swift; sourceTree = "<group>"; };
 		8054FB152D40CE3F7C0FE3FFD0B5F7F2 /* UIStackViewEx.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = UIStackViewEx.swift; path = Sources/SwiftBrick/Extensions/UIStackViewEx.swift; sourceTree = "<group>"; };
+		812E298E2A40018000DDD0B8 /* Keyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keyboard.swift; sourceTree = "<group>"; };
 		8289F7B8C2C7CB0AE440BF1EB79829F5 /* ForEach++.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "ForEach++.swift"; path = "Sources/SwiftBrick/SwiftUI/SwiftUIX/ForEach++.swift"; sourceTree = "<group>"; };
 		852B18C5C6529AF42A4DF20AC66D3C77 /* UILineView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = UILineView.swift; path = Sources/SwiftBrick/ViewFactory/UILineView.swift; sourceTree = "<group>"; };
 		88984CA2F4BE1C8F0B6F6A1A1923AF23 /* UserDefaultsEx.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = UserDefaultsEx.swift; path = Sources/SwiftBrick/Extensions/UserDefaultsEx.swift; sourceTree = "<group>"; };
@@ -329,6 +331,7 @@
 				F806D57EC510757F45E795C2D5EB24E3 /* Config.swift */,
 				ECCFD053F99F7CDB5FAF8FBF742C6D17 /* ContainerView.swift */,
 				EAD8F649D47BC215DF6D925D9ABB5BAE /* Manager.swift */,
+				812E298E2A40018000DDD0B8 /* Keyboard.swift */,
 				F2D7A7F446578502EE0B8D730E53E66E /* Protocol.swift */,
 			);
 			name = Core;
@@ -784,6 +787,7 @@
 				BE30C6C4FBB114B78B2F48EB88D0126D /* SuccessView.swift in Sources */,
 				A6815BAD63CCE6236D8AF7161351F48C /* SwiftUIHUD-dummy.m in Sources */,
 				30961A23A4EBDF3E651ADB5196A50ADD /* Tools.swift in Sources */,
+				812E298F2A40018000DDD0B8 /* Keyboard.swift in Sources */,
 				051F55543612937A26D107D55075BF57 /* TopStackView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

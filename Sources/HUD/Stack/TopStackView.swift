@@ -21,6 +21,7 @@ struct TopStackView: View {
             .animation(dragGestureAnimation, value: gestureTranslation)
             .background(setupTapArea())
             .simultaneousGesture(hudDragGesture)
+            .onChange(of: items, perform: onItemsChange)
             .clearCacheObjects(shouldClear: items.isEmpty, trigger: $cacheCleanerTrigger)
     }
 }
@@ -50,8 +51,9 @@ private extension TopStackView {
                     return AnyView(EmptyView())
                 }
             )
-            .background(backgroundColour)
-            .cornerRadius(getCornerRadius(for: item))
+            .background(backgroundColour,
+                        radius: getCornerRadius(for: item),
+                        corners: getCorners())
             .opacity(getOpacity(for: item))
             .offset(y: getOffset(for: item))
             .scaleEffect(getScale(for: item), anchor: .bottom)
@@ -77,7 +79,9 @@ private extension TopStackView {
     }
     
     func onHudDragGestureChanged(_ value: DragGesture.Value) {
-        gestureTranslation = min(0, value.translation.height)
+        if config.dragGestureEnabled {
+            gestureTranslation = max(0, value.translation.height)
+        }
     }
     
     func onHudDragGestureEnded(_ value: DragGesture.Value) {
@@ -85,6 +89,9 @@ private extension TopStackView {
             items.last?.dismiss()
         }
         gestureTranslation = 0
+    }
+    func onItemsChange(_ items: [AnyHUD]) {
+        items.last?.setupConfig(Config()).onFocus()
     }
 }
 
@@ -102,6 +109,13 @@ private extension TopStackView {
         let difference = cornerRadius.active - cornerRadius.inactive
         let differenceProgress = difference * translationProgress()
         return cornerRadius.inactive + differenceProgress
+    }
+    
+    func getCorners() -> UIRectCorner {
+        switch topPadding {
+            case 0: return [.bottomLeft, .bottomRight]
+            default: return .allCorners
+        }
     }
     
     func getOpacity(for item: AnyHUD) -> Double {
@@ -162,7 +176,9 @@ private extension TopStackView {
     var contentTopPadding: CGFloat {
         config.ignoresSafeArea ? 0 : max(UIScreen.safeArea.top - config.topPadding, 0)
     }
-
+    var topPadding: CGFloat {
+        config.topPadding
+    }
     var contentHorizontalPadding: CGFloat {
         config.horizontalPadding
     }

@@ -18,6 +18,8 @@ public struct Config: Configurable{
     var touchOutsideToDismiss: Bool = false
     //圆角弧度
     var cornerRadius: CGFloat = 10
+    
+    var dragGestureEnabled: Bool = true
     //手势关闭
     var dragGestureProgressToClose: CGFloat = 1/3
     //手势关闭动画
@@ -65,11 +67,17 @@ public struct Config: Configurable{
     var autoDismissTime: TimeInterval = 3
     
     var contentIgnoresSafeArea: Bool = false
-    var distanceFromKeyboard: CGFloat = 8
+ 
+    var distanceFromKeyboard: CGFloat = 12
+    var onFocus: () -> () = {}
 }
 
-
+///公共
 public extension Config {
+    //圆角弧度
+    func cornerRadius(_ value: CGFloat) -> Self {
+        changing(path: \.cornerRadius, to: value)
+    }
     //是否需要遮罩
     func needMask(_ value: Bool) -> Self {
         changing(path: \.needMask, to: value)
@@ -85,59 +93,6 @@ public extension Config {
     //点击区域外关闭弹窗
     func touchOutsideToDismiss(_ value: Bool) -> Self {
         changing(path: \.touchOutsideToDismiss, to: value)
-    }
-    //横向的padding,默认为0,大部分情况Center Popup会用到
-    func horizontalPadding(_ value: CGFloat) -> Self {
-        changing(path: \.horizontalPadding, to: value)
-    }
-    //距离顶部的padding,默认为0,Top Popup会用到
-    func topPadding(_ value: CGFloat) -> Self {
-        changing(path: \.topPadding, to: value)
-    }
-    //距离底部的padding,默认为0,Bottom Popup会用到
-    func bottomPadding(_ value: CGFloat) -> Self {
-        changing(path: \.bottomPadding, to: value)
-    }
-    //圆角弧度
-    func cornerRadius(_ value: CGFloat) -> Self {
-        changing(path: \.cornerRadius, to: value)
-    }
-    //弹出动画执行时间
-    func centerAnimationTime(_ value: CGFloat) -> Self {
-        changing(path: \.centerAnimationTime, to: value)
-    }
-    //手势关闭
-    func dragGestureProgressToClose(_ value: CGFloat) -> Self {
-        changing(path: \.dragGestureProgressToClose, to: value)
-    }
-    //手势关闭动画
-    func dragGestureAnimation(_ value: Animation) -> Self {
-        changing(path: \.dragGestureAnimation, to: value)
-    }
-    //弹窗背景阴影颜色
-    func shadowColour(_ value: Color) -> Self {
-        changing(path: \.shadowColour, to: value)
-    }
-    func shadowRadius(_ value: CGFloat) -> Self {
-        changing(path: \.shadowRadius, to: value)
-    }
-    func shadowOffsetX(_ value: CGFloat) -> Self {
-        changing(path: \.shadowOffsetX, to: value)
-    }
-    func shadowOffsetY(_ value: CGFloat) -> Self {
-        changing(path: \.shadowOffsetY, to: value)
-    }
-    //Bottom PopupView自动添加安全区域高度
-    func bottomAutoHeight(_ value: Bool) -> Self {
-        changing(path: \.bottomAutoHeight, to: value)
-    }
-    //Center PopupView弹出动画比例
-    func centerTransitionEntryScale(_ value: CGFloat) -> Self {
-        changing(path: \.centerTransitionEntryScale, to: value)
-    }
-    //Center PopupView弹出动画比例
-    func centerTransitionExitScale(_ value: CGFloat) -> Self {
-        changing(path: \.centerTransitionExitScale, to: value)
     }
     //弹出动画
     func transitionAnimation(_ value: Animation) -> Self {
@@ -167,15 +122,90 @@ public extension Config {
     func autoDismissTime(_ value: TimeInterval) -> Self {
         changing(path: \.autoDismissTime, to: value)
     }
-    
-    func contentIgnoresSafeArea(_ value: Bool) -> Self {
-        changing(path: \.contentIgnoresSafeArea, to: value)
+    //横向的padding,默认为0,大部分情况Center Popup会用到
+    func horizontalPadding(_ value: CGFloat) -> Self {
+        changing(path: \.horizontalPadding, to: value)
     }
-    
+}
+
+///上
+public extension Config {
+    //距离顶部的padding,默认为0,Top Popup会用到
+    func topPadding(_ value: CGFloat) -> Self {
+        changing(path: \.topPadding, to: value)
+    }
+}
+///中间
+public extension Config {
+    //弹出动画执行时间
+    func centerAnimationTime(_ value: CGFloat) -> Self {
+        changing(path: \.centerAnimationTime, to: value)
+    }
+    //Center PopupView弹出动画比例
+    func centerTransitionEntryScale(_ value: CGFloat) -> Self {
+        changing(path: \.centerTransitionEntryScale, to: value)
+    }
+    //Center PopupView弹出动画比例
+    func centerTransitionExitScale(_ value: CGFloat) -> Self {
+        changing(path: \.centerTransitionExitScale, to: value)
+    }
+}
+///下
+public extension Config {
+    //Bottom PopupView自动添加安全区域高度
+    func bottomAutoHeight(_ value: Bool) -> Self {
+        changing(path: \.bottomAutoHeight, to: value)
+    }
+    //距离底部的padding,默认为0,Bottom Popup会用到
+    func bottomPadding(_ value: CGFloat) -> Self {
+        changing(path: \.bottomPadding, to: value)
+    }
+ 
+    /// 内容和键盘之间的距离（如果存在）
     func distanceFromKeyboard(_ value: CGFloat) -> Self {
         changing(path: \.distanceFromKeyboard, to: value)
     }
-
+}
+///手势
+public extension Config {
+    func dragGestureEnabled(_ value: Bool) -> Self {
+        changing(path: \.dragGestureEnabled, to: value)
+    }
+    //手势关闭
+    func dragGestureProgressToClose(_ value: CGFloat) -> Self {
+        changing(path: \.dragGestureProgressToClose, to: value)
+    }
+    //手势关闭动画
+    func dragGestureAnimation(_ value: Animation) -> Self {
+        changing(path: \.dragGestureAnimation, to: value)
+    }
+}
+///阴影
+public extension Config {
+    //弹窗背景阴影颜色
+    func shadowColour(_ value: Color) -> Self {
+        changing(path: \.shadowColour, to: value)
+    }
+    func shadowRadius(_ value: CGFloat) -> Self {
+        changing(path: \.shadowRadius, to: value)
+    }
+    func shadowOffsetX(_ value: CGFloat) -> Self {
+        changing(path: \.shadowOffsetX, to: value)
+    }
+    func shadowOffsetY(_ value: CGFloat) -> Self {
+        changing(path: \.shadowOffsetY, to: value)
+    }
+}
+///上下
+public extension Config {
+    /// 内容是否应该忽略安全区域
+    func contentIgnoresSafeArea(_ value: Bool) -> Self {
+        changing(path: \.contentIgnoresSafeArea, to: value)
+    }
+    ///每次弹出窗口位于堆栈顶部时触发
+    func onFocus(_ action: @escaping () -> ()) -> Self {
+        changing(path: \.onFocus, to: action)
+    }
 }
 
 protocol Configurable {}

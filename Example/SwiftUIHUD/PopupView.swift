@@ -53,7 +53,7 @@ struct PopupTopView: HUD {
 struct PopCenterView: HUD {
     var id: UUID = UUID()
     var position: HUDPosition = .center
-    
+    @State private var note: String = ""
     func setupBody() -> some View  {
         VStack(spacing: 10){
             Text("Alert")
@@ -61,6 +61,11 @@ struct PopCenterView: HUD {
             
             Text("you have messages")
                 .font(.system(size: 14))
+            TextField("Add a note", text: $note)
+                .foregroundColor(Color.red)
+                .multilineTextAlignment(.center)
+                .padding(.horizontal, 24)
+                .frame(maxWidth: .infinity)
             Text("\(id)")
                 .font(.system(size: 10))
             
@@ -95,7 +100,7 @@ struct PopCenterView: HUD {
             .backgroundColour(.white)
             .horizontalPadding(20)
             .touchOutsideToDismiss(true)
-            .cornerRadius(15)
+            .cornerRadius(15) 
     }
 }
 
@@ -108,6 +113,7 @@ struct PopCenterView_Previews: PreviewProvider {
 struct PopBottomView: HUD {
     var id: UUID = UUID()
     var position: HUDPosition = .bottom
+    @State private var note: String = ""
     
     func setupBody() -> some View  {
         HStack(spacing: 0) {
@@ -127,6 +133,12 @@ struct PopBottomView: HUD {
                     .foregroundColor(.white.opacity(0.7))
                     .multilineTextAlignment(.leading)
                     .fixedSize(horizontal: false, vertical: true)
+                
+                TextField("Add a note", text: $note)
+                    .foregroundColor(Color.red)
+                    .multilineTextAlignment(.center)
+                    .padding(.horizontal, 24)
+                    .frame(maxWidth: .infinity)
             }
             
             Spacer()
@@ -142,6 +154,8 @@ struct PopBottomView: HUD {
     func setupConfig(_ config: Config) -> Config {
         config.backgroundColour(.green)
              .touchOutsideToDismiss(true)
+             .distanceFromKeyboard(30)
+             .dragGestureEnabled(false)
     }
 }
  
