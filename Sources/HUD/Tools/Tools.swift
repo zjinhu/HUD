@@ -34,6 +34,7 @@ extension View {
 extension View {
     func frame(size: CGSize) -> some View { frame(width: size.width, height: size.height) }
 }
+
 extension View {
     func clearCacheObjects(shouldClear: Bool, trigger: Binding<Bool>) -> some View {
         onChange(of: shouldClear) { $0 ? trigger.toggleAfter(seconds: 0.4) : () }
@@ -51,26 +52,6 @@ extension View {
     }
 }
 
-extension View {
-    func background(_ colour: Color, radius: CGFloat, corners: UIRectCorner) -> some View { background(RoundedCorner(radius: radius, corners: corners).fill(colour)) }
-}
-
-// MARK: - Implementation
-fileprivate struct RoundedCorner: Shape {
-    var radius: CGFloat
-    var corners: UIRectCorner
-
-    
-    var animatableData: CGFloat {
-        get { radius }
-        set { radius = newValue }
-    }
-    func path(in rect: CGRect) -> Path {
-        let path = UIBezierPath(roundedRect: rect, byRoundingCorners: corners, cornerRadii: .init(width: radius, height: radius))
-        return Path(path.cgPath)
-    }
-}
-
 extension Binding<Bool> {
     func toggleAfter(seconds: Double) {
         DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {
@@ -78,31 +59,7 @@ extension Binding<Bool> {
         }
     }
 }
-
-extension UIScreen {
-    static var safeArea: UIEdgeInsets = {
-        UIApplication.shared.connectedScenes
-            .filter { $0.activationState == .foregroundActive }
-            .map { $0 as? UIWindowScene }
-            .compactMap { $0 }
-            .first?.windows
-            .filter { $0.isKeyWindow }
-            .first?
-            .safeAreaInsets ?? .zero
-    }()
-}
  
-extension UIScreen {
-    static var displayCornerRadius: CGFloat? = { main.value(forKey: cornerRadiusKey) as? CGFloat }()
-}
-private extension UIScreen {
-    static let cornerRadiusKey: String = {
-        ["Radius", "Corner", "display", "_"]
-            .reversed().joined()
-    }()
-}
-
-
 extension Int {
     var doubleValue: Double { Double(self) }
     var floatValue: CGFloat { CGFloat(self) }
@@ -158,6 +115,8 @@ extension UIColor {
     }
 }
 
+
+
 extension UIViewController{
    func canUseVC() -> Bool {
        if let _ = self as? UITabBarController {
@@ -180,4 +139,82 @@ extension UIApplication {
            .flatMap { $0.windows }
            .first { $0.isKeyWindow }
    }
+}
+
+extension View {
+    func background(_ colour: Color, radius: CGFloat, corners: RectCorner) -> some View {
+        background(RoundedCorner(radius: radius, corners: corners)
+            .fill(colour))
+    }
+}
+
+// MARK: - Implementation
+fileprivate struct RoundedCorner: Shape {
+    var radius: CGFloat
+    var corners: RectCorner
+
+    
+    var animatableData: CGFloat {
+        get { radius }
+        set { radius = newValue }
+    }
+    func path(in rect: CGRect) -> Path {
+        let points = createPoints(rect)
+        let path = createPath(rect, points)
+        return path
+    }
+}
+private extension RoundedCorner {
+    func createPoints(_ rect: CGRect) -> [CGPoint] {[
+        .init(x: rect.minX, y: corners.contains(.topLeft) ? rect.minY + radius  : rect.minY),
+        .init(x: corners.contains(.topLeft) ? rect.minX + radius : rect.minX, y: rect.minY ),
+        .init(x: corners.contains(.topRight) ? rect.maxX - radius : rect.maxX, y: rect.minY ),
+        .init(x: rect.maxX, y: corners.contains(.topRight) ? rect.minY + radius  : rect.minY ),
+        .init(x: rect.maxX, y: corners.contains(.bottomRight) ? rect.maxY - radius : rect.maxY ),
+        .init(x: corners.contains(.bottomRight) ? rect.maxX - radius : rect.maxX, y: rect.maxY ),
+        .init(x: corners.contains(.bottomLeft) ? rect.minX + radius : rect.minX, y: rect.maxY ),
+        .init(x: rect.minX, y: corners.contains(.bottomLeft) ? rect.maxY - radius : rect.maxY )
+    ]}
+    func createPath(_ rect: CGRect, _ points: [CGPoint]) -> Path {
+        var path = Path()
+
+        path.move(to: points[0])
+        path.addArc(tangent1End: CGPoint(x: rect.minX, y: rect.minY), tangent2End: points[1], radius: radius)
+        path.addLine(to: points[2])
+        path.addArc(tangent1End: CGPoint(x: rect.maxX, y: rect.minY), tangent2End: points[3], radius: radius)
+        path.addLine(to: points[4])
+        path.addArc(tangent1End: CGPoint(x: rect.maxX, y: rect.maxY), tangent2End: points[5], radius: radius)
+        path.addLine(to: points[6])
+        path.addArc(tangent1End: CGPoint(x: rect.minX, y: rect.maxY), tangent2End: points[7], radius: radius)
+        path.closeSubpath()
+
+        return path
+    }
+}
+
+// MARK: - Rect Corner Structure
+struct RectCorner: OptionSet {
+    let rawValue: Int
+}
+extension RectCorner {
+    static let topLeft = RectCorner(rawValue: 1 << 0)
+    static let topRight = RectCorner(rawValue: 1 << 1)
+    static let bottomRight = RectCorner(rawValue: 1 << 2)
+    static let bottomLeft = RectCorner(rawValue: 1 << 3)
+    static let allCorners: RectCorner = [.topLeft, topRight, .bottomLeft, .bottomRight]
+}
+
+extension View {
+    func readHeight(_ onChange: @escaping (CGFloat) -> ()) -> some View {
+        background(heightReader).onPreferenceChange(HeightPreferenceKey.self, perform: onChange)
+    }
+}
+private extension View {
+    var heightReader: some View { GeometryReader {
+        Color.clear.preference(key: HeightPreferenceKey.self, value: $0.size.height)
+    }}
+}
+fileprivate struct HeightPreferenceKey: PreferenceKey {
+    static var defaultValue: CGFloat = 0
+    static func reduce(value: inout CGFloat, nextValue: () -> CGFloat) {}
 }

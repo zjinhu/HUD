@@ -8,21 +8,23 @@
 import SwiftUI
 import Combine
 
-extension UIApplication {
-    func hideKeyboard() {
-        sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
-    }
-}
+ 
 
-
+#if os(iOS)
 class KeyboardManager: ObservableObject {
     @Published private(set) var keyboardHeight: CGFloat = 0
     private var subscription: [AnyCancellable] = []
 
-    init() { subscribeToKeyboardEvents() }
+    init() {
+        subscribeToKeyboardEvents()
+    }
 }
 
-// MARK: - Creating Publishers
+extension KeyboardManager {
+    static func hideKeyboard() { UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+    }
+}
+
 private extension KeyboardManager {
     func subscribeToKeyboardEvents() {
         Publishers.Merge(getKeyboardWillOpenPublisher(), createKeyboardWillHidePublisher())
@@ -36,7 +38,8 @@ private extension KeyboardManager {
         NotificationCenter.default
             .publisher(for: UIResponder.keyboardWillShowNotification)
             .compactMap { $0.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect }
-            .map { max(0, $0.height - 8) }
+            .map { max(0, $0.height - 8)
+            }
     }
     func createKeyboardWillHidePublisher() -> Publishers.Map<NotificationCenter.Publisher, CGFloat> {
         NotificationCenter.default
@@ -44,12 +47,31 @@ private extension KeyboardManager {
             .map { _ in .zero }
     }
 }
+#endif
 
+#if os(macOS)
+class KeyboardManager: ObservableObject {
+    private(set) var keyboardHeight: CGFloat = 0
+}
+extension KeyboardManager {
+    static func hideKeyboard() {
+        DispatchQueue.main.async { NSApp.keyWindow?.makeFirstResponder(nil)
+        }
+    }
+}
+#endif
+
+#if os(iOS)
 class ScreenManager: ObservableObject {
-    @Published private(set) var screenSize: CGSize = UIScreen.size
+    @Published private(set) var size: CGSize = UIScreen.size
+    @Published private(set) var safeArea: UIEdgeInsets = UIScreen.safeArea
+    private(set) var cornerRadius: CGFloat? = UIScreen.cornerRadius
     private var subscription: [AnyCancellable] = []
 
-    init() { subscribeToScreenOrientationChangeEvents() }
+    static let shared: ScreenManager = .init()
+    init() {
+        subscribeToScreenOrientationChangeEvents()
+    }
 }
 
 private extension ScreenManager {
@@ -57,11 +79,70 @@ private extension ScreenManager {
         NotificationCenter.default
             .publisher(for: UIDevice.orientationDidChangeNotification)
             .receive(on: DispatchQueue.main)
-            .sink { _ in self.screenSize = UIScreen.size }
+            .sink(receiveValue: updateScreenValues)
             .store(in: &subscription)
     }
 }
 
-fileprivate extension UIScreen {
-    static var size: CGSize { main.bounds.size }
+private extension ScreenManager {
+    func updateScreenValues(_ value: NotificationCenter.Publisher.Output) {
+        size = UIScreen.size
+        safeArea = UIScreen.safeArea
+    }
 }
+
+fileprivate extension UIScreen {
+    static var safeArea: UIEdgeInsets {
+        UIApplication.shared
+            .connectedScenes
+            .compactMap { $0 as? UIWindowScene }
+            .flatMap(\.windows)
+            .first(where: \.isKeyWindow)?
+            .safeAreaInsets ?? .zero
+    }
+    static var size: CGSize { UIScreen.main.bounds.size }
+    static var cornerRadius: CGFloat? = main.value(forKey: cornerRadiusKey) as? CGFloat
+}
+fileprivate extension UIScreen {
+    static let cornerRadiusKey: String = ["Radius", "Corner", "display", "_"].reversed().joined()
+}
+#endif
+
+#if os(macOS)
+class ScreenManager: ObservableObject {
+    @Published private(set) var size: CGSize = NSScreen.size
+    @Published private(set) var safeArea: NSEdgeInsets = NSScreen.safeArea
+    private(set) var cornerRadius: CGFloat? = NSScreen.cornerRadius
+    private var subscription: [AnyCancellable] = []
+
+    static let shared: ScreenManager = .init()
+    private init() { subscribeToWindowSizeChangeEvents() }
+}
+
+private extension ScreenManager {
+    func subscribeToWindowSizeChangeEvents() {
+        NotificationCenter.default
+            .publisher(for: NSWindow.didResizeNotification)
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: updateScreenValues)
+            .store(in: &subscription)
+    }
+}
+private extension ScreenManager {
+    func updateScreenValues(_ value: NotificationCenter.Publisher.Output) { if let window = value.object as? NSWindow, let contentView = window.contentView {
+        size = contentView.frame.size
+        safeArea = contentView.safeAreaInsets
+    }}
+}
+
+// MARK: - Helpers
+fileprivate extension NSScreen {
+    static var safeArea: NSEdgeInsets =
+        NSApplication.shared
+            .mainWindow?
+            .contentView?
+            .safeAreaInsets ?? .init(top: 0, left: 0, bottom: 0, right: 0)
+    static var size: CGSize = NSApplication.shared.mainWindow?.frame.size ?? .zero
+    static var cornerRadius: CGFloat? = nil
+}
+#endif

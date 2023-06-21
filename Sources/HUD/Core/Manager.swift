@@ -166,7 +166,7 @@ private extension [AnyHUD] {
         HUDManager.shared.operationRecentlyPerformed = true
     }
     func hideKeyboard() {
-        UIApplication.shared.hideKeyboard()
+        KeyboardManager.hideKeyboard()
     }
     mutating func performOperation(_ operation: Operation) {
         switch operation {

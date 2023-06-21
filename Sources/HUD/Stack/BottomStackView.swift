@@ -10,6 +10,7 @@ import SwiftUI
 struct BottomStackView: View {
     let items: [AnyHUD]
     let keyboardHeight: CGFloat
+    @ObservedObject private var screen: ScreenManager = .shared
     @State private var heights: [AnyHUD: CGFloat] = [:]
     @State private var gestureTranslation: CGFloat = 0
     @State private var cacheCleanerTrigger: Bool = false
@@ -44,14 +45,9 @@ private extension BottomStackView {
         item.body
             .padding(.bottom, getContentBottomPadding())
             .padding(.horizontal, contentHorizontalPadding)
-            .overlay(
-                GeometryReader { geo -> AnyView in
-                    DispatchQueue.main.async{
-                        heights[item] = geo.size.height
-                    }
-                    return AnyView(EmptyView())
-                }
-            )
+            .readHeight{ height in
+                heights[item] = height
+            }
             .background(backgroundColour,
                         radius: getCornerRadius(for: item),
                         corners: getCorners())
@@ -110,7 +106,7 @@ private extension BottomStackView {
         return cornerRadius.inactive + differenceProgress
     }
     
-    func getCorners() -> UIRectCorner {
+    func getCorners() -> RectCorner {
         switch bottomPadding {
             case 0: return [.topLeft, .topRight]
             default: return .allCorners
@@ -147,7 +143,7 @@ private extension BottomStackView {
         if isKeyboardVisible { return keyboardHeight + config.distanceFromKeyboard }
         if config.contentIgnoresSafeArea { return 0 }
 
-        return max(UIScreen.safeArea.bottom - bottomPadding, 0)
+        return max(screen.safeArea.bottom - bottomPadding, 0)
     }
     
     func getOffset(for item: AnyHUD) -> CGFloat {

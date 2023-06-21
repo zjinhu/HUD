@@ -9,6 +9,7 @@ import SwiftUI
 
 struct TopStackView: View {
     let items: [AnyHUD]
+    @ObservedObject private var screen: ScreenManager = .shared
     @State private var heights: [AnyHUD: CGFloat] = [:]
     @State private var gestureTranslation: CGFloat = 0
     @State private var cacheCleanerTrigger: Bool = false
@@ -43,14 +44,9 @@ private extension TopStackView {
         item.body
             .padding(.top, contentTopPadding)
             .padding(.horizontal, contentHorizontalPadding)
-            .overlay(
-                GeometryReader { geo -> AnyView in
-                    DispatchQueue.main.async{
-                        heights[item] = geo.size.height
-                    }
-                    return AnyView(EmptyView())
-                }
-            )
+            .readHeight{ height in
+                heights[item] = height
+            }
             .background(backgroundColour,
                         radius: getCornerRadius(for: item),
                         corners: getCorners())
@@ -111,7 +107,7 @@ private extension TopStackView {
         return cornerRadius.inactive + differenceProgress
     }
     
-    func getCorners() -> UIRectCorner {
+    func getCorners() -> RectCorner {
         switch topPadding {
             case 0: return [.bottomLeft, .bottomRight]
             default: return .allCorners
@@ -174,7 +170,7 @@ private extension TopStackView {
 
 private extension TopStackView {
     var contentTopPadding: CGFloat {
-        config.ignoresSafeArea ? 0 : max(UIScreen.safeArea.top - config.topPadding, 0)
+        config.ignoresSafeArea ? 0 : max(screen.safeArea.top - config.topPadding, 0)
     }
     var topPadding: CGFloat {
         config.topPadding

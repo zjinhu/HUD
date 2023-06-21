@@ -10,8 +10,7 @@ import SwiftUI
 struct ContainerView: View {
     @StateObject private var manager = HUDManager.shared
     @StateObject private var keyboardObserver: KeyboardManager = .init()
-    @StateObject private var screenObserver: ScreenManager = .init()
-    
+ 
     var body: some View {
         ZStack {
             topStackView()
@@ -20,7 +19,6 @@ struct ContainerView: View {
         }
         .edgesIgnoringSafeArea(.all)
         .visible(if: !manager.views.isEmpty)
-        .animation(.easeInOut, value: manager.views.isEmpty)
     }
     
 }
@@ -50,7 +48,6 @@ private extension ContainerView {
     
     func setupMask(items: [AnyHUD]) -> some View {
         Color.black.opacity(0.3)
-            .frame(size: screenObserver.screenSize)
             .ignoresSafeArea()
             .active(if: getConfig(items).needMask && !items.isEmpty)
             .animation(.easeInOut, value: items.isEmpty)
