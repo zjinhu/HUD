@@ -48,7 +48,7 @@ public struct FailView: HUD {
         } 
     }
     
-    public func setupConfig(_ config: Config) -> Config {
+    public func setupConfig(_ config: HUDConfig) -> HUDConfig {
         config
             .backgroundColour(.defaultBackground)
             .maxStackCount(1)

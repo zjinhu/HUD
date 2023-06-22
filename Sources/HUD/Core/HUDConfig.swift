@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-public struct Config: Configurable{
+public struct HUDConfig: Configurable{
     //是否需要遮罩
     var needMask: Bool = true
     //弹窗背景颜色
@@ -73,7 +73,7 @@ public struct Config: Configurable{
 }
 
 ///公共
-public extension Config {
+public extension HUDConfig {
     //圆角弧度
     func cornerRadius(_ value: CGFloat) -> Self {
         changing(path: \.cornerRadius, to: value)
@@ -129,14 +129,14 @@ public extension Config {
 }
 
 ///上
-public extension Config {
+public extension HUDConfig {
     //距离顶部的padding,默认为0,Top Popup会用到
     func topPadding(_ value: CGFloat) -> Self {
         changing(path: \.topPadding, to: value)
     }
 }
 ///中间
-public extension Config {
+public extension HUDConfig {
     //弹出动画执行时间
     func centerAnimationTime(_ value: CGFloat) -> Self {
         changing(path: \.centerAnimationTime, to: value)
@@ -151,7 +151,7 @@ public extension Config {
     }
 }
 ///下
-public extension Config {
+public extension HUDConfig {
     //Bottom PopupView自动添加安全区域高度
     func bottomAutoHeight(_ value: Bool) -> Self {
         changing(path: \.bottomAutoHeight, to: value)
@@ -167,7 +167,7 @@ public extension Config {
     }
 }
 ///手势
-public extension Config {
+public extension HUDConfig {
     func dragGestureEnabled(_ value: Bool) -> Self {
         changing(path: \.dragGestureEnabled, to: value)
     }
@@ -181,7 +181,7 @@ public extension Config {
     }
 }
 ///阴影
-public extension Config {
+public extension HUDConfig {
     //弹窗背景阴影颜色
     func shadowColour(_ value: Color) -> Self {
         changing(path: \.shadowColour, to: value)
@@ -197,7 +197,7 @@ public extension Config {
     }
 }
 ///上下
-public extension Config {
+public extension HUDConfig {
     /// 内容是否应该忽略安全区域
     func contentIgnoresSafeArea(_ value: Bool) -> Self {
         changing(path: \.contentIgnoresSafeArea, to: value)

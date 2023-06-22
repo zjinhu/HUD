@@ -8,8 +8,7 @@
 import SwiftUI
 
 struct TopStackView: View {
-    let items: [AnyHUD]
-    @ObservedObject private var screen: ScreenManager = .shared
+    let items: [AnyHUD] 
     @State private var heights: [AnyHUD: CGFloat] = [:]
     @State private var gestureTranslation: CGFloat = 0
     @State private var cacheCleanerTrigger: Bool = false
@@ -87,7 +86,7 @@ private extension TopStackView {
         gestureTranslation = 0
     }
     func onItemsChange(_ items: [AnyHUD]) {
-        items.last?.setupConfig(Config()).onFocus()
+        items.last?.setupConfig(HUDConfig()).onFocus()
     }
 }
 
@@ -170,7 +169,7 @@ private extension TopStackView {
 
 private extension TopStackView {
     var contentTopPadding: CGFloat {
-        config.ignoresSafeArea ? 0 : max(screen.safeArea.top - config.topPadding, 0)
+        config.ignoresSafeArea ? 0 : max(UIScreen.safeArea.top - config.topPadding, 0)
     }
     var topPadding: CGFloat {
         config.topPadding
@@ -222,7 +221,7 @@ private extension TopStackView {
         .move(edge: .top)
     }
     
-    var config: Config {
-        items.last?.setupConfig(Config()) ?? .init()
+    var config: HUDConfig {
+        items.last?.setupConfig(HUDConfig()) ?? .init()
     }
 }

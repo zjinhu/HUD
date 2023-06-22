@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ContainerView: View {
+struct HUDContainerView: View {
     @StateObject private var manager = HUDManager.shared
     @StateObject private var keyboardObserver: KeyboardManager = .init()
  
@@ -23,7 +23,7 @@ struct ContainerView: View {
     
 }
 
-private extension ContainerView {
+private extension HUDContainerView {
     
     func topStackView() -> some View {
         ZStack{
@@ -53,7 +53,7 @@ private extension ContainerView {
             .animation(.easeInOut, value: items.isEmpty)
     }
     
-    func getConfig(_ items: [AnyHUD]) -> Config {
-        items.last?.setupConfig(Config()) ?? .init()
+    func getConfig(_ items: [AnyHUD]) -> HUDConfig {
+        items.last?.setupConfig(HUDConfig()) ?? .init()
     }
 }

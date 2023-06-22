@@ -10,7 +10,7 @@ import SwiftUI
 struct CenterStackView: View {
     let items: [AnyHUD]
     @State private var activeView: AnyView?
-    @State private var configTemp: Config?
+    @State private var configTemp: HUDConfig?
     @State private var contentIsAnimated: Bool = false
     @State private var cacheCleanerTrigger: Bool = false
     
@@ -54,14 +54,14 @@ private extension CenterStackView {
         
         showNewHud(popup)
         animateContentIfNeeded()
-        items.last?.setupConfig(Config()).onFocus()
+        items.last?.setupConfig(HUDConfig()).onFocus()
     }
 }
 private extension CenterStackView {
     func showNewHud(_ popup: AnyHUD) {
         DispatchQueue.main.async {
             activeView = AnyView(popup.body)
-            configTemp = popup.setupConfig(Config())
+            configTemp = popup.setupConfig(HUDConfig())
         }
     }
     
@@ -95,7 +95,7 @@ private extension CenterStackView {
         contentIsAnimated ? 0 : 1
     }
     
-    var config: Config {
-        items.last?.setupConfig(Config()) ?? configTemp ?? .init()
+    var config: HUDConfig {
+        items.last?.setupConfig(HUDConfig()) ?? configTemp ?? .init()
     }
 }

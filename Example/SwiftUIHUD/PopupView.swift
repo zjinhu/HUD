@@ -42,7 +42,7 @@ struct PopupTopView: HUD {
         .padding(.horizontal, 24)
     }
     
-    func setupConfig(_ config: Config) -> Config {
+    func setupConfig(_ config: HUDConfig) -> HUDConfig {
         config
             .backgroundColour(.blue)
             .cornerRadius(0)
@@ -95,7 +95,7 @@ struct PopCenterView: HUD {
         .padding(10)
         
     }
-    func setupConfig(_ config: Config) -> Config {
+    func setupConfig(_ config: HUDConfig) -> HUDConfig {
         config
             .backgroundColour(.white)
             .horizontalPadding(20)
@@ -151,7 +151,7 @@ struct PopBottomView: HUD {
         .padding(.horizontal, 24)
     }
     
-    func setupConfig(_ config: Config) -> Config {
+    func setupConfig(_ config: HUDConfig) -> HUDConfig {
         config.backgroundColour(.green)
              .touchOutsideToDismiss(true)
              .distanceFromKeyboard(30)

@@ -9,8 +9,7 @@ import SwiftUI
 
 struct BottomStackView: View {
     let items: [AnyHUD]
-    let keyboardHeight: CGFloat
-    @ObservedObject private var screen: ScreenManager = .shared
+    let keyboardHeight: CGFloat 
     @State private var heights: [AnyHUD: CGFloat] = [:]
     @State private var gestureTranslation: CGFloat = 0
     @State private var cacheCleanerTrigger: Bool = false
@@ -86,8 +85,11 @@ private extension BottomStackView {
         }
         gestureTranslation = 0
     }
-    func onItemsChange(_ items: [AnyHUD]) { items.last?.setupConfig(Config()).onFocus()
+    
+    func onItemsChange(_ items: [AnyHUD]) {
+        items.last?.setupConfig(HUDConfig()).onFocus()
     }
+ 
 }
 
 // MARK: -View Handlers
@@ -143,7 +145,7 @@ private extension BottomStackView {
         if isKeyboardVisible { return keyboardHeight + config.distanceFromKeyboard }
         if config.contentIgnoresSafeArea { return 0 }
 
-        return max(screen.safeArea.bottom - bottomPadding, 0)
+        return max(UIScreen.safeArea.bottom - bottomPadding, 0)
     }
     
     func getOffset(for item: AnyHUD) -> CGFloat {
@@ -216,8 +218,8 @@ private extension BottomStackView {
     var transition: AnyTransition {
         .move(edge: .bottom)
     }
-    var config: Config {
-        items.last?.setupConfig(Config()) ?? .init()
+    var config: HUDConfig {
+        items.last?.setupConfig(HUDConfig()) ?? .init()
     }
     var isKeyboardVisible: Bool {
         keyboardHeight > 0

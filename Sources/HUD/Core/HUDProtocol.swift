@@ -31,7 +31,7 @@ public protocol HUD: View{
     /// 子类创建页面布局
     func setupBody() -> V
     /// 配置hud
-    func setupConfig(_ config: Config) -> Config
+    func setupConfig(_ config: HUDConfig) -> HUDConfig
     
 }
 
@@ -41,7 +41,7 @@ public extension HUD {
         setupBody()
     }
     /// 配置hud
-    func setupConfig(_ config: Config) -> Config {
+    func setupConfig(_ config: HUDConfig) -> HUDConfig {
         config
     }
     
@@ -62,7 +62,7 @@ struct AnyHUD: HUD, Hashable {
     var position: HUDPosition
     
     private let _body: AnyView
-    private let _configBuilder: (Config) -> Config
+    private let _configBuilder: (HUDConfig) -> HUDConfig
     
     init(_ hud: some HUD) {
         self.id = hud.id
@@ -87,7 +87,7 @@ extension AnyHUD {
         _body
     }
     
-    func setupConfig(_ config: Config) -> Config {
+    func setupConfig(_ config: HUDConfig) -> HUDConfig {
         _configBuilder(config)
     }
 }

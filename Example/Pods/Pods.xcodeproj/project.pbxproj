@@ -23,7 +23,7 @@
 		21FDCF6EF35AAEFC538A8079C7DF8632 /* UserDefault.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FC0487D8D592880CA571AFD45DC67C0 /* UserDefault.swift */; };
 		24176BAF6525D1249AA3370B98669834 /* JHTableViewHeaderFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0127FFF8679063B461E023E3A6B28FDB /* JHTableViewHeaderFooterView.swift */; };
 		24244E324FAF51280830120F8CB99A71 /* StepView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DAF5D81B5B84CA48849717BEE46EEB0 /* StepView.swift */; };
-		28700C2487A485A3341E2ADD7B29CCDF /* Manager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD8F649D47BC215DF6D925D9ABB5BAE /* Manager.swift */; };
+		28700C2487A485A3341E2ADD7B29CCDF /* HUDManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD8F649D47BC215DF6D925D9ABB5BAE /* HUDManager.swift */; };
 		2969B4E7887D5F9AA4E2D6D1EB831A11 /* JHViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49D36BE3B4F976E9F407C468AC467E70 /* JHViewController.swift */; };
 		2A66614489DE49E0E85FADB0F26612B6 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4007D97760A7BC51DAB697BA33D687 /* LoadingView.swift */; };
 		2D92C39E0C19973AC36878C5FBF98F13 /* AppStorageEx.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0EEDD3880FFC11AB61437956908BBFC /* AppStorageEx.swift */; };
@@ -68,7 +68,7 @@
 		90CA6DBCD8DE601193076BA7BF4111C5 /* Image++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45D66B09CFD8DED4EB516DCF26CBA33C /* Image++.swift */; };
 		926DCDDB8FD27EC4FD42BCEF788D861A /* UITableViewCellEx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1039D3A1C571CD0C0D8EBD5D5C8C6F1D /* UITableViewCellEx.swift */; };
 		961F9042FAC8384A3D5BFB9A50CE3AFD /* JHTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB10758F194A66150395CB6FD0166F66 /* JHTableViewCell.swift */; };
-		9A224581D632A631D17E6B30DA352815 /* Protocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D7A7F446578502EE0B8D730E53E66E /* Protocol.swift */; };
+		9A224581D632A631D17E6B30DA352815 /* HUDProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D7A7F446578502EE0B8D730E53E66E /* HUDProtocol.swift */; };
 		9DD656926FF94CB5154628FA6AE4F227 /* Section++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D99B80D3EA7ABB6B022C14C9CC4ED12 /* Section++.swift */; };
 		9FD5BFF1593AFB641F5CE40A1808294D /* DispatchQueueEx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C4916555E23A6850EAA5BCCA5E0046C /* DispatchQueueEx.swift */; };
 		A2493EAB91B47F15AD40AB98D2878C77 /* JHCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F463BF67B028E1CC85669F35FE2114B7 /* JHCollectionViewController.swift */; };
@@ -88,12 +88,12 @@
 		CC45944603065250F699C143413A912B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61AF63D95B16B818439A8C7C83AFCB50 /* Foundation.framework */; };
 		CF276D4BDC2338532975A3957034105B /* JHCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BBC2933DC957DB4D4B9051DA5E4C2E8 /* JHCollectionViewCell.swift */; };
 		D6B29F859E29AF3C4F8AC8D871A26581 /* UITextViewEx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6459DE27888F73F5F47190963FE8DCF4 /* UITextViewEx.swift */; };
-		D746419ABD4F81EFD2B922DB0ABD68EA /* ContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECCFD053F99F7CDB5FAF8FBF742C6D17 /* ContainerView.swift */; };
+		D746419ABD4F81EFD2B922DB0ABD68EA /* HUDContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECCFD053F99F7CDB5FAF8FBF742C6D17 /* HUDContainerView.swift */; };
 		DB83580F712C604BEB3AA27748778A68 /* JHCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDECA48A7B029F85359D9C126324C48B /* JHCollectionReusableView.swift */; };
 		DCABC63B2EE9469F6B54157A25757283 /* ViewEx.swift in Sources */ = {isa = PBXBuildFile; fileRef = A26DE3408EAE78F9C89CD09FBD092296 /* ViewEx.swift */; };
 		E26266A6DEFCCD46726B2AA6AD0018B2 /* JHBaseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76EAD00E59F6B12422854B2251D68500 /* JHBaseVC.swift */; };
 		E4E602F28B0C859483D5F237EA5524B6 /* Pods-Example-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = D6D7C498FA339E02BD53ECB8916CEA8E /* Pods-Example-dummy.m */; };
-		E5E49D865C2495E6C7A7E4AEB0B6114F /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = F806D57EC510757F45E795C2D5EB24E3 /* Config.swift */; };
+		E5E49D865C2495E6C7A7E4AEB0B6114F /* HUDConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = F806D57EC510757F45E795C2D5EB24E3 /* HUDConfig.swift */; };
 		E7BE00E17C00D1C1234EFB336C09A216 /* UIColorEx.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5AFFB54096B99B5DC3F0B59E693D7A3 /* UIColorEx.swift */; };
 		E94D96884DDBB3560F644AB1CB0B6CB2 /* ForEach++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8289F7B8C2C7CB0AE440BF1EB79829F5 /* ForEach++.swift */; };
 		F078579C4546810DF475532409C8F418 /* Application.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2680CB4E75BDE7C67802B653FAE8EAE1 /* Application.swift */; };
@@ -236,16 +236,16 @@
 		E8908868348BB730A5FDC1C108AD4D6C /* SwiftUIHUD-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SwiftUIHUD-prefix.pch"; sourceTree = "<group>"; };
 		EA21B344259B58996DB73382B1B1521F /* Pods-Example-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Example-acknowledgements.plist"; sourceTree = "<group>"; };
 		EA8F5EBA35B654C60B61A711AA344A46 /* Label++.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Label++.swift"; path = "Sources/SwiftBrick/SwiftUI/SwiftUIX/Label++.swift"; sourceTree = "<group>"; };
-		EAD8F649D47BC215DF6D925D9ABB5BAE /* Manager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Manager.swift; sourceTree = "<group>"; };
+		EAD8F649D47BC215DF6D925D9ABB5BAE /* HUDManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = HUDManager.swift; sourceTree = "<group>"; };
 		EB0ECB20A67082182C7FC05ABF5DD705 /* BottomStackView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = BottomStackView.swift; sourceTree = "<group>"; };
 		EB10758F194A66150395CB6FD0166F66 /* JHTableViewCell.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = JHTableViewCell.swift; path = Sources/SwiftBrick/BaseCell/JHTableViewCell.swift; sourceTree = "<group>"; };
 		EBC400EE10BD9942EE5DFD572241448B /* UIImageEx.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = UIImageEx.swift; path = Sources/SwiftBrick/Extensions/UIImageEx.swift; sourceTree = "<group>"; };
-		ECCFD053F99F7CDB5FAF8FBF742C6D17 /* ContainerView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ContainerView.swift; sourceTree = "<group>"; };
+		ECCFD053F99F7CDB5FAF8FBF742C6D17 /* HUDContainerView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = HUDContainerView.swift; sourceTree = "<group>"; };
 		EFCE15DD174B7D293B8AFF9D26028DC2 /* SecureField++.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "SecureField++.swift"; path = "Sources/SwiftBrick/SwiftUI/SwiftUIX/SecureField++.swift"; sourceTree = "<group>"; };
-		F2D7A7F446578502EE0B8D730E53E66E /* Protocol.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Protocol.swift; sourceTree = "<group>"; };
+		F2D7A7F446578502EE0B8D730E53E66E /* HUDProtocol.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = HUDProtocol.swift; sourceTree = "<group>"; };
 		F31B5CFDD5E32F49EA24AE3757B08385 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.0.sdk/System/Library/Frameworks/SwiftUI.framework; sourceTree = DEVELOPER_DIR; };
 		F463BF67B028E1CC85669F35FE2114B7 /* JHCollectionViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = JHCollectionViewController.swift; path = Sources/SwiftBrick/BaseVC/JHCollectionViewController.swift; sourceTree = "<group>"; };
-		F806D57EC510757F45E795C2D5EB24E3 /* Config.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
+		F806D57EC510757F45E795C2D5EB24E3 /* HUDConfig.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = HUDConfig.swift; sourceTree = "<group>"; };
 		FFF6DE9281597FE3DF5DB791D4A8E861 /* SuccessView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SuccessView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -328,11 +328,11 @@
 		13C7AA7D25BC19EEB97BD152AA0D2F5B /* Core */ = {
 			isa = PBXGroup;
 			children = (
-				F806D57EC510757F45E795C2D5EB24E3 /* Config.swift */,
-				ECCFD053F99F7CDB5FAF8FBF742C6D17 /* ContainerView.swift */,
-				EAD8F649D47BC215DF6D925D9ABB5BAE /* Manager.swift */,
+				F806D57EC510757F45E795C2D5EB24E3 /* HUDConfig.swift */,
+				ECCFD053F99F7CDB5FAF8FBF742C6D17 /* HUDContainerView.swift */,
+				EAD8F649D47BC215DF6D925D9ABB5BAE /* HUDManager.swift */,
 				812E298E2A40018000DDD0B8 /* Keyboard.swift */,
-				F2D7A7F446578502EE0B8D730E53E66E /* Protocol.swift */,
+				F2D7A7F446578502EE0B8D730E53E66E /* HUDProtocol.swift */,
 			);
 			name = Core;
 			path = Sources/HUD/Core;
@@ -777,12 +777,12 @@
 			files = (
 				78F755BC00C7EEC5EFFF2199D38738EF /* BottomStackView.swift in Sources */,
 				0AF51FFD101E54F14177F82EFDBF9223 /* CenterStackView.swift in Sources */,
-				E5E49D865C2495E6C7A7E4AEB0B6114F /* Config.swift in Sources */,
-				D746419ABD4F81EFD2B922DB0ABD68EA /* ContainerView.swift in Sources */,
+				E5E49D865C2495E6C7A7E4AEB0B6114F /* HUDConfig.swift in Sources */,
+				D746419ABD4F81EFD2B922DB0ABD68EA /* HUDContainerView.swift in Sources */,
 				40EA825999037DB8238EDAE14C4F23D8 /* FailView.swift in Sources */,
 				2A66614489DE49E0E85FADB0F26612B6 /* LoadingView.swift in Sources */,
-				28700C2487A485A3341E2ADD7B29CCDF /* Manager.swift in Sources */,
-				9A224581D632A631D17E6B30DA352815 /* Protocol.swift in Sources */,
+				28700C2487A485A3341E2ADD7B29CCDF /* HUDManager.swift in Sources */,
+				9A224581D632A631D17E6B30DA352815 /* HUDProtocol.swift in Sources */,
 				24244E324FAF51280830120F8CB99A71 /* StepView.swift in Sources */,
 				BE30C6C4FBB114B78B2F48EB88D0126D /* SuccessView.swift in Sources */,
 				A6815BAD63CCE6236D8AF7161351F48C /* SwiftUIHUD-dummy.m in Sources */,

@@ -11,7 +11,7 @@ public extension View {
     /// 添加popView控制器,需要弹窗的页面最外层添加
     func addHUD() -> some View {
         overlay(
-            ContainerView()
+            HUDContainerView()
         )
     }
 }
@@ -92,7 +92,7 @@ extension HUDManager {
     
     func addHud(_ hud: AnyHUD, withStacking shouldStack: Bool){
         views.perform(shouldStack ? .insertAndStack(hud) : .insertAndReplace(hud))
-        let config = hud.setupConfig(Config())
+        let config = hud.setupConfig(HUDConfig())
         if config.autoDismiss {
             DispatchQueue.main.asyncAfter(deadline: .now() + config.autoDismissTime) {
                 self.dismiss(hud.id)
