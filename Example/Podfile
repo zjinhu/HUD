@@ -4,6 +4,5 @@ platform :ios, '14.0'
 
 target 'Example' do
   pod 'SwiftUIHUD', :path => '../'
-  
-  pod 'SwiftBrick'
+
 end
