@@ -1,7 +1,7 @@
 
 Pod::Spec.new do |s|
 s.name             = 'SwiftUIHUD'
-s.version          = '0.3.0'
+s.version          = '0.3.1'
 s.summary          = 'Loading组件.'
 
 s.description      = <<-DESC
