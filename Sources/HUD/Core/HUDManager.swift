@@ -178,6 +178,8 @@ private extension [AnyHUD] {
         }
     }
     func liftBlockade() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.44) { HUDManager.shared.operationRecentlyPerformed = false }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.44) {
+            HUDManager.shared.operationRecentlyPerformed = false
+        }
     }
 }

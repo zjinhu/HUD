@@ -34,6 +34,7 @@ private extension CenterStackView {
                         corners: .allCorners)
             .padding(config.horizontalPadding)
             .compositingGroup()
+            .focusSectionIfAvailable()
             .shadow(color: config.shadowColour,
                     radius: config.shadowRadius,
                     x: config.shadowOffsetX,

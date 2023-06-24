@@ -8,20 +8,17 @@
 import SwiftUI
 // MARK: -Alignments
 extension View {
-    func alignToBottom(_ value: CGFloat = 0) -> some View {
-        VStack(spacing: 0) {
-            Spacer()
-            self
-            Spacer().frame(height: value)
-        }
-    }
+    
     func alignToBottom(if shouldAlign: Bool = true, _ value: CGFloat = 0) -> some View {
         VStack(spacing: 0) {
-            if shouldAlign { Spacer() }
+            if shouldAlign {
+                Spacer()
+            }
             self
             Spacer().frame(height: value)
         }
     }
+    
     func alignToTop(_ value: CGFloat = 0) -> some View {
         VStack(spacing: 0) {
             Spacer().frame(height: value)
@@ -32,12 +29,16 @@ extension View {
 }
 
 extension View {
-    func frame(size: CGSize) -> some View { frame(width: size.width, height: size.height) }
+    func frame(size: CGSize) -> some View {
+        frame(width: size.width, height: size.height)
+    }
 }
 
 extension View {
     func clearCacheObjects(shouldClear: Bool, trigger: Binding<Bool>) -> some View {
-        onChange(of: shouldClear) { $0 ? trigger.toggleAfter(seconds: 0.4) : () }
+        onChange(of: shouldClear) {
+            $0 ? trigger.toggleAfter(seconds: 0.4) : ()
+        }
         .id(trigger.wrappedValue)
     }
 }
@@ -59,7 +60,7 @@ extension Binding<Bool> {
         }
     }
 }
- 
+
 extension Int {
     var doubleValue: Double { Double(self) }
     var floatValue: CGFloat { CGFloat(self) }
@@ -76,10 +77,10 @@ extension Array {
     }
     @inlinable mutating func replaceLast(_ newElement: Element, if prerequisite: Bool) {
         guard prerequisite else { return }
-
+        
         switch isEmpty {
-            case true: append(newElement)
-            case false: self[count - 1] = newElement
+        case true: append(newElement)
+        case false: self[count - 1] = newElement
         }
     }
     @inlinable mutating func removeLast() {
@@ -91,13 +92,13 @@ extension Array {
 
 public extension Color {
     static let defaultBackground = Color.dynamic(light: .white, dark: .init(red: 0.11, green: 0.11, blue: 0.11))
-
+    
     static func dynamic(light: Color, dark: Color) -> Color {
         let l = UIColor(light)
         let d = UIColor(dark)
         return UIColor.dynamicColor(light: l, dark: d).toColor()
     }
-
+    
     func toUIColor() -> UIColor {
         return UIColor(self)
     }
@@ -109,7 +110,7 @@ extension UIColor {
         guard #available(iOS 13.0, *) else { return light }
         return UIColor { $0.userInterfaceStyle == .dark ? dark : light }
     }
-
+    
     func toColor() -> Color {
         return Color(self)
     }
@@ -118,27 +119,27 @@ extension UIColor {
 
 
 extension UIViewController{
-   func canUseVC() -> Bool {
-       if let _ = self as? UITabBarController {
-           // tabBar 的跟控制器
-           return true
-       } else if let _ = self as? UINavigationController {
-           // 控制器是 nav
-           return true
-       } else {
-           // 返回顶控制器
-           return false
-       }
-   }
+    func canUseVC() -> Bool {
+        if let _ = self as? UITabBarController {
+            // tabBar 的跟控制器
+            return true
+        } else if let _ = self as? UINavigationController {
+            // 控制器是 nav
+            return true
+        } else {
+            // 返回顶控制器
+            return false
+        }
+    }
 }
 
 extension UIApplication {
-   var keyWindow: UIWindow? {
-       connectedScenes
-           .compactMap {  $0 as? UIWindowScene }
-           .flatMap { $0.windows }
-           .first { $0.isKeyWindow }
-   }
+    var keyWindow: UIWindow? {
+        connectedScenes
+            .compactMap {  $0 as? UIWindowScene }
+            .flatMap { $0.windows }
+            .first { $0.isKeyWindow }
+    }
 }
 
 extension View {
@@ -152,7 +153,7 @@ extension View {
 fileprivate struct RoundedCorner: Shape {
     var radius: CGFloat
     var corners: RectCorner
-
+    
     
     var animatableData: CGFloat {
         get { radius }
@@ -165,19 +166,22 @@ fileprivate struct RoundedCorner: Shape {
     }
 }
 private extension RoundedCorner {
-    func createPoints(_ rect: CGRect) -> [CGPoint] {[
-        .init(x: rect.minX, y: corners.contains(.topLeft) ? rect.minY + radius  : rect.minY),
-        .init(x: corners.contains(.topLeft) ? rect.minX + radius : rect.minX, y: rect.minY ),
-        .init(x: corners.contains(.topRight) ? rect.maxX - radius : rect.maxX, y: rect.minY ),
-        .init(x: rect.maxX, y: corners.contains(.topRight) ? rect.minY + radius  : rect.minY ),
-        .init(x: rect.maxX, y: corners.contains(.bottomRight) ? rect.maxY - radius : rect.maxY ),
-        .init(x: corners.contains(.bottomRight) ? rect.maxX - radius : rect.maxX, y: rect.maxY ),
-        .init(x: corners.contains(.bottomLeft) ? rect.minX + radius : rect.minX, y: rect.maxY ),
-        .init(x: rect.minX, y: corners.contains(.bottomLeft) ? rect.maxY - radius : rect.maxY )
-    ]}
+    func createPoints(_ rect: CGRect) -> [CGPoint] {
+        [
+            .init(x: rect.minX, y: corners.contains(.topLeft) ? rect.minY + radius  : rect.minY),
+            .init(x: corners.contains(.topLeft) ? rect.minX + radius : rect.minX, y: rect.minY ),
+            .init(x: corners.contains(.topRight) ? rect.maxX - radius : rect.maxX, y: rect.minY ),
+            .init(x: rect.maxX, y: corners.contains(.topRight) ? rect.minY + radius  : rect.minY ),
+            .init(x: rect.maxX, y: corners.contains(.bottomRight) ? rect.maxY - radius : rect.maxY ),
+            .init(x: corners.contains(.bottomRight) ? rect.maxX - radius : rect.maxX, y: rect.maxY ),
+            .init(x: corners.contains(.bottomLeft) ? rect.minX + radius : rect.minX, y: rect.maxY ),
+            .init(x: rect.minX, y: corners.contains(.bottomLeft) ? rect.maxY - radius : rect.maxY )
+        ]
+    }
+    
     func createPath(_ rect: CGRect, _ points: [CGPoint]) -> Path {
         var path = Path()
-
+        
         path.move(to: points[0])
         path.addArc(tangent1End: CGPoint(x: rect.minX, y: rect.minY), tangent2End: points[1], radius: radius)
         path.addLine(to: points[2])
@@ -187,7 +191,7 @@ private extension RoundedCorner {
         path.addLine(to: points[6])
         path.addArc(tangent1End: CGPoint(x: rect.minX, y: rect.maxY), tangent2End: points[7], radius: radius)
         path.closeSubpath()
-
+        
         return path
     }
 }
@@ -196,6 +200,7 @@ private extension RoundedCorner {
 struct RectCorner: OptionSet {
     let rawValue: Int
 }
+
 extension RectCorner {
     static let topLeft = RectCorner(rawValue: 1 << 0)
     static let topRight = RectCorner(rawValue: 1 << 1)
@@ -210,11 +215,56 @@ extension View {
     }
 }
 private extension View {
-    var heightReader: some View { GeometryReader {
-        Color.clear.preference(key: HeightPreferenceKey.self, value: $0.size.height)
-    }}
+    var heightReader: some View {
+        GeometryReader {
+            Color.clear.preference(key: HeightPreferenceKey.self, value: $0.size.height)
+        }
+    }
 }
 fileprivate struct HeightPreferenceKey: PreferenceKey {
     static var defaultValue: CGFloat = 0
     static func reduce(value: inout CGFloat, nextValue: () -> CGFloat) {}
+}
+
+#if os(iOS) || os(macOS)
+extension View {
+    func onTapGesture(perform action: @escaping () -> ()) -> some View {
+        onTapGesture(count: 1, perform: action)
+    }
+    
+    func onDragGesture(onChanged actionOnChanged: @escaping (CGFloat) -> (), onEnded actionOnEnded: @escaping (CGFloat) -> ()) -> some View {
+        simultaneousGesture(createDragGesture(actionOnChanged, actionOnEnded))
+    }
+}
+private extension View {
+    func createDragGesture(_ actionOnChanged: @escaping (CGFloat) -> (), _ actionOnEnded: @escaping (CGFloat) -> ()) -> some Gesture {
+        DragGesture()
+            .onChanged {
+                actionOnChanged($0.translation.height)
+            }
+            .onEnded {
+                actionOnEnded($0.translation.height)
+            }
+    }
+}
+#endif
+
+
+
+
+#if os(tvOS)
+extension View {
+    func onTapGesture(perform action: () -> ()) -> some View { self }
+    func onDragGesture(onChanged actionOnChanged: (CGFloat) -> (), onEnded actionOnEnded: (CGFloat) -> ()) -> some View { self }
+}
+#endif
+
+extension View {
+
+#if os(iOS) || os(macOS)
+    func focusSectionIfAvailable() -> some View { self }
+#elseif os(tvOS)
+    func focusSectionIfAvailable() -> some View { focusSection() }
+#endif
+
 }

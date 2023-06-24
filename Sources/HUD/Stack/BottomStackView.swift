@@ -21,7 +21,7 @@ struct BottomStackView: View {
             .animation(transitionAnimation, value: items)
             .animation(transitionAnimation, value: heights)
             .animation(dragGestureAnimation, value: gestureTranslation)
-            .gesture(hudDragGesture)
+            .onDragGesture(onChanged: onDragGestureChanged, onEnded: onDragGestureEnded)
             .onChange(of: items, perform: onItemsChange)
             .clearCacheObjects(shouldClear: items.isEmpty, trigger: $cacheCleanerTrigger)
     }
@@ -55,6 +55,7 @@ private extension BottomStackView {
             .scaleEffect(getScale(for: item), anchor: .top)
             .compositingGroup()
             .alignToBottom(bottomPadding)
+            .focusSectionIfAvailable()
             .transition(transition)
             .zIndex(isLast(item).doubleValue)
             .shadow(color: config.shadowColour,
@@ -67,19 +68,13 @@ private extension BottomStackView {
 
 // MARK: -Gesture Handler
 private extension BottomStackView {
-    var hudDragGesture: some Gesture {
-        DragGesture()
-            .onChanged(onHudDragGestureChanged)
-            .onEnded(onHudDragGestureEnded)
-    }
-    
-    func onHudDragGestureChanged(_ value: DragGesture.Value) {
+    func onDragGestureChanged(_ value: CGFloat) {
         if config.dragGestureEnabled {
-            gestureTranslation = max(0, value.translation.height)
+            gestureTranslation = max(0, value)
         }
     }
     
-    func onHudDragGestureEnded(_ value: DragGesture.Value) {
+    func onDragGestureEnded(_ value: CGFloat) {
         if translationProgress() >= gestureClosingThresholdFactor {
             items.last?.dismiss()
         }

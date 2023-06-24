@@ -20,7 +20,7 @@ struct TopStackView: View {
             .animation(transitionAnimation, value: heights)
             .animation(dragGestureAnimation, value: gestureTranslation)
             .background(setupTapArea())
-            .simultaneousGesture(hudDragGesture)
+            .onDragGesture(onChanged: onDragGestureChanged, onEnded: onDragGestureEnded)
             .onChange(of: items, perform: onItemsChange)
             .clearCacheObjects(shouldClear: items.isEmpty, trigger: $cacheCleanerTrigger)
     }
@@ -53,6 +53,7 @@ private extension TopStackView {
             .offset(y: getOffset(for: item))
             .scaleEffect(getScale(for: item), anchor: .bottom)
             .compositingGroup()
+            .focusSectionIfAvailable()
             .alignToTop(config.topPadding)
             .transition(transition)
             .zIndex(isLast(item).doubleValue)
@@ -67,24 +68,19 @@ private extension TopStackView {
 
 // MARK: -Gesture Handler
 private extension TopStackView {
-    var hudDragGesture: some Gesture {
-        DragGesture()
-            .onChanged(onHudDragGestureChanged)
-            .onEnded(onHudDragGestureEnded)
-    }
-    
-    func onHudDragGestureChanged(_ value: DragGesture.Value) {
+    func onDragGestureChanged(_ value: CGFloat) {
         if config.dragGestureEnabled {
-            gestureTranslation = max(0, value.translation.height)
+            gestureTranslation = min(0, value)
         }
     }
     
-    func onHudDragGestureEnded(_ value: DragGesture.Value) {
+    func onDragGestureEnded(_ value: CGFloat) {
         if translationProgress() >= gestureClosingThresholdFactor {
             items.last?.dismiss()
         }
         gestureTranslation = 0
     }
+    
     func onItemsChange(_ items: [AnyHUD]) {
         items.last?.setupConfig(HUDConfig()).onFocus()
     }
