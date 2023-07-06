@@ -223,10 +223,13 @@ struct PopupTopView: HUD {
             }
             
             Spacer()
-            Button(action: Self().show) {
+            Button {
+                show()
+            } label: {
                 Text("Show next".uppercased())
                     .foregroundColor(.white)
             }
+
         }
         .padding(.vertical, 12)
         .padding(.horizontal, 24)
@@ -272,7 +275,9 @@ struct PopCenterView: HUD {
                 )
                 .cornerRadius(10)
   
-                Button(action: Self().show) {
+                Button {
+                    show()
+                } label: {
                     Text("Show next")
                         .frame(maxWidth: .infinity)
                         .padding(10)
@@ -332,7 +337,9 @@ struct PopBottomView: HUD {
             }
             
             Spacer()
-            Button(action: Self().show) {
+            Button {
+                show()
+            } label: {
                 Text("Show next".uppercased())
                     .foregroundColor(.white)
             }

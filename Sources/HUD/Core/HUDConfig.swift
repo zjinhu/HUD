@@ -8,6 +8,7 @@
 import SwiftUI
 
 public struct HUDConfig: Configurable{
+
     //是否需要遮罩
     var needMask: Bool = true
     //弹窗背景颜色
@@ -23,7 +24,7 @@ public struct HUDConfig: Configurable{
     //手势关闭
     var dragGestureProgressToClose: CGFloat = 1/3
     //手势关闭动画
-    var dragGestureAnimation: Animation = .interactiveSpring()
+    var animation: AnimationType = .spring
     
     //弹窗背景阴影颜色
     var shadowColour: Color = .primary.opacity(0.3)
@@ -47,10 +48,7 @@ public struct HUDConfig: Configurable{
     var centerTransitionExitScale: CGFloat = 0.86
     //Center PopupView弹出动画比例
     var centerTransitionEntryScale: CGFloat = 1.1
-    
-    
-    //弹出动画
-    var transitionAnimation: Animation = .spring(response: 0.32, dampingFraction: 1, blendDuration: 0.32)
+
     //堆栈样式--露出位置--默认6
     var stackViewsOffset: CGFloat = 6
     //堆栈样式--比例
@@ -69,7 +67,7 @@ public struct HUDConfig: Configurable{
     var contentIgnoresSafeArea: Bool = false
  
     var distanceFromKeyboard: CGFloat = 12
-    var onFocus: () -> () = {}
+
 }
 
 ///公共
@@ -95,8 +93,8 @@ public extension HUDConfig {
         changing(path: \.touchOutsideToDismiss, to: value)
     }
     //弹出动画
-    func transitionAnimation(_ value: Animation) -> Self {
-        changing(path: \.transitionAnimation, to: value)
+    func animation(_ value: AnimationType) -> Self {
+        changing(path: \.animation, to: value)
     }
     //堆栈样式--露出位置--默认6
     func stackViewsOffset(_ value: CGFloat) -> Self {
@@ -175,10 +173,6 @@ public extension HUDConfig {
     func dragGestureProgressToClose(_ value: CGFloat) -> Self {
         changing(path: \.dragGestureProgressToClose, to: value)
     }
-    //手势关闭动画
-    func dragGestureAnimation(_ value: Animation) -> Self {
-        changing(path: \.dragGestureAnimation, to: value)
-    }
 }
 ///阴影
 public extension HUDConfig {
@@ -201,10 +195,6 @@ public extension HUDConfig {
     /// 内容是否应该忽略安全区域
     func contentIgnoresSafeArea(_ value: Bool) -> Self {
         changing(path: \.contentIgnoresSafeArea, to: value)
-    }
-    ///每次弹出窗口位于堆栈顶部时触发
-    func onFocus(_ action: @escaping () -> ()) -> Self {
-        changing(path: \.onFocus, to: action)
     }
 }
 

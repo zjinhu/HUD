@@ -10,7 +10,7 @@ import Combine
 
 #if os(iOS)
 class KeyboardManager: ObservableObject {
-    @Published private(set) var keyboardHeight: CGFloat = 0
+    @Published private(set) var height: CGFloat = 0
     private var subscription: [AnyCancellable] = []
 
     init() {
@@ -27,7 +27,7 @@ private extension KeyboardManager {
     func subscribeToKeyboardEvents() {
         Publishers.Merge(getKeyboardWillOpenPublisher(), createKeyboardWillHidePublisher())
             .debounce(for: .milliseconds(50), scheduler: DispatchQueue.main)
-            .sink { self.keyboardHeight = $0 }
+            .sink { self.height = $0 }
             .store(in: &subscription)
     }
 }
@@ -45,20 +45,40 @@ private extension KeyboardManager {
             .map { _ in .zero }
     }
 }
-#endif
-
-#if os(macOS)
+#elseif os(macOS)
 class KeyboardManager: ObservableObject {
-    private(set) var keyboardHeight: CGFloat = 0
+    private(set) var height: CGFloat = 0
 }
+
 extension KeyboardManager {
     static func hideKeyboard() {
         DispatchQueue.main.async { NSApp.keyWindow?.makeFirstResponder(nil)
         }
     }
 }
+#elseif os(tvOS)
+class KeyboardManager: ObservableObject {
+    private(set) var height: CGFloat = 0
+    private init() {}
+}
+
+extension KeyboardManager {
+    static func hideKeyboard() {}
+}
 #endif
 
+extension UIScreen {
+    static var safeArea: UIEdgeInsets {
+        UIApplication.shared
+            .connectedScenes
+            .compactMap { $0 as? UIWindowScene }
+            .flatMap(\.windows)
+            .first(where: \.isKeyWindow)?
+            .safeAreaInsets ?? .zero
+    }
+}
+
+//// MARK: -iOS Implementation
 //#if os(iOS)
 //class ScreenManager: ObservableObject {
 //    @Published private(set) var size: CGSize = UIScreen.size
@@ -67,9 +87,7 @@ extension KeyboardManager {
 //    private var subscription: [AnyCancellable] = []
 //
 //    static let shared: ScreenManager = .init()
-//    init() {
-//        subscribeToScreenOrientationChangeEvents()
-//    }
+//    private init() { subscribeToScreenOrientationChangeEvents() }
 //}
 //
 //private extension ScreenManager {
@@ -81,7 +99,6 @@ extension KeyboardManager {
 //            .store(in: &subscription)
 //    }
 //}
-//
 //private extension ScreenManager {
 //    func updateScreenValues(_ value: NotificationCenter.Publisher.Output) {
 //        size = UIScreen.size
@@ -89,24 +106,25 @@ extension KeyboardManager {
 //    }
 //}
 //
-extension UIScreen {
-    static var safeArea: UIEdgeInsets {
-        UIApplication.shared
-            .connectedScenes
-            .compactMap { $0 as? UIWindowScene }
-            .flatMap(\.windows)
-            .first(where: \.isKeyWindow)?
-            .safeAreaInsets ?? .zero
-    }
+//fileprivate extension UIScreen {
+//    static var safeArea: UIEdgeInsets {
+//        UIApplication.shared
+//            .connectedScenes
+//            .compactMap { $0 as? UIWindowScene }
+//            .flatMap(\.windows)
+//            .first(where: \.isKeyWindow)?
+//            .safeAreaInsets ?? .zero
+//    }
 //    static var size: CGSize { UIScreen.main.bounds.size }
 //    static var cornerRadius: CGFloat? = main.value(forKey: cornerRadiusKey) as? CGFloat
-}
+//}
 //fileprivate extension UIScreen {
 //    static let cornerRadiusKey: String = ["Radius", "Corner", "display", "_"].reversed().joined()
 //}
-//#endif
 //
-//#if os(macOS)
+//
+//// MARK: - macOS Implementation
+//#elseif os(macOS)
 //class ScreenManager: ObservableObject {
 //    @Published private(set) var size: CGSize = NSScreen.size
 //    @Published private(set) var safeArea: NSEdgeInsets = NSScreen.safeArea
@@ -133,7 +151,6 @@ extension UIScreen {
 //    }}
 //}
 //
-//// MARK: - Helpers
 //fileprivate extension NSScreen {
 //    static var safeArea: NSEdgeInsets =
 //        NSApplication.shared
@@ -141,6 +158,31 @@ extension UIScreen {
 //            .contentView?
 //            .safeAreaInsets ?? .init(top: 0, left: 0, bottom: 0, right: 0)
 //    static var size: CGSize = NSApplication.shared.mainWindow?.frame.size ?? .zero
-//    static var cornerRadius: CGFloat? = nil
+//    static var cornerRadius: CGFloat = 0
+//}
+//
+//
+//// MARK: - tvOS Implementation
+//#elseif os(tvOS)
+//class ScreenManager: ObservableObject {
+//    @Published private(set) var size: CGSize = UIScreen.size
+//    @Published private(set) var safeArea: UIEdgeInsets = UIScreen.safeArea
+//    private(set) var cornerRadius: CGFloat? = UIScreen.cornerRadius
+//
+//    static let shared: ScreenManager = .init()
+//    private init() {}
+//}
+//
+//fileprivate extension UIScreen {
+//    static var safeArea: UIEdgeInsets {
+//        UIApplication.shared
+//            .connectedScenes
+//            .compactMap { $0 as? UIWindowScene }
+//            .flatMap(\.windows)
+//            .first(where: \.isKeyWindow)?
+//            .safeAreaInsets ?? .zero
+//    }
+//    static var size: CGSize { UIScreen.main.bounds.size }
+//    static var cornerRadius: CGFloat = 0
 //}
 //#endif

@@ -11,18 +11,15 @@ struct TopStackView: View {
     let items: [AnyHUD] 
     @State private var heights: [AnyHUD: CGFloat] = [:]
     @State private var gestureTranslation: CGFloat = 0
-    @State private var cacheCleanerTrigger: Bool = false
     
     var body: some View {
         ZStack(alignment: .bottom, content: setupHudStack)
             .ignoresSafeArea()
-            .animation(transitionAnimation, value: items)
-            .animation(transitionAnimation, value: heights)
-            .animation(dragGestureAnimation, value: gestureTranslation)
+
+            .animation(config.animation.entry, value: heights)
+            .animation(config.animation.removal, value: gestureTranslation)
             .background(setupTapArea())
             .onDragGesture(onChanged: onDragGestureChanged, onEnded: onDragGestureEnded)
-            .onChange(of: items, perform: onItemsChange)
-            .clearCacheObjects(shouldClear: items.isEmpty, trigger: $cacheCleanerTrigger)
     }
 }
 
@@ -54,9 +51,9 @@ private extension TopStackView {
             .scaleEffect(getScale(for: item), anchor: .bottom)
             .compositingGroup()
             .focusSectionIfAvailable()
-            .alignToTop(config.topPadding)
+            .align(to: .top, config.topPadding)
             .transition(transition)
-            .zIndex(isLast(item).doubleValue)
+            .zIndex(getZIndex(item))
             .shadow(color: config.shadowColour,
                     radius: config.shadowRadius,
                     x: config.shadowOffsetX,
@@ -75,14 +72,13 @@ private extension TopStackView {
     }
     
     func onDragGestureEnded(_ value: CGFloat) {
-        if translationProgress() >= gestureClosingThresholdFactor {
+        if translationProgress >= gestureClosingThresholdFactor {
             items.last?.dismiss()
         }
-        gestureTranslation = 0
-    }
-    
-    func onItemsChange(_ items: [AnyHUD]) {
-        items.last?.setupConfig(HUDConfig()).onFocus()
+        let resetAfter = items.count == 1 && translationProgress >= gestureClosingThresholdFactor ? 0.25 : 0
+        DispatchQueue.main.asyncAfter(deadline: .now() + resetAfter) {
+            gestureTranslation = 0
+        }
     }
 }
 
@@ -98,7 +94,7 @@ private extension TopStackView {
         }
         
         let difference = cornerRadius.active - cornerRadius.inactive
-        let differenceProgress = difference * translationProgress()
+        let differenceProgress = difference * translationProgress
         return cornerRadius.inactive + differenceProgress
     }
     
@@ -114,11 +110,11 @@ private extension TopStackView {
             return 1
         }
         if gestureTranslation.isZero {
-            return  1 - invertedIndex(of: item).doubleValue * opacityFactor
+            return  1 - invertedIndex(item).doubleValue * opacityFactor
         }
         
-        let scaleValue = invertedIndex(of: item).doubleValue * opacityFactor
-        let progressDifference = isNextToLast(item) ? 1 - translationProgress() : max(0.6, 1 - translationProgress())
+        let scaleValue = invertedIndex(item).doubleValue * opacityFactor
+        let progressDifference = isNextToLast(item) ? 1 - translationProgress : max(0.6, 1 - translationProgress)
         return 1 - scaleValue * progressDifference
     }
     
@@ -127,43 +123,43 @@ private extension TopStackView {
             return 1
         }
         if gestureTranslation.isZero {
-            return  1 - invertedIndex(of: item).floatValue * scaleFactor
+            return  1 - invertedIndex(item).floatValue * scaleFactor
         }
         
-        let scaleValue = invertedIndex(of: item).floatValue * scaleFactor
-        let progressDifference = isNextToLast(item) ? 1 - translationProgress() : max(0.7, 1 - translationProgress())
+        let scaleValue = invertedIndex(item).floatValue * scaleFactor
+        let progressDifference = isNextToLast(item) ? 1 - translationProgress : max(0.7, 1 - translationProgress)
         return 1 - scaleValue * progressDifference
     }
     
     func getOffset(for item: AnyHUD) -> CGFloat {
-        isLast(item) ? gestureTranslation : invertedIndex(of: item).floatValue * offsetFactor
+        isLast(item) ? gestureTranslation : invertedIndex(item).floatValue * offsetFactor
     }
 
 }
 
 private extension TopStackView {
-    func translationProgress() -> CGFloat {
-        abs(gestureTranslation) / height
-    }
-    
     func isLast(_ item: AnyHUD) -> Bool {
         items.last == item
     }
-    
     func isNextToLast(_ item: AnyHUD) -> Bool {
-        index(of: item) == items.count - 2
+        invertedIndex(item) == 1
     }
-    
-    func invertedIndex(of item: AnyHUD) -> Int {
-        items.count - 1 - index(of: item)
+    func invertedIndex(_ item: AnyHUD) -> Int {
+        items.count - 1 - index(item)
     }
-    
-    func index(of item: AnyHUD) -> Int {
+    func index(_ item: AnyHUD) -> Int {
         items.firstIndex(of: item) ?? 0
+    }
+    
+    func getZIndex(_ item: AnyHUD) -> Double {
+        index(item).doubleValue + 1
     }
 }
 
 private extension TopStackView {
+    var translationProgress: CGFloat {
+        abs(gestureTranslation) / height
+    }
     var contentTopPadding: CGFloat {
         config.ignoresSafeArea ? 0 : max(UIScreen.safeArea.top - config.topPadding, 0)
     }
@@ -199,14 +195,6 @@ private extension TopStackView {
     
     var backgroundColour: Color {
         config.backgroundColour
-    }
-    
-    var transitionAnimation: Animation {
-        config.transitionAnimation
-    }
-    
-    var dragGestureAnimation: Animation {
-        config.dragGestureAnimation
     }
     
     var gestureClosingThresholdFactor: CGFloat {

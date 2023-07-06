@@ -12,22 +12,23 @@ struct CenterStackView: View {
     @State private var activeView: AnyView?
     @State private var configTemp: HUDConfig?
     @State private var contentIsAnimated: Bool = false
-    @State private var cacheCleanerTrigger: Bool = false
-    
+    @State private var height: CGFloat?
     var body: some View {
         setupHud()
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(setupTapArea())
-            .animation(config.transitionAnimation, value: contentIsAnimated)
+            .animation(config.animation.entry, value: config.horizontalPadding)
+            .animation(height == nil ? config.animation.removal : config.animation.entry, value: height)
+            .animation(config.animation.entry, value: contentIsAnimated)
             .transition(getTransition())
             .onChange(of: items, perform: onItemsChange)
-            .clearCacheObjects(shouldClear: items.isEmpty, trigger: $cacheCleanerTrigger)
     }
 }
 
 private extension CenterStackView {
     func setupHud() -> some View {
         activeView?
+            .readHeight(saveHeight)
             .opacity(contentOpacity)
             .background(config.backgroundColour,
                         radius: config.cornerRadius,
@@ -51,11 +52,12 @@ private extension CenterStackView {
 // MARK: -Logic Handlers
 private extension CenterStackView {
     func onItemsChange(_ items: [AnyHUD]) {
-        guard let popup = items.last else { return handleClosingHud() }
+        guard let popup = items.last else {
+            return handleClosingHud()
+        }
         
         showNewHud(popup)
         animateContentIfNeeded()
-        items.last?.setupConfig(HUDConfig()).onFocus()
     }
 }
 private extension CenterStackView {
@@ -83,10 +85,14 @@ private extension CenterStackView {
 // MARK: -View Handlers
 private extension CenterStackView {
     
+    func saveHeight(_ value: CGFloat) {
+        height = items.isEmpty ? nil : value
+    }
+    
     func getTransition() -> AnyTransition {
         .scale(scale: items.isEmpty ? config.centerTransitionExitScale : config.centerTransitionEntryScale)
         .combined(with: .opacity)
-        .animation(items.isEmpty ? config.transitionAnimation : nil)
+        .animation(height == nil || items.isEmpty ? config.animation.removal : nil)
     }
 }
 

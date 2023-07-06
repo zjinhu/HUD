@@ -8,22 +8,21 @@
 import SwiftUI
 // MARK: -Alignments
 extension View {
-    
-    func alignToBottom(if shouldAlign: Bool = true, _ value: CGFloat = 0) -> some View {
-        VStack(spacing: 0) {
-            if shouldAlign {
-                Spacer()
-            }
-            self
-            Spacer().frame(height: value)
-        }
+    func align(to edge: Edge, _ value: CGFloat?) -> some View { padding(.init(edge), value)
+            .frame(
+                maxHeight: value != nil ? .infinity : nil,
+                alignment: edge.toAlignment()
+            )
     }
-    
-    func alignToTop(_ value: CGFloat = 0) -> some View {
-        VStack(spacing: 0) {
-            Spacer().frame(height: value)
-            self
-            Spacer()
+}
+
+fileprivate extension Edge {
+    func toAlignment() -> Alignment {
+        switch self {
+            case .top: return .top
+            case .bottom: return .bottom
+            case .leading: return .leading
+            case .trailing: return .trailing
         }
     }
 }
@@ -75,6 +74,12 @@ extension Array {
     @inlinable mutating func append(_ newElement: Element, if prerequisite: Bool) {
         if prerequisite { append(newElement) }
     }
+    
+    @inlinable mutating func removeAllUpToElement(where predicate: (Element) -> Bool) {
+        if let index = lastIndex(where: predicate) { removeLast(count - index - 1)
+        }
+    }
+    
     @inlinable mutating func replaceLast(_ newElement: Element, if prerequisite: Bool) {
         guard prerequisite else { return }
         
@@ -83,10 +88,15 @@ extension Array {
         case false: self[count - 1] = newElement
         }
     }
+    
     @inlinable mutating func removeLast() {
         if !isEmpty {
             removeLast(1)
         }
+    }
+    
+    var nextToLast: Element? {
+        count >= 2 ? self[count - 2] : nil
     }
 }
 
@@ -211,19 +221,21 @@ extension RectCorner {
 
 extension View {
     func readHeight(_ onChange: @escaping (CGFloat) -> ()) -> some View {
-        background(heightReader).onPreferenceChange(HeightPreferenceKey.self, perform: onChange)
+        modifier(Modifier(onHeightChange: onChange))
     }
 }
-private extension View {
-    var heightReader: some View {
-        GeometryReader {
-            Color.clear.preference(key: HeightPreferenceKey.self, value: $0.size.height)
-        }
+
+fileprivate struct Modifier: ViewModifier {
+    let onHeightChange: (CGFloat) -> ()
+
+    func body(content: Content) -> some View { content
+        .background(
+            GeometryReader { geo -> Color in
+                DispatchQueue.main.async { onHeightChange(geo.size.height) }
+                return Color.clear
+            }
+        )
     }
-}
-fileprivate struct HeightPreferenceKey: PreferenceKey {
-    static var defaultValue: CGFloat = 0
-    static func reduce(value: inout CGFloat, nextValue: () -> CGFloat) {}
 }
 
 #if os(iOS) || os(macOS)
@@ -249,22 +261,43 @@ private extension View {
 }
 #endif
 
-
-
-
 #if os(tvOS)
 extension View {
-    func onTapGesture(perform action: () -> ()) -> some View { self }
-    func onDragGesture(onChanged actionOnChanged: (CGFloat) -> (), onEnded actionOnEnded: (CGFloat) -> ()) -> some View { self }
+    func onTapGesture(perform action: () -> ()) -> some View { self
+    }
+    func onDragGesture(onChanged actionOnChanged: (CGFloat) -> (),
+                       onEnded actionOnEnded: (CGFloat) -> ()) -> some View {
+        self
+    }
 }
 #endif
 
 extension View {
 
-#if os(iOS) || os(macOS)
-    func focusSectionIfAvailable() -> some View { self }
-#elseif os(tvOS)
-    func focusSectionIfAvailable() -> some View { focusSection() }
-#endif
+    func focusSectionIfAvailable() -> some View {
+    #if os(iOS) || os(macOS)
+        self
+    #elseif os(tvOS)
+        focusSection()
+    #endif
+    }
 
+}
+
+public enum AnimationType { case spring, linear, easeInOut }
+extension AnimationType {
+    var entry: Animation {
+        switch self {
+            case .spring: return .spring(response: 0.4, dampingFraction: 1, blendDuration: 0.1)
+            case .linear: return .linear(duration: 0.4)
+            case .easeInOut: return .easeInOut(duration: 0.4)
+        }
+    }
+    var removal: Animation {
+        switch self {
+            case .spring: return .interactiveSpring(response: 0.14, dampingFraction: 1, blendDuration: 1)
+            case .linear: return .linear(duration: 0.3)
+            case .easeInOut: return .easeInOut(duration: 0.3)
+        }
+    }
 }

@@ -3,7 +3,7 @@
 import PackageDescription
 
 let package = Package(
-  name: "image",
+  name: "Image",
   products: [],
   targets: []
 )

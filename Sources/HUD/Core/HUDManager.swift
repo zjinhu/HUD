@@ -19,7 +19,6 @@ public extension View {
 public class HUDManager: ObservableObject {
     @Published var views: [AnyHUD] = []
     @Published var isPresent: Bool = false
-    fileprivate var operationRecentlyPerformed: Bool = false
     static let shared = HUDManager()
     private init() {}
 }
@@ -27,71 +26,23 @@ public class HUDManager: ObservableObject {
 public extension HUDManager {
     /// 收起最后一个hud
     func dismissLast() {
-        views.removeLast()
-        dismissVC()
+        performOperation(.removeLast)
     }
     /// 收起指定hud
     func dismiss(_ id: UUID) {
-        withAnimation{
-            views.removeAll { vi in
-                vi.id == id
-            }
-        }
-        dismissVC()
+        performOperation(.remove(id: id))
     }
     /// 收起所有hud
     func dismissAll() {
-        views.removeAll()
-        dismissVC()
+        performOperation(.removeAll)
     }
-    
-    func dismissVC(){
-        if views.isEmpty,
-           let vc = UIApplication.shared.keyWindow?.rootViewController as? UIViewController,
-           isPresent{
-            DispatchQueue.main.async {
-                vc.dismiss(animated: false) {
-                    self.isPresent = false
-                }
-            }
-        }
-    }
+
 }
 
 extension HUDManager {
     /// 弹出hud
-    func show(_ hud: AnyHUD, withStacking shouldStack: Bool = false) {
-
-        DispatchQueue.main.async {
-            if let vc = UIApplication.shared.keyWindow?.rootViewController as? UIViewController,
-               vc.canUseVC(),
-               !self.isPresent,
-               self.canBeInserted(hud){
-                let toPresent = UIHostingController(rootView: Color.clear.addHUD())
-                toPresent.modalPresentationStyle = .overCurrentContext
-                toPresent.modalTransitionStyle = .crossDissolve
-                toPresent.view.backgroundColor = .clear
-                
-                vc.present(toPresent, animated: false) {
-                    withAnimation{
-                        self.addHud(hud, withStacking: shouldStack)
-                    }
-                    
-                    self.isPresent = true
-                }
-                return
-            }
- 
-            withAnimation{
-                if self.canBeInserted(hud){
-                    self.addHud(hud, withStacking: shouldStack)
-                }
-            }
-        }
-    }
-    
-    func addHud(_ hud: AnyHUD, withStacking shouldStack: Bool){
-        views.perform(shouldStack ? .insertAndStack(hud) : .insertAndReplace(hud))
+    func show(_ hud: AnyHUD, withStacking useStack: Bool = false) {
+        performOperation(useStack ? .insertAndStack(hud) : .insertAndReplace(hud))
         let config = hud.setupConfig(HUDConfig())
         if config.autoDismiss {
             DispatchQueue.main.asyncAfter(deadline: .now() + config.autoDismissTime) {
@@ -129,27 +80,39 @@ extension HUDManager {
 }
 
 private extension HUDManager {
+    
+    func performOperation(_ operation: Operation) {
+        DispatchQueue.main.async {
+            self.updateOperationType(operation)
+            self.views.perform(operation)
+        }
+    }
+    
     func canBeInserted(_ hud: AnyHUD) -> Bool {
         !views.contains { current in
             current.id == hud.id
         }
     }
-}
-
-fileprivate extension [AnyHUD] {
-    enum Operation {
-        case insertAndReplace(AnyHUD), insertAndStack(AnyHUD)
-        case removeLast, remove(id: UUID), removeAll
+    
+    func updateOperationType(_ operation: Operation) {
+        switch operation {
+            case .insertAndReplace, .insertAndStack:
+            isPresent = true
+            case .removeLast, .remove, .removeAllUpTo, .removeAll:
+            isPresent = false
+        }
     }
 }
+
+enum Operation {
+    case insertAndReplace(AnyHUD), insertAndStack(AnyHUD)
+    case removeLast, remove(id: UUID), removeAllUpTo(id: UUID), removeAll
+}
+
 fileprivate extension [AnyHUD] {
     mutating func perform(_ operation: Operation) {
-        guard !HUDManager.shared.operationRecentlyPerformed else { return }
-
-        blockOtherOperations()
         hideKeyboard()
         performOperation(operation)
-        liftBlockade()
     }
 }
 
@@ -162,24 +125,25 @@ private extension [AnyHUD] {
 }
 
 private extension [AnyHUD] {
-    func blockOtherOperations() {
-        HUDManager.shared.operationRecentlyPerformed = true
-    }
+
     func hideKeyboard() {
         KeyboardManager.hideKeyboard()
     }
+    
     mutating func performOperation(_ operation: Operation) {
         switch operation {
-            case .insertAndReplace(let popup): replaceLast(popup, if: canBeInserted(popup))
-            case .insertAndStack(let popup): append(popup, if: canBeInserted(popup))
-            case .removeLast: removeLast()
-            case .remove(let id): removeAll(where: { $0.id == id })
-            case .removeAll: removeAll()
-        }
-    }
-    func liftBlockade() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.44) {
-            HUDManager.shared.operationRecentlyPerformed = false
+        case .insertAndReplace(let popup):
+            replaceLast(popup, if: canBeInserted(popup))
+        case .insertAndStack(let popup):
+            append(popup, if: canBeInserted(popup))
+        case .removeLast:
+            removeLast()
+        case .remove(let id):
+            removeAll(where: { $0.id == id })
+        case .removeAllUpTo(let id):
+            removeAllUpToElement(where: { $0.id == id })
+        case .removeAll:
+            removeAll()
         }
     }
 }

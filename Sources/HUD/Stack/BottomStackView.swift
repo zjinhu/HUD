@@ -9,21 +9,16 @@ import SwiftUI
 
 struct BottomStackView: View {
     let items: [AnyHUD]
-    let keyboardHeight: CGFloat 
     @State private var heights: [AnyHUD: CGFloat] = [:]
     @State private var gestureTranslation: CGFloat = 0
-    @State private var cacheCleanerTrigger: Bool = false
+    @ObservedObject private var keyboardManager = KeyboardManager()
     
     var body: some View {
         ZStack(alignment: .top, content: setupHudStack)
             .ignoresSafeArea()
             .background(setupTapArea())
-            .animation(transitionAnimation, value: items)
-            .animation(transitionAnimation, value: heights)
-            .animation(dragGestureAnimation, value: gestureTranslation)
+            .animation(config.animation.removal, value: gestureTranslation)
             .onDragGesture(onChanged: onDragGestureChanged, onEnded: onDragGestureEnded)
-            .onChange(of: items, perform: onItemsChange)
-            .clearCacheObjects(shouldClear: items.isEmpty, trigger: $cacheCleanerTrigger)
     }
 }
 
@@ -45,7 +40,9 @@ private extension BottomStackView {
             .padding(.bottom, getContentBottomPadding())
             .padding(.horizontal, contentHorizontalPadding)
             .readHeight{ height in
-                heights[item] = height
+                withAnimation(config.animation.entry) {
+                    heights[item] = height
+                }
             }
             .background(backgroundColour,
                         radius: getCornerRadius(for: item),
@@ -54,10 +51,10 @@ private extension BottomStackView {
             .offset(y: getOffset(for: item))
             .scaleEffect(getScale(for: item), anchor: .top)
             .compositingGroup()
-            .alignToBottom(bottomPadding)
+            .align(to: .bottom, bottomPadding)
             .focusSectionIfAvailable()
             .transition(transition)
-            .zIndex(isLast(item).doubleValue)
+            .zIndex(getZIndex(item))
             .shadow(color: config.shadowColour,
                     radius: config.shadowRadius,
                     x: config.shadowOffsetX,
@@ -75,16 +72,15 @@ private extension BottomStackView {
     }
     
     func onDragGestureEnded(_ value: CGFloat) {
-        if translationProgress() >= gestureClosingThresholdFactor {
+        if translationProgress >= gestureClosingThresholdFactor {
             items.last?.dismiss()
         }
-        gestureTranslation = 0
+        let resetAfter = items.count == 1 && translationProgress >= gestureClosingThresholdFactor ? 0.25 : 0
+        DispatchQueue.main.asyncAfter(deadline: .now() + resetAfter) {
+            gestureTranslation = 0
+        }
     }
-    
-    func onItemsChange(_ items: [AnyHUD]) {
-        items.last?.setupConfig(HUDConfig()).onFocus()
-    }
- 
+
 }
 
 // MARK: -View Handlers
@@ -99,7 +95,7 @@ private extension BottomStackView {
         }
         
         let difference = cornerRadius.active - cornerRadius.inactive
-        let differenceProgress = difference * translationProgress()
+        let differenceProgress = difference * translationProgress
         return cornerRadius.inactive + differenceProgress
     }
     
@@ -115,11 +111,11 @@ private extension BottomStackView {
             return 1
         }
         if gestureTranslation.isZero {
-            return  1 - invertedIndex(of: item).doubleValue * opacityFactor
+            return  1 - invertedIndex(item).doubleValue * opacityFactor
         }
         
-        let scaleValue = invertedIndex(of: item).doubleValue * opacityFactor
-        let progressDifference = isNextToLast(item) ? 1 - translationProgress() : max(0.6, 1 - translationProgress())
+        let scaleValue = invertedIndex(item).doubleValue * opacityFactor
+        let progressDifference = isNextToLast(item) ? 1 - translationProgress : max(0.6, 1 - translationProgress)
         return 1 - scaleValue * progressDifference
     }
     
@@ -128,52 +124,58 @@ private extension BottomStackView {
             return 1
         }
         if gestureTranslation.isZero {
-            return  1 - invertedIndex(of: item).floatValue * scaleFactor
+            return  1 - invertedIndex(item).floatValue * scaleFactor
         }
         
-        let scaleValue = invertedIndex(of: item).floatValue * scaleFactor
-        let progressDifference = isNextToLast(item) ? 1 - translationProgress() : max(0.7, 1 - translationProgress())
+        let scaleValue = invertedIndex(item).floatValue * scaleFactor
+        let progressDifference = isNextToLast(item) ? 1 - translationProgress : max(0.7, 1 - translationProgress)
         return 1 - scaleValue * progressDifference
     }
     
     func getContentBottomPadding() -> CGFloat {
-        if isKeyboardVisible { return keyboardHeight + config.distanceFromKeyboard }
+        if isKeyboardVisible { return keyboardManager.height + config.distanceFromKeyboard }
         if config.contentIgnoresSafeArea { return 0 }
 
         return max(UIScreen.safeArea.bottom - bottomPadding, 0)
     }
     
     func getOffset(for item: AnyHUD) -> CGFloat {
-        isLast(item) ? gestureTranslation : invertedIndex(of: item).floatValue * offsetFactor
+        isLast(item) ? gestureTranslation : invertedIndex(item).floatValue * offsetFactor
     }
 }
 
 private extension BottomStackView {
-    func translationProgress() -> CGFloat {
-        abs(gestureTranslation) / height
-    }
     func isLast(_ item: AnyHUD) -> Bool {
         items.last == item
     }
     func isNextToLast(_ item: AnyHUD) -> Bool {
-        index(of: item) == items.count - 2
+        invertedIndex(item) == 1
     }
-    func invertedIndex(of item: AnyHUD) -> Int {
-        items.count - 1 - index(of: item)
+    func invertedIndex(_ item: AnyHUD) -> Int {
+        items.count - 1 - index(item)
     }
-    func index(of item: AnyHUD) -> Int {
+    func index(_ item: AnyHUD) -> Int {
         items.firstIndex(of: item) ?? 0
+    }
+    
+    func getZIndex(_ item: AnyHUD) -> Double {
+        index(item).doubleValue + 1
     }
 }
 
 private extension BottomStackView {
+    var isKeyboardVisible: Bool {
+        keyboardManager.height > 0
+    }
+    var translationProgress: CGFloat {
+        abs(gestureTranslation) / height
+    }
     var height: CGFloat {
         if let hud = items.last, let hei = heights[hud]{
             return  hei
         }
         return  0
     }
- 
     var contentHorizontalPadding: CGFloat {
         config.horizontalPadding
     }
@@ -201,12 +203,6 @@ private extension BottomStackView {
     var backgroundColour: Color {
         config.backgroundColour
     }
-    var transitionAnimation: Animation {
-        config.transitionAnimation
-    }
-    var dragGestureAnimation: Animation {
-        config.dragGestureAnimation
-    }
     var gestureClosingThresholdFactor: CGFloat {
         config.dragGestureProgressToClose
     }
@@ -215,8 +211,5 @@ private extension BottomStackView {
     }
     var config: HUDConfig {
         items.last?.setupConfig(HUDConfig()) ?? .init()
-    }
-    var isKeyboardVisible: Bool {
-        keyboardHeight > 0
     }
 }

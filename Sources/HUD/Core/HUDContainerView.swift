@@ -9,14 +9,14 @@ import SwiftUI
 
 struct HUDContainerView: View {
     @StateObject private var manager = HUDManager.shared
-    @StateObject private var keyboardObserver: KeyboardManager = .init()
- 
+
     var body: some View {
         ZStack {
             topStackView()
             centerStackView()
             bottomStackView()
         }
+        .animation(manager.isPresent ? AnimationType.spring.entry : AnimationType.spring.removal, value: manager.views.map(\.id))
         .edgesIgnoringSafeArea(.all)
         .visible(if: !manager.views.isEmpty)
     }
@@ -42,7 +42,7 @@ private extension HUDContainerView {
     func bottomStackView() -> some View {
         ZStack{
             setupMask(items: manager.bottoms)
-            BottomStackView(items: manager.bottoms, keyboardHeight: keyboardObserver.keyboardHeight)
+            BottomStackView(items: manager.bottoms)
         }
     }
     
