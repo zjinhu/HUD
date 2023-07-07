@@ -108,13 +108,13 @@ struct HUDView: View {
             
             Section {
                 Button {
-                    PopupTopView().show()
+                    PopupTopView().show(useStack: true)
                 } label: {
                     Text("Pop Top")
                 }
  
                 Button {
-                    PopCenterView().show()
+                    PopCenterView().show(useStack: true)
                 } label: {
                     Text("Pop Center")
                 }
@@ -224,7 +224,7 @@ struct PopupTopView: HUD {
             
             Spacer()
             Button {
-                show()
+                PopupTopView().show(useStack: true)
             } label: {
                 Text("Show next".uppercased())
                     .foregroundColor(.white)
@@ -240,6 +240,7 @@ struct PopupTopView: HUD {
             .backgroundColour(.blue)
             .cornerRadius(0)
             .touchOutsideToDismiss(true)
+            .maxStackCount(5)
     }
 }
  
@@ -276,7 +277,7 @@ struct PopCenterView: HUD {
                 .cornerRadius(10)
   
                 Button {
-                    show()
+                    PopCenterView().show(useStack: true)
                 } label: {
                     Text("Show next")
                         .frame(maxWidth: .infinity)
@@ -296,6 +297,7 @@ struct PopCenterView: HUD {
             .horizontalPadding(20)
             .touchOutsideToDismiss(true)
             .cornerRadius(15)
+            .maxStackCount(3)
     }
 }
 
@@ -338,7 +340,7 @@ struct PopBottomView: HUD {
             
             Spacer()
             Button {
-                show()
+                PopBottomView().show(useStack: true)
             } label: {
                 Text("Show next".uppercased())
                     .foregroundColor(.white)

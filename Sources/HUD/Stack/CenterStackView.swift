@@ -9,25 +9,26 @@ import SwiftUI
 
 struct CenterStackView: View {
     let items: [AnyHUD]
-    @State private var activeView: AnyView?
-    @State private var configTemp: HUDConfig?
     @State private var contentIsAnimated: Bool = false
     @State private var height: CGFloat?
     var body: some View {
-        setupHud()
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
+        ZStack(alignment: .center, content: setupHudStack)
+            .ignoresSafeArea()
             .background(setupTapArea())
             .animation(config.animation.entry, value: config.horizontalPadding)
             .animation(height == nil ? config.animation.removal : config.animation.entry, value: height)
             .animation(config.animation.entry, value: contentIsAnimated)
             .transition(getTransition())
-            .onChange(of: items, perform: onItemsChange)
     }
 }
 
 private extension CenterStackView {
-    func setupHud() -> some View {
-        activeView?
+    func setupHudStack() -> some View {
+        ForEach(items, id: \.self, content: setupHud)
+    }
+    
+    func setupHud(_ item: AnyHUD) -> some View {
+        item.body
             .readHeight(saveHeight)
             .opacity(contentOpacity)
             .background(config.backgroundColour,
@@ -46,39 +47,6 @@ private extension CenterStackView {
         Color.black.opacity(0.00000000001)
             .onTapGesture(perform: items.last?.dismiss ?? {})
             .active(if: config.touchOutsideToDismiss)
-    }
-}
-
-// MARK: -Logic Handlers
-private extension CenterStackView {
-    func onItemsChange(_ items: [AnyHUD]) {
-        guard let popup = items.last else {
-            return handleClosingHud()
-        }
-        
-        showNewHud(popup)
-        animateContentIfNeeded()
-    }
-}
-private extension CenterStackView {
-    func showNewHud(_ popup: AnyHUD) {
-        DispatchQueue.main.async {
-            activeView = AnyView(popup.body)
-            configTemp = popup.setupConfig(HUDConfig())
-        }
-    }
-    
-    func animateContentIfNeeded() {
-        contentIsAnimated = true
-        DispatchQueue.main.asyncAfter(deadline: .now() + config.centerAnimationTime) {
-            contentIsAnimated = false
-        }
-    }
-    
-    func handleClosingHud() {
-        DispatchQueue.main.async {
-            activeView = nil
-        }
     }
 }
 
@@ -102,6 +70,6 @@ private extension CenterStackView {
     }
     
     var config: HUDConfig {
-        items.last?.setupConfig(HUDConfig()) ?? configTemp ?? .init()
+        items.last?.setupConfig(HUDConfig()) ?? .init()
     }
 }
