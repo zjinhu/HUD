@@ -15,7 +15,6 @@ struct TopStackView: View {
     var body: some View {
         ZStack(alignment: .bottom, content: setupHudStack)
             .ignoresSafeArea()
-
             .animation(config.animation.entry, value: heights)
             .animation(config.animation.removal, value: gestureTranslation)
             .background(setupTapArea())

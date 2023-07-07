@@ -10,9 +10,11 @@ import SwiftUI
 public extension View {
     /// 添加popView控制器,需要弹窗的页面最外层添加
     func addHUD() -> some View {
-        overlay(
-            HUDContainerView()
-        )
+    #if os(iOS) || os(macOS)
+        overlay( HUDContainerView() )
+    #elseif os(tvOS)
+        HUDContainerView()
+    #endif
     }
 }
 
@@ -132,10 +134,10 @@ private extension [AnyHUD] {
     
     mutating func performOperation(_ operation: Operation) {
         switch operation {
-        case .insertAndReplace(let popup):
-            replaceLast(popup, if: canBeInserted(popup))
-        case .insertAndStack(let popup):
-            append(popup, if: canBeInserted(popup))
+        case .insertAndReplace(let hud):
+            replaceLast(hud, if: canBeInserted(hud))
+        case .insertAndStack(let hud):
+            append(hud, if: canBeInserted(hud))
         case .removeLast:
             removeLast()
         case .remove(let id):

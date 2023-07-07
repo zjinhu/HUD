@@ -4,7 +4,11 @@
 import PackageDescription
 let package = Package(name: "HUD")
 
-package.platforms = [.iOS(.v14)]
+package.platforms = [
+    .iOS(.v14),
+    .macOS(.v12),
+    .tvOS(.v15)
+]
 
 package.products = [
     .library(

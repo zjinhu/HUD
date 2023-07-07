@@ -33,7 +33,7 @@ private extension CenterStackView {
             .background(config.backgroundColour,
                         radius: config.cornerRadius,
                         corners: .allCorners)
-            .padding(config.horizontalPadding)
+            .padding(.horizontal, config.horizontalPadding)
             .compositingGroup()
             .focusSectionIfAvailable()
             .shadow(color: config.shadowColour,
@@ -84,15 +84,14 @@ private extension CenterStackView {
 
 // MARK: -View Handlers
 private extension CenterStackView {
-    
     func saveHeight(_ value: CGFloat) {
         height = items.isEmpty ? nil : value
     }
-    
     func getTransition() -> AnyTransition {
         .scale(scale: items.isEmpty ? config.centerTransitionExitScale : config.centerTransitionEntryScale)
         .combined(with: .opacity)
         .animation(height == nil || items.isEmpty ? config.animation.removal : nil)
+        .animation(items.isEmpty ? config.animation.removal : nil)
     }
 }
 
