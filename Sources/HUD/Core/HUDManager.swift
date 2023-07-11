@@ -27,15 +27,15 @@ public class HUDManager: ObservableObject {
 
 public extension HUDManager {
     /// 收起最后一个hud
-    func dismissLast() {
+    func hiddenLastHUD() {
         performOperation(.removeLast)
     }
     /// 收起指定hud
-    func dismiss(_ id: UUID) {
+    func hiddenHUD(_ id: UUID) {
         performOperation(.remove(id: id))
     }
     /// 收起所有hud
-    func dismissAll() {
+    func hiddenAllHUD() {
         performOperation(.removeAll)
     }
 
@@ -43,12 +43,12 @@ public extension HUDManager {
 
 extension HUDManager {
     /// 弹出hud
-    func show(_ hud: AnyHUD, withStacking useStack: Bool = false) {
+    func showHUD(_ hud: AnyHUD, withStacking useStack: Bool = false) {
         performOperation(useStack ? .insertAndStack(hud) : .insertAndReplace(hud))
         let config = hud.setupConfig(HUDConfig())
-        if config.autoDismiss {
-            DispatchQueue.main.asyncAfter(deadline: .now() + config.autoDismissTime) {
-                self.dismiss(hud.id)
+        if config.autoHidden {
+            DispatchQueue.main.asyncAfter(deadline: .now() + config.autoHiddenTime) {
+                self.hiddenHUD(hud.id)
             }
         }
     }

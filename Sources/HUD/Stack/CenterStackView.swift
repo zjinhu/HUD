@@ -45,8 +45,8 @@ private extension CenterStackView {
     
     func setupTapArea() -> some View {
         Color.black.opacity(0.00000000001)
-            .onTapGesture(perform: items.last?.dismiss ?? {})
-            .active(if: config.touchOutsideToDismiss)
+            .onTapGesture(perform: items.last?.hiddenHUD ?? {})
+            .active(if: config.touchOutsideToHidden)
     }
 }
 

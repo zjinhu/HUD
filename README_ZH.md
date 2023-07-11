@@ -23,17 +23,8 @@ HUD是基于SwiftUI开发的Loading弹窗工具，样式参考[ProgressHUD](http
 在需要使用Loading或弹窗的的页面添加（仅遮盖当前页面，如果需要遮盖TabView或者NavigationView请直接添加在根View上，比如ContentView()）
 
 ```Swift
-//如果是UIViewController使用UIHostController的方式不需要添加
 .addHUD()
 ```
-
-当你的SwiftUI使用了UIHostingController的方式添加到了UITabBarController或者UINavigationController上使用SwiftUI方式的弹窗是无法遮盖UITabBar和UINavigationBar的，所以HUD在show执行的时候会判断最上层级的VC，然后再判断执行哪种遮盖方案，完美遮盖UIKit层级的导航栏，如下图：
-
-| ![](Image/遮盖导航栏.png) | ![](Image/遮盖Tabbar.png) |
-| ------------------------- | ------------------------- |
-
-具体用法以及效果详见[Demo](https://github.com/jackiehu/HUDDemo)
-
 各种内置弹窗
 
 ```swift
@@ -69,7 +60,7 @@ Text和Progress需要绑定外部参数，所以可以这样用
 
 ```swift
    Button {
-       loading.show()
+       loading.showHUD()
    } label: {
        Text("Loading Short Text")
    }
@@ -80,9 +71,9 @@ Text和Progress需要绑定外部参数，所以可以这样用
 ```swift
   .onChange(of: revenueCat.isPurchasing) { newValue in
        if newValue{
-            loading.show()
+            loading.showHUD()
        }else{
-            loading.dismiss()
+            loading.hiddenHUD()
        }
    }
 ```
@@ -90,7 +81,7 @@ Text和Progress需要绑定外部参数，所以可以这样用
 关闭HUD
 
 ```
-.dismiss()
+.hiddenHUD()
 ```
 
 适配器内有超多自定义功能
@@ -103,7 +94,7 @@ Text和Progress需要绑定外部参数，所以可以这样用
     //弹窗忽略安全区域
     var ignoresSafeArea: Bool = false
     //点击区域外关闭弹窗
-    var touchOutsideToDismiss: Bool = false
+    var touchOutsideToHidden: Bool = false
     //圆角弧度
     var cornerRadius: CGFloat = 10
     //手势关闭
@@ -149,9 +140,9 @@ Text和Progress需要绑定外部参数，所以可以这样用
     
     
     //是否需要自动关闭
-    var autoDismiss: Bool = false
+    var autoHidden: Bool = false
     //自动关闭等候时长
-    var autoDismissTime: TimeInterval = 3
+    var autoHiddenTime: TimeInterval = 3
 ```
 
 

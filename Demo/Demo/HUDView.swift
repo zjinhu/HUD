@@ -30,24 +30,24 @@ struct HUDView: View {
             Section {
                 Button {
                     loadingText = nil
-                    loading?.show()
-                    dismiss()
+                    loading?.showHUD()
+                    hidden()
                 } label: {
                     Text("Loading")
                 }
                 
                 Button {
                     loadingText = "Loading"
-                    loading?.show()
-                    dismiss()
+                    loading?.showHUD()
+                    hidden()
                 } label: {
                     Text("Loading text")
                 }
                 
                 Button {
                     loadingText = "Compares less than or equal to all positive numbers, but greater than zero. If the target supports subnormal values, this is smaller than leastNormalMagnitude; otherwise they are equal."
-                    loading?.show()
-                    dismiss()
+                    loading?.showHUD()
+                    hidden()
                 } label: {
                     Text("Loading long text")
                 }
@@ -58,13 +58,13 @@ struct HUDView: View {
             
             Section {
                 Button {
-                    succ.show()
+                    succ.showHUD()
                 } label: {
                     Text("Success No Text")
                 }
     
                 Button {
-                    succText.show()
+                    succText.showHUD()
                 } label: {
                     Text("Success Text")
                 }
@@ -75,14 +75,14 @@ struct HUDView: View {
             Section {
                 Button {
                     startTimer()
-                    progressView?.show()
+                    progressView?.showHUD()
                 } label: {
                     Text("progress No Text")
                 }
     
                 Button {
                     startTimer()
-                    progressTextView?.show()
+                    progressTextView?.showHUD()
                 } label: {
                     Text("progress Text")
                 }
@@ -92,13 +92,13 @@ struct HUDView: View {
             
             Section {
                 Button {
-                    fail.show()
+                    fail.showHUD()
                 } label: {
                     Text("Failed No Text")
                 }
 
                 Button {
-                    failText.show()
+                    failText.showHUD()
                 } label: {
                     Text("Failed Text")
                 }
@@ -108,19 +108,19 @@ struct HUDView: View {
             
             Section {
                 Button {
-                    PopupTopView().show(useStack: true)
+                    PopupTopView().showHUD(useStack: true)
                 } label: {
                     Text("Pop Top")
                 }
  
                 Button {
-                    PopCenterView().show(useStack: true)
+                    PopCenterView().showHUD(useStack: true)
                 } label: {
                     Text("Pop Center")
                 }
                 
                 Button {
-                    PopBottomView().show()
+                    PopBottomView().showHUD()
                 } label: {
                     Text("Pop Bottom")
                 }
@@ -134,10 +134,10 @@ struct HUDView: View {
             progress = newValue
             debugPrint("////////\(newValue)")
             if newValue >= 1{
-                progressView?.dismiss()
-                progressTextView?.dismiss()
+                progressView?.hiddenHUD()
+                progressTextView?.hiddenHUD()
                 timer.stop()
-                succ.show()
+                succ.showHUD()
             }
         }
         .onAppear {
@@ -150,9 +150,9 @@ struct HUDView: View {
     
     
     
-    func dismiss(){
+    func hidden(){
         DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-            loading?.dismiss()
+            loading?.hiddenHUD()
         }
     }
     
@@ -224,7 +224,7 @@ struct PopupTopView: HUD {
             
             Spacer()
             Button {
-                PopupTopView().show(useStack: true)
+                PopupTopView().showHUD(useStack: true)
             } label: {
                 Text("Show next".uppercased())
                     .foregroundColor(.white)
@@ -239,7 +239,7 @@ struct PopupTopView: HUD {
         config
             .backgroundColour(.blue)
             .cornerRadius(0)
-            .touchOutsideToDismiss(true)
+            .touchOutsideToHidden(true)
             .maxStackCount(5)
     }
 }
@@ -265,8 +265,8 @@ struct PopCenterView: HUD {
             
             HStack(spacing: 20){
                 
-                Button(action: dismiss) {
-                    Text("dismiss")
+                Button(action: hiddenHUD) {
+                    Text("hidden")
                         .frame(maxWidth: .infinity)
                         .padding(10)
                 }
@@ -277,7 +277,7 @@ struct PopCenterView: HUD {
                 .cornerRadius(10)
   
                 Button {
-                    PopCenterView().show(useStack: true)
+                    PopCenterView().showHUD(useStack: true)
                 } label: {
                     Text("Show next")
                         .frame(maxWidth: .infinity)
@@ -295,7 +295,7 @@ struct PopCenterView: HUD {
         config
             .backgroundColour(.white)
             .horizontalPadding(20)
-            .touchOutsideToDismiss(true)
+            .touchOutsideToHidden(true)
             .cornerRadius(15)
             .maxStackCount(3)
     }
@@ -340,7 +340,7 @@ struct PopBottomView: HUD {
             
             Spacer()
             Button {
-                PopBottomView().show(useStack: true)
+                PopBottomView().showHUD(useStack: true)
             } label: {
                 Text("Show next".uppercased())
                     .foregroundColor(.white)
@@ -352,7 +352,7 @@ struct PopBottomView: HUD {
     
     func setupConfig(_ config: HUDConfig) -> HUDConfig {
         config.backgroundColour(.green)
-             .touchOutsideToDismiss(true)
+             .touchOutsideToHidden(true)
              .distanceFromKeyboard(30)
              .dragGestureEnabled(false)
     }

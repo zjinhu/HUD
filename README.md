@@ -23,17 +23,8 @@ Support dark mode
 Add it on the page that needs to use Loading or pop-up window (only cover the current page, if you need to cover TabView or NavigationView, please add it directly on the root View, such as ContentView())
 
 ```Swift
-//If UIViewController uses UIHostController, you don't need to add
 .addHUD()
 ```
-
-When your SwiftUI uses UIHostingController and adds it to UITabBarController or UINavigationController, the pop-up window using SwiftUI cannot cover UITabBar and UINavigationBar, so the HUD will judge the top-level VC when the show is executed, and then judge which kind of covering to perform Solution, perfectly cover the UIKit-level navigation bar, as shown below:
-
-| ![](Image/遮盖导航栏.png) | ![](Image/遮盖Tabbar.png) |
-| ------------------------- | ------------------------- |
-
-For specific usage and effects, see [Demo](https://github.com/jackiehu/HUDDemo)
-
 Various built-in pop-up windows
 
 ```swift
@@ -69,7 +60,7 @@ The rest only needs to be in the trigger position
 
 ```swift
    Button {
-       loading.show()
+       loading.showHUD()
    } label: {
        Text("Loading Short Text")
    }
@@ -80,9 +71,9 @@ or according to state control
 ```swift
   .onChange(of: revenueCat.isPurchasing) { newValue in
        if newValue{
-            loading.show()
+            loading.showHUD()
        }else{
-            loading.dismiss()
+            loading.hiddenHUD()
        }
    }
 ```
@@ -90,7 +81,7 @@ or according to state control
 close HUD
 
 ```
-.dismiss()
+.hiddenHUD()
 ```
 
 There are many custom functions in the adapter
@@ -103,7 +94,7 @@ There are many custom functions in the adapter
      //The pop-up window ignores the safe area
      var ignoresSafeArea: Bool = false
      //Click outside the area to close the popup window
-     var touchOutsideToDismiss: Bool = false
+     var touchOutsideToHidden: Bool = false
      // rounded corner radian
      var cornerRadius: CGFloat = 10
      // Gesture off
@@ -149,9 +140,9 @@ There are many custom functions in the adapter
     
     
      // Whether to automatically close
-     var autoDismiss: Bool = false
+     var autoHidden: Bool = false
      //automatic shutdown waiting time
-     var autoDismissTime: TimeInterval = 3
+     var autoHiddenTime: TimeInterval = 3
 ```
 
 

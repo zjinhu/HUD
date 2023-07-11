@@ -29,8 +29,8 @@ private extension BottomStackView {
     
     func setupTapArea() -> some View {
         Color.black.opacity(0.00000000001)
-            .onTapGesture(perform: items.last?.dismiss ?? {})
-            .active(if: config.touchOutsideToDismiss)
+            .onTapGesture(perform: items.last?.hiddenHUD ?? {})
+            .active(if: config.touchOutsideToHidden)
     }
 }
 
@@ -73,7 +73,7 @@ private extension BottomStackView {
     
     func onDragGestureEnded(_ value: CGFloat) {
         if translationProgress >= gestureClosingThresholdFactor {
-            items.last?.dismiss()
+            items.last?.hiddenHUD()
         }
         let resetAfter = items.count == 1 && translationProgress >= gestureClosingThresholdFactor ? 0.25 : 0
         DispatchQueue.main.asyncAfter(deadline: .now() + resetAfter) {

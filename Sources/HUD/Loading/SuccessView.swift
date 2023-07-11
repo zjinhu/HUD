@@ -54,8 +54,8 @@ public struct SuccessView: HUD {
             .backgroundColour(.defaultBackground)
             .maxStackCount(1)
             .needMask(false)
-            .autoDismiss(true)
-            .autoDismissTime(1)
+            .autoHidden(true)
+            .autoHiddenTime(1)
             .horizontalPadding(50)
     }
 }

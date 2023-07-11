@@ -46,17 +46,17 @@ public extension HUD {
     }
     
     /// 弹出hud
-    func show(useStack: Bool = true) {
-        HUDManager.shared.show(AnyHUD(self), withStacking: useStack)
+    func showHUD(useStack: Bool = true) {
+        HUDManager.shared.showHUD(AnyHUD(self), withStacking: useStack)
     }
     
     /// 关闭hud
-    func dismiss() { 
-        HUDManager.shared.dismiss(id)
+    func hiddenHUD() { 
+        HUDManager.shared.hiddenHUD(id)
     }
     
-    func dismissAll() {
-        HUDManager.shared.dismissAll()
+    func hiddenAllHUD() {
+        HUDManager.shared.hiddenAllHUD()
     }
 }
 

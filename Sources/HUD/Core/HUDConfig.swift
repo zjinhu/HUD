@@ -16,7 +16,7 @@ public struct HUDConfig: Configurable{
     //弹窗忽略安全区域
     var ignoresSafeArea: Bool = false
     //点击区域外关闭弹窗
-    var touchOutsideToDismiss: Bool = false
+    var touchOutsideToHidden: Bool = false
     //圆角弧度
     var cornerRadius: CGFloat = 10
     
@@ -60,9 +60,9 @@ public struct HUDConfig: Configurable{
     
     
     //是否需要自动关闭
-    var autoDismiss: Bool = false
+    var autoHidden: Bool = false
     //自动关闭等候时长
-    var autoDismissTime: TimeInterval = 3
+    var autoHiddenTime: TimeInterval = 3
     
     var contentIgnoresSafeArea: Bool = false
  
@@ -89,8 +89,8 @@ public extension HUDConfig {
         changing(path: \.ignoresSafeArea, to: value)
     }
     //点击区域外关闭弹窗
-    func touchOutsideToDismiss(_ value: Bool) -> Self {
-        changing(path: \.touchOutsideToDismiss, to: value)
+    func touchOutsideToHidden(_ value: Bool) -> Self {
+        changing(path: \.touchOutsideToHidden, to: value)
     }
     //弹出动画
     func animation(_ value: AnimationType) -> Self {
@@ -113,12 +113,12 @@ public extension HUDConfig {
         changing(path: \.maxStackCount, to: value)
     }
     //是否需要自动关闭
-    func autoDismiss(_ value: Bool) -> Self {
-        changing(path: \.autoDismiss, to: value)
+    func autoHidden(_ value: Bool) -> Self {
+        changing(path: \.autoHidden, to: value)
     }
     //自动关闭等候时长
-    func autoDismissTime(_ value: TimeInterval) -> Self {
-        changing(path: \.autoDismissTime, to: value)
+    func autoHiddenTime(_ value: TimeInterval) -> Self {
+        changing(path: \.autoHiddenTime, to: value)
     }
     //横向的padding,默认为0,大部分情况Center Popup会用到
     func horizontalPadding(_ value: CGFloat) -> Self {
