@@ -47,7 +47,7 @@ private extension HUDContainerView {
 //        .visible(if: !manager.views.isEmpty)
     }
     func createOverlay() -> some View {
-        Color.black.opacity(0.3)
+        Color.black.opacity(0.6)
             .ignoresSafeArea()
             .active(if: getConfig(manager.views).needMask && !manager.views.isEmpty)
             .animation(.easeInOut, value: manager.views.isEmpty)
