@@ -13,12 +13,12 @@ public struct LoadingView: HUD {
     
     @Binding public var text: String?
     //HUD提示字体颜色
-    public var textColor = Color.dynamic(light: .black, dark: .white)
+    public var textColor = Color.primary
     //HUD提示字体颜色
     public var textFont: Font = .system(size: 15, weight: .medium)
     //HUD Loading颜色
     public var accentColor = Color.blue
-    
+    @Environment(\.colorScheme) var colorScheme: ColorScheme
     public init(text: Binding<String?>) {
         self._text = text
     }
@@ -42,7 +42,7 @@ public struct LoadingView: HUD {
     
     public func setupConfig(_ config: HUDConfig) -> HUDConfig {
         config
-            .backgroundColour(.defaultBackground)
+            .backgroundColour(colorScheme == .dark ? .white : .black)
             .maxStackCount(1)
             .needMask(true)
             .horizontalPadding(50)

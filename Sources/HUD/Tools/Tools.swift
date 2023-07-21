@@ -100,57 +100,29 @@ extension Array {
     }
 }
 
-public extension Color {
-    static let defaultBackground = Color.dynamic(light: .white, dark: .init(red: 0.11, green: 0.11, blue: 0.11))
-    
-    static func dynamic(light: Color, dark: Color) -> Color {
-        let l = UIColor(light)
-        let d = UIColor(dark)
-        return UIColor.dynamicColor(light: l, dark: d).toColor()
-    }
-    
-    func toUIColor() -> UIColor {
-        return UIColor(self)
-    }
-}
-
-extension UIColor {
-    
-    static func dynamicColor(light: UIColor, dark: UIColor) -> UIColor {
-        guard #available(iOS 13.0, *) else { return light }
-        return UIColor { $0.userInterfaceStyle == .dark ? dark : light }
-    }
-    
-    func toColor() -> Color {
-        return Color(self)
-    }
-}
-
-
-
-extension UIViewController{
-    func canUseVC() -> Bool {
-        if let _ = self as? UITabBarController {
-            // tabBar 的跟控制器
-            return true
-        } else if let _ = self as? UINavigationController {
-            // 控制器是 nav
-            return true
-        } else {
-            // 返回顶控制器
-            return false
-        }
-    }
-}
-
-extension UIApplication {
-    var keyWindow: UIWindow? {
-        connectedScenes
-            .compactMap {  $0 as? UIWindowScene }
-            .flatMap { $0.windows }
-            .first { $0.isKeyWindow }
-    }
-}
+//extension UIViewController{
+//    func canUseVC() -> Bool {
+//        if let _ = self as? UITabBarController {
+//            // tabBar 的跟控制器
+//            return true
+//        } else if let _ = self as? UINavigationController {
+//            // 控制器是 nav
+//            return true
+//        } else {
+//            // 返回顶控制器
+//            return false
+//        }
+//    }
+//}
+//
+//extension UIApplication {
+//    var keyWindow: UIWindow? {
+//        connectedScenes
+//            .compactMap {  $0 as? UIWindowScene }
+//            .flatMap { $0.windows }
+//            .first { $0.isKeyWindow }
+//    }
+//}
 
 extension View {
     func background(_ colour: Color, radius: CGFloat, corners: RectCorner) -> some View {

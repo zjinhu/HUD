@@ -160,7 +160,7 @@ private extension TopStackView {
         abs(gestureTranslation) / height
     }
     var contentTopPadding: CGFloat {
-        config.ignoresSafeArea ? 0 : max(UIScreen.safeArea.top - config.topPadding, 0)
+        config.ignoresSafeArea ? 0 : max(Screen.safeArea.top - config.topPadding, 0)
     }
     var topPadding: CGFloat {
         config.topPadding

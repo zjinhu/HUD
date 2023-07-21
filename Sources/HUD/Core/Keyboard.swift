@@ -45,6 +45,7 @@ private extension KeyboardManager {
             .map { _ in .zero }
     }
 }
+
 #elseif os(macOS)
 class KeyboardManager: ObservableObject {
     private(set) var height: CGFloat = 0
@@ -56,6 +57,7 @@ extension KeyboardManager {
         }
     }
 }
+
 #elseif os(tvOS)
 class KeyboardManager: ObservableObject {
     private(set) var height: CGFloat = 0
@@ -67,7 +69,13 @@ extension KeyboardManager {
 }
 #endif
 
-extension UIScreen {
+#if (os(iOS) || os(tvOS)) && !os(xrOS)
+
+class Screen {
+    static var safeArea: UIEdgeInsets = UIScreen.safeArea
+}
+
+fileprivate extension UIScreen {
     static var safeArea: UIEdgeInsets {
         UIApplication.shared
             .connectedScenes
@@ -78,6 +86,19 @@ extension UIScreen {
     }
 }
 
+#elseif os(macOS)
+class Screen {
+    static var safeArea: NSEdgeInsets = NSScreen.safeArea
+}
+
+fileprivate extension NSScreen {
+    static var safeArea: NSEdgeInsets =
+    NSApplication.shared
+        .mainWindow?
+        .contentView?
+        .safeAreaInsets ?? .init(top: 0, left: 0, bottom: 0, right: 0)
+}
+#endif
 //// MARK: -iOS Implementation
 //#if os(iOS)
 //class ScreenManager: ObservableObject {

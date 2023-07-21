@@ -10,15 +10,12 @@ import SwiftUI
 #if os(iOS) || os(macOS)
 struct HUDContainerView: View {
     @StateObject private var manager = HUDManager.shared
-
-
     var body: some View { createBody() }
 }
 #elseif os(tvOS)
 struct HUDContainerView: View {
     let rootView: any View
     @StateObject private var manager = HUDManager.shared
-
 
     var body: some View {
         AnyView(rootView)

@@ -136,7 +136,7 @@ private extension BottomStackView {
         if isKeyboardVisible { return keyboardManager.height + config.distanceFromKeyboard }
         if config.contentIgnoresSafeArea { return 0 }
 
-        return max(UIScreen.safeArea.bottom - bottomPadding, 0)
+        return max(Screen.safeArea.bottom - bottomPadding, 0)
     }
     
     func getOffset(for item: AnyHUD) -> CGFloat {

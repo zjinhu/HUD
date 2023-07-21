@@ -20,7 +20,7 @@ public struct StepView: HUD {
     public var accentColor = Color.blue
     ///进度条进度 0--1
     @Binding public var progress: CGFloat
-    
+    @Environment(\.colorScheme) var colorScheme: ColorScheme
     public init(text: Binding<String?>,
                 progress: Binding<CGFloat>) {
         self._text = text
@@ -44,7 +44,7 @@ public struct StepView: HUD {
     
     public func setupConfig(_ config: HUDConfig) -> HUDConfig {
         config
-            .backgroundColour(.defaultBackground)
+            .backgroundColour(colorScheme == .dark ? .white : .black)
             .maxStackCount(1)
             .needMask(true)
             .horizontalPadding(50)
