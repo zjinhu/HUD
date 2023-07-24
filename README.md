@@ -5,6 +5,8 @@
 ![iOS 13.0+](https://img.shields.io/badge/iOS-14.0%2B-blue.svg)
 ![SwiftUI 3.0+](https://img.shields.io/badge/SwiftUI-3.0%2B-orange.svg)
 
+This Package is related to [Gitee](https://gitee.com/zjinhu/HUD). If you feel that the introduction of Github addresses in SPM is slow, you can use Gitee.
+
 HUD is a Loading pop-up tool developed based on SwiftUI, style reference [ProgressHUD](https://github.com/relatedcode/ProgressHUD) and [PopupView](https://github.com/Mijick/PopupView).
 
 The current functions include Loading, Progress, Success, Fail, and PopupView, which support custom styles inherited from protocols and pop-up animations.
