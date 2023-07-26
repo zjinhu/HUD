@@ -13,7 +13,7 @@ public extension View {
     #if os(iOS) || os(macOS)
         overlay( HUDContainerView() )
     #elseif os(tvOS)
-        HUDContainerView()
+        HUDContainerView(rootView: self)
     #endif
     }
 }

@@ -13,16 +13,14 @@ public struct FailView: HUD {
     
     @Binding public var text: String?
     //HUD提示字体颜色
-    public var textColor = Color.primary
+    public var textColor = Color.white
     //HUD提示字体颜色
     public var textFont: Font = .system(size: 15, weight: .medium)
     //HUD Loading颜色
-    public var accentColor = Color.blue
+    public var accentColor = Color.white
     
     @State private var isActive = false
-    
-    @Environment(\.colorScheme) var colorScheme: ColorScheme
-    
+ 
     public init(text: Binding<String?>) {
         self._text = text
     }
@@ -52,7 +50,7 @@ public struct FailView: HUD {
     
     public func setupConfig(_ config: HUDConfig) -> HUDConfig {
         config
-            .backgroundColour(colorScheme == .dark ? .white : .black)
+            .backgroundColour(.black.opacity(0.8))
             .maxStackCount(1)
             .needMask(false)
             .autoHidden(true)

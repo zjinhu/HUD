@@ -19,7 +19,7 @@ struct HUDContainerView: View {
 
     var body: some View {
         AnyView(rootView)
-            .disabled(!stack.views.isEmpty)
+            .disabled(!manager.views.isEmpty)
             .overlay(createBody())
     }
 }
@@ -44,7 +44,8 @@ private extension HUDContainerView {
 //        .visible(if: !manager.views.isEmpty)
     }
     func createOverlay() -> some View {
-        Color.black.opacity(0.6)
+//        Color.black.opacity(0.6)
+        BlurView()
             .ignoresSafeArea()
             .active(if: getConfig(manager.views).needMask && !manager.views.isEmpty)
             .animation(.easeInOut, value: manager.views.isEmpty)

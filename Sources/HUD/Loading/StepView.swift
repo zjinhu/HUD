@@ -13,14 +13,14 @@ public struct StepView: HUD {
     //HUD提示
     @Binding public var text: String?
     //HUD提示字体颜色
-    public var textColor = Color.primary
+    public var textColor = Color.white
     //HUD提示字体颜色
     public var textFont: Font = .system(size: 15, weight: .medium)
     //HUD Loading颜色
-    public var accentColor = Color.blue
+    public var accentColor = Color.white
     ///进度条进度 0--1
     @Binding public var progress: CGFloat
-    @Environment(\.colorScheme) var colorScheme: ColorScheme
+    
     public init(text: Binding<String?>,
                 progress: Binding<CGFloat>) {
         self._text = text
@@ -44,7 +44,7 @@ public struct StepView: HUD {
     
     public func setupConfig(_ config: HUDConfig) -> HUDConfig {
         config
-            .backgroundColour(colorScheme == .dark ? .white : .black)
+            .backgroundColour(.black.opacity(0.8))
             .maxStackCount(1)
             .needMask(true)
             .horizontalPadding(50)
@@ -77,6 +77,8 @@ struct GaugeProgressStyle: ProgressViewStyle {
                 .rotationEffect(.degrees(-90))
             
             Text("\(String(format: "%.f", fractionCompleted*100))%")
+                .font(.system(size: 16, weight: .medium))
+                .foregroundColor(.white)
         }
     }
 }

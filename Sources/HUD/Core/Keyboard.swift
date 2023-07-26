@@ -19,7 +19,8 @@ class KeyboardManager: ObservableObject {
 }
 
 extension KeyboardManager {
-    static func hideKeyboard() { UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+    static func hideKeyboard() {
+        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
     }
 }
 
@@ -27,7 +28,9 @@ private extension KeyboardManager {
     func subscribeToKeyboardEvents() {
         Publishers.Merge(getKeyboardWillOpenPublisher(), createKeyboardWillHidePublisher())
             .debounce(for: .milliseconds(50), scheduler: DispatchQueue.main)
-            .sink { self.height = $0 }
+            .sink {
+                self.height = $0
+            }
             .store(in: &subscription)
     }
 }
@@ -35,8 +38,11 @@ private extension KeyboardManager {
     func getKeyboardWillOpenPublisher() -> Publishers.CompactMap<NotificationCenter.Publisher, CGFloat> {
         NotificationCenter.default
             .publisher(for: UIResponder.keyboardWillShowNotification)
-            .compactMap { $0.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect }
-            .map { max(0, $0.height - 8)
+            .compactMap {
+                $0.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect
+            }
+            .map {
+                max(0, $0.height - 8)
             }
     }
     func createKeyboardWillHidePublisher() -> Publishers.Map<NotificationCenter.Publisher, CGFloat> {
@@ -53,7 +59,8 @@ class KeyboardManager: ObservableObject {
 
 extension KeyboardManager {
     static func hideKeyboard() {
-        DispatchQueue.main.async { NSApp.keyWindow?.makeFirstResponder(nil)
+        DispatchQueue.main.async {
+            NSApp.keyWindow?.makeFirstResponder(nil)
         }
     }
 }
@@ -61,7 +68,6 @@ extension KeyboardManager {
 #elseif os(tvOS)
 class KeyboardManager: ObservableObject {
     private(set) var height: CGFloat = 0
-    private init() {}
 }
 
 extension KeyboardManager {

@@ -13,12 +13,12 @@ public struct LoadingView: HUD {
     
     @Binding public var text: String?
     //HUD提示字体颜色
-    public var textColor = Color.primary
+    public var textColor = Color.white
     //HUD提示字体颜色
     public var textFont: Font = .system(size: 15, weight: .medium)
     //HUD Loading颜色
-    public var accentColor = Color.blue
-    @Environment(\.colorScheme) var colorScheme: ColorScheme
+    public var accentColor = Color.white
+    
     public init(text: Binding<String?>) {
         self._text = text
     }
@@ -26,7 +26,9 @@ public struct LoadingView: HUD {
     public func setupBody() -> some View  {
         VStack(spacing: 10){
             ProgressView()
+#if os(iOS)
                 .scaleEffect(2)
+#endif
                 .frame(width: 50, height: 50)
                 .progressViewStyle(CircularProgressViewStyle(tint: accentColor))
             
@@ -42,7 +44,7 @@ public struct LoadingView: HUD {
     
     public func setupConfig(_ config: HUDConfig) -> HUDConfig {
         config
-            .backgroundColour(colorScheme == .dark ? .white : .black)
+            .backgroundColour(.black.opacity(0.8))
             .maxStackCount(1)
             .needMask(true)
             .horizontalPadding(50)
