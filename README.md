@@ -155,14 +155,6 @@ Please refer to Demo for the specific use of the code api and detailed effects
 
 ## Install
 
-### Cocoapods
-
-1. Add `pod 'SwiftUIHUD'` in Podfile
-
-2. Execute `pod install or pod update`
-
-3. Import `import SwiftUIHUD`
-
 ### Swift Package Manager
 
 Starting from Xcode 11, the Swift Package Manager is integrated, which is very convenient to use. HUD also supports integration via Swift Package Manager.

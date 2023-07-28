@@ -155,14 +155,6 @@ Text和Progress需要绑定外部参数，所以可以这样用
 
 ## 安装
 
-### cocoapods
-
-1.在 Podfile 中添加 `pod ‘SwiftUIHUD’`
-
-2.执行 `pod install 或 pod update`
-
-3.导入 `import SwiftUIHUD`
-
 ### Swift Package Manager
 
 从 Xcode 11 开始，集成了 Swift Package Manager，使用起来非常方便。HUD 也支持通过 Swift Package Manager 集成。
