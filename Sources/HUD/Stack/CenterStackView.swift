@@ -13,6 +13,7 @@ struct CenterStackView: View {
     @State private var height: CGFloat?
     var body: some View {
         ZStack(alignment: .center, content: setupHudStack)
+            .frame(maxHeight: .infinity)
             .ignoresSafeArea()
             .background(setupTapArea())
             .animation(config.animation.entry, value: config.horizontalPadding)
