@@ -8,7 +8,8 @@
 import SwiftUI
 // MARK: -Alignments
 extension View {
-    func align(to edge: Edge, _ value: CGFloat?) -> some View { padding(.init(edge), value)
+    func align(to edge: Edge, _ value: CGFloat?) -> some View {
+        padding(.init(edge), value)
             .frame(
                 maxHeight: value != nil ? .infinity : nil,
                 alignment: edge.toAlignment()
