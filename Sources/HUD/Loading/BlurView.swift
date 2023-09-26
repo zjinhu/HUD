@@ -9,35 +9,35 @@ import SwiftUI
 import Foundation
 #if os(macOS)
 import AppKit
-struct BlurView: NSViewRepresentable {
-    typealias NSViewType = NSView
+public struct BlurView: NSViewRepresentable {
+    public typealias NSViewType = NSView
     
-    func makeNSView(context: Context) -> NSView {
+    public func makeNSView(context: Context) -> NSView {
         let view = NSView()
         view.wantsLayer = true
         return view
     }
     
-    func updateNSView(_ nsView: NSView, context: Context) {
+    public func updateNSView(_ nsView: NSView, context: Context) {
         nsView.layer?.backgroundColor = NSColor.black.withAlphaComponent(0.6).cgColor
     }
 }
 #else
 import UIKit
-struct BlurView: UIViewRepresentable {
-    typealias UIViewType = GlassmorphismView
+public struct BlurView: UIViewRepresentable {
+    public typealias UIViewType = GlassmorphismView
     
-    func makeUIView(context: Context) -> GlassmorphismView {
+    public func makeUIView(context: Context) -> GlassmorphismView {
         let glassmorphismView = GlassmorphismView()
         return glassmorphismView
     }
     
-    func updateUIView(_ uiView: GlassmorphismView, context: Context) {
-        uiView.setBlurDensity(with: 0.1) 
+    public func updateUIView(_ uiView: GlassmorphismView, context: Context) {
+        uiView.setBlurDensity(with: 0.1)
     }
 }
 
-class GlassmorphismView: UIView {
+public class GlassmorphismView: UIView {
 
     private let animator = UIViewPropertyAnimator(duration: 0.5, curve: .linear)
     private var blurView = UIVisualEffectView(effect: UIBlurEffect(style: .light))
@@ -50,7 +50,7 @@ class GlassmorphismView: UIView {
         set {}
     }
 
-    override init(frame: CGRect) {
+    public override init(frame: CGRect) {
         super.init(frame: frame)
         self.initialize()
     }
