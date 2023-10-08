@@ -55,7 +55,7 @@ private extension BottomStackView {
             .focusSectionIfAvailable()
             .transition(transition)
             .zIndex(getZIndex(item))
-            .shadow(color: config.shadowColour,
+            .shadow(color: config.shadowColor,
                     radius: config.shadowRadius,
                     x: config.shadowOffsetX,
                     y: config.shadowOffsetY)

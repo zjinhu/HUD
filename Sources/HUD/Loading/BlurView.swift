@@ -79,7 +79,7 @@ public class GlassmorphismView: UIView {
         backgroundView.translatesAutoresizingMaskIntoConstraints = false
         self.insertSubview(backgroundView, at: 0)
         
-        blurView.backgroundColor = UIColor.black.withAlphaComponent(0.6)
+        blurView.backgroundColor = UIColor.black.withAlphaComponent(0.4)
         blurView.translatesAutoresizingMaskIntoConstraints = false
         backgroundView.insertSubview(blurView, at: 0)
         NSLayoutConstraint.activate([

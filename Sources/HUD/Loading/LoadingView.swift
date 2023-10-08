@@ -48,6 +48,7 @@ public struct LoadingView: HUD {
             .maxStackCount(1)
             .needMask(true)
             .horizontalPadding(50)
+            .shadowColor(.gray)
     }
 }
 

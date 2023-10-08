@@ -27,8 +27,8 @@ public struct HUDConfig: Configurable{
     var animation: AnimationType = .spring
     
     //弹窗背景阴影颜色
-    var shadowColour: Color = .primary.opacity(0.3)
-    var shadowRadius: CGFloat = 8
+    var shadowColor: Color = .primary.opacity(0.3)
+    var shadowRadius: CGFloat = 5
     var shadowOffsetX: CGFloat = 0
     var shadowOffsetY: CGFloat = 0
     
@@ -177,8 +177,8 @@ public extension HUDConfig {
 ///阴影
 public extension HUDConfig {
     //弹窗背景阴影颜色
-    func shadowColour(_ value: Color) -> Self {
-        changing(path: \.shadowColour, to: value)
+    func shadowColor(_ value: Color) -> Self {
+        changing(path: \.shadowColor, to: value)
     }
     func shadowRadius(_ value: CGFloat) -> Self {
         changing(path: \.shadowRadius, to: value)
