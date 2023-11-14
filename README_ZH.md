@@ -2,7 +2,7 @@
 
 [![SPM](https://img.shields.io/badge/SPM-supported-DE5C43.svg?style=flat)](https://swift.org/package-manager/)
 ![Xcode 14.2+](https://img.shields.io/badge/Xcode-14.2%2B-blue.svg)
-![iOS 13.0+](https://img.shields.io/badge/iOS-14.0%2B-blue.svg)
+![iOS 15.0+](https://img.shields.io/badge/iOS-15.0%2B-blue.svg)
 ![SwiftUI 3.0+](https://img.shields.io/badge/SwiftUI-3.0%2B-orange.svg)
 
 此Package与[Gitee](https://gitee.com/zjinhu/hud)同步，如果觉得SPM引入github地址偏慢可以使用Gitee。
