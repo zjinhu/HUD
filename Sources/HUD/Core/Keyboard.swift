@@ -75,7 +75,7 @@ extension KeyboardManager {
 }
 #endif
 
-#if (os(iOS) || os(tvOS)) && !os(xrOS)
+#if os(iOS) || os(tvOS) || targetEnvironment(macCatalyst)
 
 class Screen {
     static var safeArea: UIEdgeInsets = UIScreen.safeArea
