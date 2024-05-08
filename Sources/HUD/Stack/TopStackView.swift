@@ -11,14 +11,17 @@ struct TopStackView: View {
     let items: [AnyHUD] 
     @State private var heights: [AnyHUD: CGFloat] = [:]
     @State private var gestureTranslation: CGFloat = 0
+    @GestureState var isGestureActive: Bool = false
     
     var body: some View {
         ZStack(alignment: .bottom, content: setupHudStack)
             .ignoresSafeArea()
             .animation(config.animation.entry, value: heights)
-            .animation(config.animation.removal, value: gestureTranslation)
+            .animation(isGestureActive ? config.animation.dragGesture : config.animation.removal, value: gestureTranslation)
             .background(setupTapArea())
-            .onDragGesture(onChanged: onDragGestureChanged, onEnded: onDragGestureEnded)
+            .onDragGesture($isGestureActive,
+                           onChanged: onDragGestureChanged,
+                           onEnded: onDragGestureEnded)
     }
 }
 

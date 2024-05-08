@@ -11,14 +11,17 @@ struct BottomStackView: View {
     let items: [AnyHUD]
     @State private var heights: [AnyHUD: CGFloat] = [:]
     @State private var gestureTranslation: CGFloat = 0
+    @GestureState var isGestureActive: Bool = false
     @ObservedObject private var keyboardManager = KeyboardManager()
     
     var body: some View {
         ZStack(alignment: .top, content: setupHudStack)
             .ignoresSafeArea()
             .background(setupTapArea())
-            .animation(config.animation.removal, value: gestureTranslation)
-            .onDragGesture(onChanged: onDragGestureChanged, onEnded: onDragGestureEnded)
+            .animation(isGestureActive ? config.animation.dragGesture : config.animation.removal, value: gestureTranslation)
+            .onDragGesture($isGestureActive,
+                           onChanged: onDragGestureChanged,
+                           onEnded: onDragGestureEnded)
     }
 }
 

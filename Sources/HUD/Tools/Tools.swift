@@ -216,27 +216,35 @@ extension View {
     func onTapGesture(perform action: @escaping () -> ()) -> some View {
         onTapGesture(count: 1, perform: action)
     }
-    
-    func onDragGesture(onChanged actionOnChanged: @escaping (CGFloat) -> (), onEnded actionOnEnded: @escaping (CGFloat) -> ()) -> some View {
-        simultaneousGesture(createDragGesture(actionOnChanged, actionOnEnded))
+    func onDragGesture(_ state: GestureState<Bool>, 
+                       onChanged actionOnChanged: @escaping (CGFloat) -> (),
+                       onEnded actionOnEnded: @escaping (CGFloat) -> ()) -> some View {
+        simultaneousGesture(
+            createDragGesture(state, actionOnChanged, actionOnEnded)
+        )
+        .onStateChange(state, actionOnEnded)
     }
 }
 private extension View {
-    func createDragGesture(_ actionOnChanged: @escaping (CGFloat) -> (), _ actionOnEnded: @escaping (CGFloat) -> ()) -> some Gesture {
+    func createDragGesture(_ state: GestureState<Bool>, 
+                           _ actionOnChanged: @escaping (CGFloat) -> (),
+                           _ actionOnEnded: @escaping (CGFloat) -> ()) -> some Gesture {
         DragGesture()
-            .onChanged {
-                actionOnChanged($0.translation.height)
-            }
-            .onEnded {
-                actionOnEnded($0.translation.height)
-            }
+            .updating(state) { _, state, _ in state = true }
+            .onChanged { actionOnChanged($0.translation.height) }
+            .onEnded { actionOnEnded($0.translation.height) }
+    }
+    
+    func onStateChange(_ state: GestureState<Bool>,
+                       _ actionOnEnded: @escaping (CGFloat) -> ()) -> some View {
+        onChange(of: state.wrappedValue) { $0 ? () : actionOnEnded(.zero) }
     }
 }
-#endif
 
-#if os(tvOS)
+#elseif os(tvOS)
 extension View {
-    func onTapGesture(perform action: () -> ()) -> some View { self
+    func onTapGesture(perform action: () -> ()) -> some View {
+        self
     }
     func onDragGesture(onChanged actionOnChanged: (CGFloat) -> (),
                        onEnded actionOnEnded: (CGFloat) -> ()) -> some View {
@@ -261,16 +269,19 @@ public enum AnimationType { case spring, linear, easeInOut }
 extension AnimationType {
     var entry: Animation {
         switch self {
-            case .spring: return .spring(response: 0.4, dampingFraction: 1, blendDuration: 0.1)
-            case .linear: return .linear(duration: 0.4)
-            case .easeInOut: return .easeInOut(duration: 0.4)
+        case .spring: return .spring(duration: 0.36, bounce: 0, blendDuration: 0.1)
+        case .linear: return .linear(duration: 0.4)
+        case .easeInOut: return .easeInOut(duration: 0.4)
         }
     }
+    
     var removal: Animation {
         switch self {
-            case .spring: return .interactiveSpring(response: 0.14, dampingFraction: 1, blendDuration: 1)
-            case .linear: return .linear(duration: 0.3)
-            case .easeInOut: return .easeInOut(duration: 0.3)
+        case .spring: return .spring(duration: 0.32, bounce: 0, blendDuration: 0.1)
+        case .linear: return .linear(duration: 0.3)
+        case .easeInOut: return .easeInOut(duration: 0.3)
         }
     }
+    
+    var dragGesture: Animation { .linear(duration: 0.05) }
 }

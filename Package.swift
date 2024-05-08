@@ -19,7 +19,9 @@ package.products = [
 
 package.targets = [
     .target(
-        name: "HUD"),
+        name: "HUD",
+        resources: [.process("Resources")]
+    ),
 ]
 
 package.swiftLanguageVersions = [.v5]
