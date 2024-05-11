@@ -50,7 +50,7 @@ private extension TopStackView {
                         corners: getCorners())
             .opacity(getOpacity(for: item))
             .offset(y: getOffset(for: item))
-            .scaleEffect(getScale(for: item), anchor: .bottom)
+            .scaleEffect(x: getScale(for: item))
             .compositingGroup()
             .focusSectionIfAvailable()
             .align(to: .top, config.topPadding)

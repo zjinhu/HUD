@@ -27,7 +27,6 @@ extension KeyboardManager {
 private extension KeyboardManager {
     func subscribeToKeyboardEvents() {
         Publishers.Merge(getKeyboardWillOpenPublisher(), createKeyboardWillHidePublisher())
-            .debounce(for: .milliseconds(50), scheduler: DispatchQueue.main)
             .sink {
                 self.height = $0
             }

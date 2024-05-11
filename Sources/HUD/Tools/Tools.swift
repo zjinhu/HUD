@@ -285,3 +285,7 @@ extension AnimationType {
     
     var dragGesture: Animation { .linear(duration: 0.05) }
 }
+
+extension Animation {
+    static var keyboard: Animation { .interpolatingSpring(mass: 3, stiffness: 1000, damping: 500, initialVelocity: 6.4) }
+}

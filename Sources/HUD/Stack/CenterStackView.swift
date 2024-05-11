@@ -11,14 +11,17 @@ struct CenterStackView: View {
     let items: [AnyHUD]
     @State private var contentIsAnimated: Bool = false
     @State private var height: CGFloat?
+    @ObservedObject private var keyboardManager = KeyboardManager()
     var body: some View {
         ZStack(alignment: .center, content: setupHudStack)
+            .align(to: .bottom, keyboardManager.height == 0 ? nil : keyboardManager.height)
             .frame(maxHeight: .infinity)
             .ignoresSafeArea()
             .background(setupTapArea())
             .animation(config.animation.entry, value: config.horizontalPadding)
             .animation(height == nil ? config.animation.removal : config.animation.entry, value: height)
             .animation(config.animation.entry, value: contentIsAnimated)
+            .animation(.keyboard, value: keyboardManager.height)
             .transition(getTransition())
     }
 }

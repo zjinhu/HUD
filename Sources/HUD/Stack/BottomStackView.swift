@@ -19,6 +19,7 @@ struct BottomStackView: View {
             .ignoresSafeArea()
             .background(setupTapArea())
             .animation(isGestureActive ? config.animation.dragGesture : config.animation.removal, value: gestureTranslation)
+            .animation(.keyboard, value: isKeyboardVisible)
             .onDragGesture($isGestureActive,
                            onChanged: onDragGestureChanged,
                            onEnded: onDragGestureEnded)
@@ -52,7 +53,7 @@ private extension BottomStackView {
                         corners: getCorners())
             .opacity(getOpacity(for: item))
             .offset(y: getOffset(for: item))
-            .scaleEffect(getScale(for: item), anchor: .top)
+            .scaleEffect(x: getScale(for: item))
             .compositingGroup()
             .align(to: .bottom, bottomPadding)
             .focusSectionIfAvailable()
@@ -88,6 +89,9 @@ private extension BottomStackView {
 
 // MARK: -View Handlers
 private extension BottomStackView {
+    var isKeyboardVisible: Bool {
+        keyboardManager.height > 0
+    }
     
     func getCornerRadius(for item: AnyHUD) -> CGFloat {
         if isLast(item) {
@@ -123,16 +127,11 @@ private extension BottomStackView {
     }
     
     func getScale(for item: AnyHUD) -> CGFloat {
-        if isLast(item) {
-            return 1
-        }
-        if gestureTranslation.isZero {
-            return  1 - invertedIndex(item).floatValue * scaleFactor
-        }
-        
+
         let scaleValue = invertedIndex(item).floatValue * scaleFactor
         let progressDifference = isNextToLast(item) ? 1 - translationProgress : max(0.7, 1 - translationProgress)
-        return 1 - scaleValue * progressDifference
+        let scale = 1 - scaleValue * progressDifference
+        return min(1, scale)
     }
     
     func getContentBottomPadding() -> CGFloat {
@@ -167,9 +166,7 @@ private extension BottomStackView {
 }
 
 private extension BottomStackView {
-    var isKeyboardVisible: Bool {
-        keyboardManager.height > 0
-    }
+
     var translationProgress: CGFloat {
         abs(gestureTranslation) / height
     }
