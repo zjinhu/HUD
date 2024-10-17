@@ -27,7 +27,7 @@ public struct StepView: HUD {
         self._progress = progress
     }
     
-    public func setupBody() -> some View  {
+    public var body: some View {
         VStack(spacing: 10){
             ProgressView(value: progress)
                 .frame(width: 70, height: 70)

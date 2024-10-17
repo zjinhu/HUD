@@ -23,13 +23,10 @@ public enum HUDPosition {
 
 /// 子类需要继承hud协议
 public protocol HUD: View{
-    associatedtype V: View
     ///标识唯一ID
     var id : UUID { get }
     /// hud展示所在的位置
     var position: HUDPosition { get set }
-    /// 子类创建页面布局
-    func setupBody() -> V
     /// 配置hud
     func setupConfig(_ config: HUDConfig) -> HUDConfig
     
@@ -37,9 +34,6 @@ public protocol HUD: View{
 
 public extension HUD {
 
-    var body: V{
-        setupBody()
-    }
     /// 配置hud
     func setupConfig(_ config: HUDConfig) -> HUDConfig {
         config
@@ -51,7 +45,7 @@ public extension HUD {
     }
     
     /// 关闭hud
-    func hiddenHUD() { 
+    func hiddenHUD() {
         HUDManager.shared.hiddenHUD(id)
     }
     
@@ -69,11 +63,15 @@ struct AnyHUD: HUD, Hashable {
     private let _body: AnyView
     private let _configBuilder: (HUDConfig) -> HUDConfig
     
-    init(_ hud: some HUD) {
-        self.id = hud.id
-        self.position = hud.position
-        self._body = AnyView(hud)
-        self._configBuilder = hud.setupConfig
+    init<H: HUD>(_ hud: H) {
+        if let hud = hud as? AnyHUD {
+            self = hud
+        } else {
+            self.id = hud.id
+            self.position = hud.position
+            self._body = AnyView(hud)
+            self._configBuilder = hud.setupConfig
+        }
     }
 }
 
@@ -88,9 +86,7 @@ extension AnyHUD {
 }
 
 extension AnyHUD {
-    func setupBody() -> AnyView {
-        _body
-    }
+    var body: some View { _body }
     
     func setupConfig(_ config: HUDConfig) -> HUDConfig {
         _configBuilder(config)

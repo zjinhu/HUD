@@ -23,7 +23,7 @@ public struct LoadingView: HUD {
         self._text = text
     }
     
-    public func setupBody() -> some View  {
+    public var body: some View {
         VStack(spacing: 10){
             ProgressView()
 #if os(iOS)

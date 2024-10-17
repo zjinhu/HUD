@@ -27,8 +27,8 @@ public struct HUDConfig: Configurable{
     var animation: AnimationType = .spring
     
     //弹窗背景阴影颜色
-    var shadowColor: Color = .primary.opacity(0.3)
-    var shadowRadius: CGFloat = 5
+    var shadowColor: Color = .clear
+    var shadowRadius: CGFloat = 0
     var shadowOffsetX: CGFloat = 0
     var shadowOffsetY: CGFloat = 0
     
@@ -58,7 +58,6 @@ public struct HUDConfig: Configurable{
     //堆栈样式--最大堆展示数量
     var maxStackCount: Int = 3
     
-    
     //是否需要自动关闭
     var autoHidden: Bool = false
     //自动关闭等候时长
@@ -67,7 +66,6 @@ public struct HUDConfig: Configurable{
     var contentIgnoresSafeArea: Bool = false
  
     var distanceFromKeyboard: CGFloat = 12
-
 }
 
 ///公共

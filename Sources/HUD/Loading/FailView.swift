@@ -25,7 +25,7 @@ public struct FailView: HUD {
         self._text = text
     }
     
-    public func setupBody() -> some View  {
+    public var body: some View {
         VStack(spacing: 10){
             XShape()
                 .trim(from: 0.0, to: isActive ? 1.0 : 0.0)

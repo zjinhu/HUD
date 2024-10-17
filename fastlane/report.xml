@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="fastlane.lanes">
+    
+    
+    
+      
+      <testcase classname="fastlane.lanes" name="0: git_pull" time="1.056878">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="1: ensure_git_branch" time="0.016469">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="2: git_add" time="0.02113">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="3: git_commit" time="0.031085">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="4: push_to_git_remote" time="1.985606">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="5: git_tag_exists" time="0.020988">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="6: add_git_tag" time="0.018646">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="7: push_git_tags" time="2.058894">
+        
+      </testcase>
+    
+  </testsuite>
+</testsuites>

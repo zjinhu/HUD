@@ -125,6 +125,12 @@ struct HUDView: View {
                     Text("Pop Bottom")
                 }
                 
+                Button {
+                    ToastView().showHUD()
+                } label: {
+                    Text("Toast")
+                }
+                
             } header: {
                 Text("PopupView")
             }
@@ -202,7 +208,7 @@ struct PopupTopView: HUD {
     
     var position: HUDPosition = .top
     
-    func setupBody() -> some View  {
+    var body: some View {
         HStack(spacing: 0) {
             
             Image("grad")
@@ -241,6 +247,8 @@ struct PopupTopView: HUD {
             .cornerRadius(0)
             .touchOutsideToHidden(true)
             .maxStackCount(5)
+            .autoHidden(true)
+            .autoHiddenTime(5)
     }
 }
  
@@ -248,7 +256,7 @@ struct PopCenterView: HUD {
     var id: UUID = UUID()
     var position: HUDPosition = .center
     @State private var note: String = ""
-    func setupBody() -> some View  {
+    var body: some View {
         VStack(spacing: 10){
             Text("Alert")
                 .font(.system(size: 20, weight: .bold))
@@ -312,7 +320,7 @@ struct PopBottomView: HUD {
     var position: HUDPosition = .bottom
     @State private var note: String = ""
     
-    func setupBody() -> some View  {
+    var body: some View {
         HStack(spacing: 0) {
             
             Image("grad")
@@ -358,3 +366,28 @@ struct PopBottomView: HUD {
     }
 }
  
+struct ToastView: HUD {
+    var id: UUID = UUID()
+    
+    var position: HUDPosition = .top
+    
+    var body: some View {
+ 
+        Text("Show next".uppercased())
+        .foregroundColor(.white)
+        .padding(.vertical, 12)
+        .padding(.horizontal, 24)
+        .background(.black.opacity(0.5))
+        .clipShape(Capsule())
+    }
+    
+    func setupConfig(_ config: HUDConfig) -> HUDConfig {
+        config
+            .cornerRadius(0)
+            .touchOutsideToHidden(false)
+            .maxStackCount(1)
+            .autoHidden(true)
+            .autoHiddenTime(5)
+            .needMask(false)
+    }
+}
