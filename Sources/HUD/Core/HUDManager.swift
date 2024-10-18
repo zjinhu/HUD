@@ -21,7 +21,7 @@ public extension View {
 public class HUDManager: ObservableObject {
     @Published var views: [AnyHUD] = []
     @Published var isPresent: Bool = false
-    static let shared = HUDManager()
+    public static let shared = HUDManager()
     private init() {}
 }
 
