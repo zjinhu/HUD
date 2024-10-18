@@ -277,9 +277,9 @@ extension AnimationType {
     
     var removal: Animation {
         switch self {
-        case .spring: return .spring(duration: 0.32, bounce: 0, blendDuration: 0.1)
-        case .linear: return .linear(duration: 0.3)
-        case .easeInOut: return .easeInOut(duration: 0.3)
+        case .spring: return .spring(duration: 2.32, bounce: 0, blendDuration: 0.1)
+        case .linear: return .linear(duration: 2.3)
+        case .easeInOut: return .easeInOut(duration: 2.3)
         }
     }
     
