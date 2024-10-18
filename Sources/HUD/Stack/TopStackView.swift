@@ -32,8 +32,8 @@ private extension TopStackView {
     
     func setupTapArea() -> some View {
         Color.black.opacity(0.00000000001)
-            .onTapGesture(perform: items.last?.hiddenHUD ?? {})
-            .active(if: config.touchOutsideToHidden)
+            .onTapGesture(perform: items.last?.dismissHUD ?? {})
+            .active(if: config.touchOutsideToDismiss)
     }
 }
 
@@ -75,7 +75,7 @@ private extension TopStackView {
     
     func onDragGestureEnded(_ value: CGFloat) {
         if translationProgress >= gestureClosingThresholdFactor {
-            items.last?.hiddenHUD()
+            items.last?.dismissHUD()
         }
         let resetAfter = items.count == 1 && translationProgress >= gestureClosingThresholdFactor ? 0.25 : 0
         DispatchQueue.main.asyncAfter(deadline: .now() + resetAfter) {

@@ -53,8 +53,8 @@ public struct FailView: HUD {
             .backgroundColour(.black.opacity(0.8))
             .maxStackCount(1)
             .needMask(false)
-            .autoHidden(true)
-            .autoHiddenTime(1)
+            .autoDismiss(true)
+            .autoDismissDuration(1)
             .horizontalPadding(50)
     }
 }

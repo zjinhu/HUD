@@ -140,8 +140,8 @@ struct HUDView: View {
             progress = newValue
             debugPrint("////////\(newValue)")
             if newValue >= 1{
-                progressView?.hiddenHUD()
-                progressTextView?.hiddenHUD()
+                progressView?.dismissHUD()
+                progressTextView?.dismissHUD()
                 timer.stop()
                 succ.showHUD()
             }
@@ -158,7 +158,7 @@ struct HUDView: View {
     
     func hidden(){
         DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-            loading?.hiddenHUD()
+            loading?.dismissHUD()
         }
     }
     
@@ -245,10 +245,10 @@ struct PopupTopView: HUD {
         config
             .backgroundColour(.blue)
             .cornerRadius(0)
-            .touchOutsideToHidden(true)
+            .touchOutsideToDismiss(true)
             .maxStackCount(5)
-            .autoHidden(true)
-            .autoHiddenTime(5)
+            .autoDismiss(true)
+            .autoDismissDuration(5)
     }
 }
  
@@ -273,7 +273,7 @@ struct PopCenterView: HUD {
             
             HStack(spacing: 20){
                 
-                Button(action: hiddenHUD) {
+                Button(action: dismissHUD) {
                     Text("hidden")
                         .frame(maxWidth: .infinity)
                         .padding(10)
@@ -303,7 +303,7 @@ struct PopCenterView: HUD {
         config
             .backgroundColour(.white)
             .horizontalPadding(20)
-            .touchOutsideToHidden(true)
+            .touchOutsideToDismiss(true)
             .cornerRadius(15)
             .maxStackCount(3)
     }
@@ -360,7 +360,7 @@ struct PopBottomView: HUD {
     
     func setupConfig(_ config: HUDConfig) -> HUDConfig {
         config.backgroundColour(.green)
-             .touchOutsideToHidden(true)
+             .touchOutsideToDismiss(true)
              .distanceFromKeyboard(30)
              .dragGestureEnabled(false)
     }
@@ -384,10 +384,10 @@ struct ToastView: HUD {
     func setupConfig(_ config: HUDConfig) -> HUDConfig {
         config
             .cornerRadius(0)
-            .touchOutsideToHidden(false)
+            .touchOutsideToDismiss(false)
             .maxStackCount(1)
-            .autoHidden(true)
-            .autoHiddenTime(5)
+            .autoDismiss(true)
+            .autoDismissDuration(5)
             .needMask(false)
     }
 }

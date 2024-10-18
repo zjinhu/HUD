@@ -45,12 +45,12 @@ public extension HUD {
     }
     
     /// 关闭hud
-    func hiddenHUD() {
-        HUDManager.shared.hiddenHUD(id)
+    func dismissHUD() {
+        HUDManager.shared.dismissHUD(id)
     }
     
-    func hiddenAllHUD() {
-        HUDManager.shared.hiddenAllHUD()
+    func dismissAllHUD() {
+        HUDManager.shared.dismissAllHUD()
     }
 }
 

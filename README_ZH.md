@@ -75,7 +75,7 @@ Text和Progress需要绑定外部参数，所以可以这样用
        if newValue{
             loading.showHUD()
        }else{
-            loading.hiddenHUD()
+            loading.dismissHUD()
        }
    }
 ```
@@ -83,7 +83,7 @@ Text和Progress需要绑定外部参数，所以可以这样用
 关闭HUD
 
 ```
-.hiddenHUD()
+.dismissHUD()
 ```
 
 适配器内有超多自定义功能
@@ -96,7 +96,7 @@ Text和Progress需要绑定外部参数，所以可以这样用
     //弹窗忽略安全区域
     var ignoresSafeArea: Bool = false
     //点击区域外关闭弹窗
-    var touchOutsideToHidden: Bool = false
+    var touchOutsideToDismiss: Bool = false
     //圆角弧度
     var cornerRadius: CGFloat = 10
     //手势关闭
@@ -142,9 +142,9 @@ Text和Progress需要绑定外部参数，所以可以这样用
     
     
     //是否需要自动关闭
-    var autoHidden: Bool = false
+    var autoDismiss: Bool = false
     //自动关闭等候时长
-    var autoHiddenTime: TimeInterval = 3
+    var autoDismissDuration: TimeInterval = 3
 ```
 
 

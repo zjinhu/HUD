@@ -75,7 +75,7 @@ or according to state control
        if newValue{
             loading.showHUD()
        }else{
-            loading.hiddenHUD()
+            loading.dismissHUD()
        }
    }
 ```
@@ -83,7 +83,7 @@ or according to state control
 close HUD
 
 ```
-.hiddenHUD()
+.dismissHUD()
 ```
 
 There are many custom functions in the adapter
@@ -96,7 +96,7 @@ There are many custom functions in the adapter
      //The pop-up window ignores the safe area
      var ignoresSafeArea: Bool = false
      //Click outside the area to close the popup window
-     var touchOutsideToHidden: Bool = false
+     var touchOutsideToDismiss: Bool = false
      // rounded corner radian
      var cornerRadius: CGFloat = 10
      // Gesture off
@@ -142,9 +142,9 @@ There are many custom functions in the adapter
     
     
      // Whether to automatically close
-     var autoHidden: Bool = false
+     var autoDismiss: Bool = false
      //automatic shutdown waiting time
-     var autoHiddenTime: TimeInterval = 3
+     var autoDismissDuration: TimeInterval = 3
 ```
 
 
