@@ -39,16 +39,15 @@ private extension HUDContainerView {
             centerStackView()
             bottomStackView()
         }
-        .animation(manager.isPresent ? AnimationType.spring.entry : AnimationType.spring.removal, value: manager.views.map(\.id))
-//        .edgesIgnoringSafeArea(.all)
-//        .visible(if: !manager.views.isEmpty)
+        .animation(.transition, value: manager.views.map(\.id))
     }
+    
     func createOverlay() -> some View {
 //        Color.black.opacity(0.6)
         BlurView()
             .ignoresSafeArea()
             .active(if: getConfig(manager.views).needMask && !manager.views.isEmpty)
-            .animation(.easeInOut, value: manager.views.isEmpty)
+            .animation(.linear(duration: 0.2), value: manager.views)
     }
     
     func topStackView() -> some View {

@@ -144,7 +144,7 @@ There are many custom functions in the adapter
      // Whether to automatically close
      var autoDismiss: Bool = false
      //automatic shutdown waiting time
-     var autoDismissDuration: TimeInterval = 3
+     var autoDismissAfter: TimeInterval = 3
 ```
 
 

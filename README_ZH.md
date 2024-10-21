@@ -144,7 +144,7 @@ Text和Progress需要绑定外部参数，所以可以这样用
     //是否需要自动关闭
     var autoDismiss: Bool = false
     //自动关闭等候时长
-    var autoDismissDuration: TimeInterval = 3
+    var autoDismissAfter: TimeInterval = 3
 ```
 
 

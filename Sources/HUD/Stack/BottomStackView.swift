@@ -18,7 +18,7 @@ struct BottomStackView: View {
         ZStack(alignment: .top, content: setupHudStack)
             .ignoresSafeArea()
             .background(setupTapArea())
-            .animation(isGestureActive ? config.animation.dragGesture : config.animation.removal, value: gestureTranslation)
+            .animation(isGestureActive ? .dragGesture : .transition, value: gestureTranslation)
             .animation(.keyboard, value: isKeyboardVisible)
             .onDragGesture($isGestureActive,
                            onChanged: onDragGestureChanged,
@@ -44,7 +44,7 @@ private extension BottomStackView {
             .padding(.bottom, getContentBottomPadding())
             .padding(.horizontal, contentHorizontalPadding)
             .readHeight{ height in
-                withAnimation(config.animation.entry) {
+                withAnimation(.transition) {
                     heights[item] = height
                 }
             }

@@ -23,9 +23,7 @@ public struct HUDConfig: Configurable{
     var dragGestureEnabled: Bool = true
     //手势关闭
     var dragGestureProgressToClose: CGFloat = 1/3
-    //手势关闭动画
-    var animation: AnimationType = .spring
-    
+ 
     //弹窗背景阴影颜色
     var shadowColor: Color = .clear
     var shadowRadius: CGFloat = 0
@@ -61,7 +59,7 @@ public struct HUDConfig: Configurable{
     //是否需要自动关闭
     var autoDismiss: Bool = false
     //自动关闭等候时长
-    var autoDismissDuration: TimeInterval = 3
+    var autoDismissAfter: TimeInterval = 3
     
     var contentIgnoresSafeArea: Bool = false
  
@@ -90,10 +88,7 @@ public extension HUDConfig {
     func touchOutsideToDismiss(_ value: Bool) -> Self {
         changing(path: \.touchOutsideToDismiss, to: value)
     }
-    //弹出动画
-    func animation(_ value: AnimationType) -> Self {
-        changing(path: \.animation, to: value)
-    }
+ 
     //堆栈样式--露出位置--默认6
     func stackViewsOffset(_ value: CGFloat) -> Self {
         changing(path: \.stackViewsOffset, to: value)
@@ -115,8 +110,8 @@ public extension HUDConfig {
         changing(path: \.autoDismiss, to: value)
     }
     //自动关闭等候时长
-    func autoDismissDuration(_ value: TimeInterval) -> Self {
-        changing(path: \.autoDismissDuration, to: value)
+    func autoDismissAfter(_ value: TimeInterval) -> Self {
+        changing(path: \.autoDismissAfter, to: value)
     }
     //横向的padding,默认为0,大部分情况Center Popup会用到
     func horizontalPadding(_ value: CGFloat) -> Self {

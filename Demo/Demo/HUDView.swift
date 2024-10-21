@@ -247,7 +247,7 @@ struct PopupTopView: HUD {
             .touchOutsideToDismiss(true)
             .maxStackCount(5)
             .autoDismiss(true)
-            .autoDismissDuration(5)
+            .autoDismissAfter(5)
     }
 }
  
@@ -361,7 +361,7 @@ struct PopBottomView: HUD {
         config.backgroundColour(.green)
              .touchOutsideToDismiss(true)
              .distanceFromKeyboard(30)
-             .dragGestureEnabled(false)
+             .dragGestureEnabled(true)
     }
 }
  
@@ -386,7 +386,6 @@ struct ToastView: HUD {
             .touchOutsideToDismiss(false)
             .maxStackCount(1)
             .autoDismiss(true)
-            .autoDismissDuration(5)
             .needMask(false)
     }
 }

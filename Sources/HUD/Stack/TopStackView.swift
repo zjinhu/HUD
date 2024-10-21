@@ -16,8 +16,8 @@ struct TopStackView: View {
     var body: some View {
         ZStack(alignment: .bottom, content: setupHudStack)
             .ignoresSafeArea()
-            .animation(config.animation.entry, value: heights)
-            .animation(isGestureActive ? config.animation.dragGesture : config.animation.removal, value: gestureTranslation)
+            .animation(.transition, value: heights)
+            .animation(isGestureActive ? .dragGesture : .transition, value: gestureTranslation)
             .background(setupTapArea())
             .onDragGesture($isGestureActive,
                            onChanged: onDragGestureChanged,

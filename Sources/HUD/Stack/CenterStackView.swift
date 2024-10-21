@@ -18,9 +18,9 @@ struct CenterStackView: View {
             .frame(maxHeight: .infinity)
             .ignoresSafeArea()
             .background(setupTapArea())
-            .animation(config.animation.entry, value: config.horizontalPadding)
-            .animation(height == nil ? config.animation.removal : config.animation.entry, value: height)
-            .animation(config.animation.entry, value: contentIsAnimated)
+            .animation(.transition, value: config.horizontalPadding)
+            .animation(.transition, value: height)
+            .animation(.transition, value: contentIsAnimated)
             .animation(.keyboard, value: keyboardManager.height)
             .transition(getTransition())
     }
@@ -62,8 +62,8 @@ private extension CenterStackView {
     func getTransition() -> AnyTransition {
         .scale(scale: items.isEmpty ? config.centerTransitionExitScale : config.centerTransitionEntryScale)
         .combined(with: .opacity)
-        .animation(height == nil || items.isEmpty ? config.animation.removal : nil)
-        .animation(items.isEmpty ? config.animation.removal : nil)
+        .animation(height == nil || items.isEmpty ? .transition : nil)
+        .animation(items.isEmpty ? .transition : nil)
     }
 }
 

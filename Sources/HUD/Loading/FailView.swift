@@ -54,7 +54,7 @@ public struct FailView: HUD {
             .maxStackCount(1)
             .needMask(false)
             .autoDismiss(true)
-            .autoDismissDuration(1)
+            .autoDismissAfter(1)
             .horizontalPadding(50)
     }
 }
