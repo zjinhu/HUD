@@ -15,9 +15,10 @@ struct TopStackView: View {
     
     var body: some View {
         ZStack(alignment: .bottom, content: setupHudStack)
-            .ignoresSafeArea()
+            .edgesIgnoringSafeArea(.all)
             .animation(.transition, value: heights)
             .animation(isGestureActive ? .dragGesture : .transition, value: gestureTranslation)
+            .animation(items.isEmpty ? .removel : .transition, value: !items.isEmpty)
             .background(setupTapArea())
             .onDragGesture($isGestureActive,
                            onChanged: onDragGestureChanged,
@@ -54,7 +55,7 @@ private extension TopStackView {
             .compositingGroup()
             .focusSectionIfAvailable()
             .align(to: .top, config.topPadding)
-            .transition(transition)
+            .transition(.move(edge: .top))
             .zIndex(getZIndex(item))
             .shadow(color: config.shadowColor,
                     radius: config.shadowRadius,
@@ -202,11 +203,7 @@ private extension TopStackView {
     var gestureClosingThresholdFactor: CGFloat {
         config.dragGestureProgressToClose
     }
-    
-    var transition: AnyTransition {
-        .move(edge: .top)
-    }
-    
+ 
     var config: HUDConfig {
         items.last?.setupConfig(HUDConfig()) ?? .init()
     }

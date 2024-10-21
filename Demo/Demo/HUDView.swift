@@ -360,8 +360,8 @@ struct PopBottomView: HUD {
     func setupConfig(_ config: HUDConfig) -> HUDConfig {
         config.backgroundColour(.green)
              .touchOutsideToDismiss(true)
-             .distanceFromKeyboard(30)
              .dragGestureEnabled(true)
+             .distanceFromKeyboard(50)
     }
 }
  

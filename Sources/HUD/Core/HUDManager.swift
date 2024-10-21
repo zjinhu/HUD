@@ -83,7 +83,7 @@ extension HUDManager {
 private extension HUDManager {
     
     func performOperation(_ operation: Operation) {
-        DispatchQueue.main.async {
+        DispatchQueue.main.asyncAfter(deadline: .now()) {
             self.views.perform(operation)
         }
     }

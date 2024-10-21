@@ -59,7 +59,6 @@ struct AnyHUD: HUD, Hashable {
     
     let id: UUID
     var position: HUDPosition
-    
     private let _body: AnyView
     private let _configBuilder: (HUDConfig) -> HUDConfig
     
@@ -91,4 +90,11 @@ extension AnyHUD {
     func setupConfig(_ config: HUDConfig) -> HUDConfig {
         _configBuilder(config)
     }
+    
+    func updatingHUD(_ customBuilder: (inout AnyHUD) -> ()) -> AnyHUD {
+        var hud = self
+        customBuilder(&hud)
+        return hud
+    }
+
 }

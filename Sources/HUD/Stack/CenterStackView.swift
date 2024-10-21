@@ -16,7 +16,7 @@ struct CenterStackView: View {
         ZStack(alignment: .center, content: setupHudStack)
             .align(to: .bottom, keyboardManager.height == 0 ? nil : keyboardManager.height)
             .frame(maxHeight: .infinity)
-            .ignoresSafeArea()
+            .edgesIgnoringSafeArea(.all)
             .background(setupTapArea())
             .animation(.transition, value: config.horizontalPadding)
             .animation(.transition, value: height)

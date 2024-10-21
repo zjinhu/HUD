@@ -39,13 +39,11 @@ private extension HUDContainerView {
             centerStackView()
             bottomStackView()
         }
-        .animation(.transition, value: manager.views.map(\.id))
     }
     
     func createOverlay() -> some View {
-//        Color.black.opacity(0.6)
         BlurView()
-            .ignoresSafeArea()
+            .edgesIgnoringSafeArea(.all)
             .active(if: getConfig(manager.views).needMask && !manager.views.isEmpty)
             .animation(.linear(duration: 0.2), value: manager.views)
     }

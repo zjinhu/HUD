@@ -20,6 +20,7 @@ struct BottomStackView: View {
             .background(setupTapArea())
             .animation(isGestureActive ? .dragGesture : .transition, value: gestureTranslation)
             .animation(.keyboard, value: isKeyboardVisible)
+            .animation(items.isEmpty ? .removel : .transition, value: !items.isEmpty)
             .onDragGesture($isGestureActive,
                            onChanged: onDragGestureChanged,
                            onEnded: onDragGestureEnded)
@@ -57,7 +58,7 @@ private extension BottomStackView {
             .compositingGroup()
             .align(to: .bottom, bottomPadding)
             .focusSectionIfAvailable()
-            .transition(transition)
+            .transition(.move(edge: .bottom))
             .zIndex(getZIndex(item))
             .shadow(color: config.shadowColor,
                     radius: config.shadowRadius,
@@ -206,9 +207,7 @@ private extension BottomStackView {
     var gestureClosingThresholdFactor: CGFloat {
         config.dragGestureProgressToClose
     }
-    var transition: AnyTransition {
-        .move(edge: .bottom)
-    }
+ 
     var config: HUDConfig {
         items.last?.setupConfig(HUDConfig()) ?? .init()
     }
