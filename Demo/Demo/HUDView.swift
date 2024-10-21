@@ -24,7 +24,6 @@ struct HUDView: View {
     @State var failText = FailView(text: .constant("Failed"))
     @State var succText = SuccessView(text: .constant("Success"))
 
-
     var body: some View {
         List {
             Section {
