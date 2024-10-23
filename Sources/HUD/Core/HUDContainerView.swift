@@ -39,6 +39,8 @@ private extension HUDContainerView {
             centerStackView()
             bottomStackView()
         }
+        .animation(manager.isPresent ? .transition : .removel, value: manager.views.map(\.id))
+
     }
     
     func createOverlay() -> some View {

@@ -1,5 +1,7 @@
 
 
+
+
 [![SPM](https://img.shields.io/badge/SPM-supported-DE5C43.svg?style=flat)](https://swift.org/package-manager/)
 ![Xcode 14.2+](https://img.shields.io/badge/Xcode-14.2%2B-blue.svg)
 ![iOS 15.0+](https://img.shields.io/badge/iOS-15.0%2B-blue.svg)
@@ -12,6 +14,10 @@ HUD is a Loading pop-up tool developed based on SwiftUI, style reference [Progre
 The current functions include Loading, Progress, Success, Fail, and PopupView, which support custom styles inherited from protocols and pop-up animations.
 
 Support dark mode
+
+| ![](Image/1.gif) | ![](Image/2.gif) | ![](Image/3.gif) |
+| ---------------- | ---------------- | ---------------- |
+| ![](Image/4.gif) | ![](Image/5.gif) | ![](Image/6.gif) |
 
 | ![](Image/top.png)     | ![](Image/bottom.png)   | ![](Image/center.png)   |                         |                          |
 | ---------------------- | ----------------------- | ----------------------- | ----------------------- | ------------------------ |

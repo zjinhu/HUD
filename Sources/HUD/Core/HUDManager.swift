@@ -21,6 +21,7 @@ public extension View {
 public class HUDManager: ObservableObject {
     @Published var views: [AnyHUD] = []
     public static let shared = HUDManager()
+    private(set) var isPresent: Bool = true
     private init() {}
 }
 
@@ -84,6 +85,7 @@ private extension HUDManager {
     
     func performOperation(_ operation: Operation) {
         DispatchQueue.main.asyncAfter(deadline: .now()) {
+            self.updateOperationType(operation)
             self.views.perform(operation)
         }
     }
@@ -91,6 +93,14 @@ private extension HUDManager {
     func canBeInserted(_ hud: AnyHUD) -> Bool {
         !views.contains { current in
             current.id == hud.id
+        }
+    }
+    func updateOperationType(_ operation: Operation) {
+        switch operation {
+            case .insertAndReplace, .insertAndStack:
+            isPresent = true
+            case .removeLast, .remove, .removeAllUpTo, .removeAll:
+            isPresent = false
         }
     }
 }

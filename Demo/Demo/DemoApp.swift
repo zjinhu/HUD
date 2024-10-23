@@ -6,12 +6,14 @@
 //
 
 import SwiftUI
+import HUD
 
 @main
 struct DemoApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .addHUD()
         }
     }
 }

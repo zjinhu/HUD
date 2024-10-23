@@ -26,6 +26,36 @@ struct HUDView: View {
 
     var body: some View {
         List {
+            
+            Section {
+                Button {
+                    PopupTopView().showHUD(useStack: true)
+                } label: {
+                    Text("Pop Top")
+                }
+ 
+                Button {
+                    PopCenterView().showHUD(useStack: true)
+                } label: {
+                    Text("Pop Center")
+                }
+                
+                Button {
+                    PopBottomView().showHUD()
+                } label: {
+                    Text("Pop Bottom")
+                }
+                
+                Button {
+                    ToastView().showHUD()
+                } label: {
+                    Text("Toast")
+                }
+                
+            } header: {
+                Text("PopupView")
+            }
+            
             Section {
                 Button {
                     loadingText = nil
@@ -104,37 +134,8 @@ struct HUDView: View {
             } header: {
                 Text("Failed")
             }
-            
-            Section {
-                Button {
-                    PopupTopView().showHUD(useStack: true)
-                } label: {
-                    Text("Pop Top")
-                }
- 
-                Button {
-                    PopCenterView().showHUD(useStack: true)
-                } label: {
-                    Text("Pop Center")
-                }
-                
-                Button {
-                    PopBottomView().showHUD()
-                } label: {
-                    Text("Pop Bottom")
-                }
-                
-                Button {
-                    ToastView().showHUD()
-                } label: {
-                    Text("Toast")
-                }
-                
-            } header: {
-                Text("PopupView")
-            }
+
         }
-        .addHUD()
         .onChange(of: timer.progress) { newValue in
             progress = newValue
             debugPrint("////////\(newValue)")
@@ -152,8 +153,6 @@ struct HUDView: View {
         }
 
     }
-    
-    
     
     func hidden(){
         DispatchQueue.main.asyncAfter(deadline: .now() + 3) {

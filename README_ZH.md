@@ -13,6 +13,10 @@ HUD是基于SwiftUI开发的Loading弹窗工具，样式参考[ProgressHUD](http
 
 支持暗色模式
 
+| ![](Image/1.gif) | ![](Image/2.gif) | ![](Image/3.gif) |
+| ---------------- | ---------------- | ---------------- |
+| ![](Image/4.gif) | ![](Image/5.gif) | ![](Image/6.gif) |
+
 | ![](Image/top.png)     | ![](Image/bottom.png)   | ![](Image/center.png)   |                         |                          |
 | ---------------------- | ----------------------- | ----------------------- | ----------------------- | ------------------------ |
 | ![](Image/loading.png) | ![](Image/loading2.png) | ![](Image/loading3.png) | ![](Image/progress.png) | ![](Image/progress2.png) |
